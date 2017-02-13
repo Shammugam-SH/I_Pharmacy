@@ -53,133 +53,135 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <div class="col-md-12">
-                                <div class="thumbnail">
-                                    <div id="searchUI">
-
-                                    </div>
-                                </div>
-
-                                <div class="thumbnail">
-                                    <h4>Basic Info</h4>
-                                    <hr/>
-                                    <form class="form-horizontal" name="myForm2" id="myForm2">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">PMI No.</label>
-                                                    <div class="col-md-8">
-                                                        <input id="pmino" name="pmino" type="text" placeholder=" " readonly class="form-control input-md">   
-                                                    </div>
-                                                </div>
-
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">Name</label>
-                                                    <div class="col-md-8">
-                                                        <input id="pname" name="pname" type="text" readonly placeholder="" class="form-control input-md">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">New IC No.</label>
-                                                    <div class="col-md-8">
-                                                        <input id="pnic" name="pnic" type="text" readonly placeholder="" class="form-control input-md">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-
-                                                <!--Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">Blood Type</label>
-                                                    <div class="col-md-8">
-                                                        <input id="pbtype" name="pbtype" type="text" readonly placeholder="" class="form-control input-md">
-                                                    </div>
-                                                </div>
-
-                                                <!--Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">Old IC No.</label>
-                                                    <div class="col-md-8">
-                                                        <input id="poic" name="poic" type="text" readonly placeholder="" class="form-control input-md">
-                                                    </div>
-                                                </div>
-
-                                                <!--Text input-->
-                                                <div class="form-group">
-                                                    <label class="col-md-4 control-label" for="textinput">Birthday Date</label>
-                                                    <div class="col-md-8">
-                                                        <input id="pbdate" name="pbdate" type="text" readonly placeholder="" class="form-control input-md">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="thumbnail">
-                                    <h4>
-                                        Drug Order Details
-                                        <div class="pull-right">
-                                            <button id="button1id" name="button1id" class="btn btn-primary" data-toggle="modal" data-target="#addOrder"><i class="fa fa-plus fa-lg"></i>&nbsp; New Order</button>
-                                            <button id="button1id" name="button1id" class="btn btn-default"><i class="fa fa-plus fa-lg"></i>&nbsp; New Order List</button>
-                                            <button id="button2id" name="button2id" class="btn btn-default"><i class="fa fa-file-text fa-lg"></i>&nbsp; Prescribe</button>
-                                        </div>
-                                    </h4>
-
-
-
-                                    <table class="table table-filter table-striped" style="background: #fff; border: 1px solid #ccc; margin-top: 20px">
-                                        <thead>
-                                        <th>Drug Code</th>
-                                        <th>Trade Name</th>
-                                        <th>Frequency</th>
-                                        <th>Route</th>
-                                        <th>Drug Form</th>
-                                        <th>Strength</th>
-                                        <th>Dose</th>
-                                        <th>Order OUM</th>
-                                        <th>Duration</th>
-                                        <th>Qty Order</th>
-                                        <th>Qty Supply</th>
-                                        <th>Dispense Qty</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr data-status="pagado">
-                                                <td>yyyy/mm/dd</td>
-                                                <td>ABC!@#</td>
-                                                <td>Description goes here...</td>
-                                                <td>50</td>
-                                                <td>50</td>
-                                                <td>50</td>
-                                                <td>40.00</td>
-                                                <td>80.00</td>
-                                                <td>80.00</td>
-                                                <td>80.00</td>
-                                                <td>80.00</td>
-                                                <td>80.00</td>
-                                                <td>80.00</td>
-                                                <td><a href="javascript:;" class="star">
-                                                        <a href="#" data-toggle="modal" data-target="#squarespaceModal"><i class="fa fa-pencil-square-o" aria-hidden="true" style="display: inline-block;color: #337ab7;" ></i></a>
-                                                    </a></td>
-                                                <td><a href="javascript:;" class="star">
-                                                        <a href="#" data-toggle="modal" data-target="#squarespaceModal"><i class="fa fa-times" aria-hidden="true" style="display: inline-block;color: #d9534f;" ></i></a>
-                                                    </a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
+                            <div id="orderDrugSearch">
 
                             </div>
+
+                            <div id="orderDrugBasicInfo">
+                                
+                            </div>
+                            <div class="thumbnail">
+                                <h4>Basic Info</h4>
+                                <hr/>
+                                <form class="form-horizontal" name="myForm2" id="myForm2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">PMI No.</label>
+                                                <div class="col-md-8">
+                                                    <input id="pmino" name="pmino" type="text" placeholder=" " readonly class="form-control input-md">   
+                                                </div>
+                                            </div>
+
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Name</label>
+                                                <div class="col-md-8">
+                                                    <input id="pname" name="pname" type="text" readonly placeholder="" class="form-control input-md">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">New IC No.</label>
+                                                <div class="col-md-8">
+                                                    <input id="pnic" name="pnic" type="text" readonly placeholder="" class="form-control input-md">
+                                                </div>
+                                            </div>
+
+                                            <!--Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Blood Type</label>
+                                                <div class="col-md-8">
+                                                    <input id="pbtype" name="pbtype" type="text" readonly placeholder="" class="form-control input-md">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <!--Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Old IC No.</label>
+                                                <div class="col-md-8">
+                                                    <input id="poic" name="poic" type="text" readonly placeholder="" class="form-control input-md">
+                                                </div>
+                                            </div>
+
+                                            <!--Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Birthday Date</label>
+                                                <div class="col-md-8">
+                                                    <input id="pbdate" name="pbdate" type="text" readonly placeholder="" class="form-control input-md">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="thumbnail">
+                                <h4>
+                                    Drug Order Details
+                                    <div class="pull-right">
+                                        <button id="button1id" name="button1id" class="btn btn-primary" data-toggle="modal" data-target="#squarespaceModa20"><i class="fa fa-plus fa-lg"></i>&nbsp; New Order</button>
+                                        <button id="button1id" name="button1id" class="btn btn-default"><i class="fa fa-plus fa-lg"></i>&nbsp; New Order List</button>
+                                        <button id="button2id" name="button2id" class="btn btn-default"><i class="fa fa-file-text fa-lg"></i>&nbsp; Prescribe</button>
+                                    </div>
+                                </h4>
+
+
+
+                                <table class="table table-filter table-striped" style="background: #fff; border: 1px solid #ccc; margin-top: 20px">
+                                    <thead>
+                                    <th>Drug Code</th>
+                                    <th>Trade Name</th>
+                                    <th>Frequency</th>
+                                    <th>Route</th>
+                                    <th>Drug Form</th>
+                                    <th>Strength</th>
+                                    <th>Dose</th>
+                                    <th>Order OUM</th>
+                                    <th>Duration</th>
+                                    <th>Qty Order</th>
+                                    <th>Qty Supply</th>
+                                    <th>Dispense Qty</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-status="pagado">
+                                            <td>yyyy/mm/dd</td>
+                                            <td>ABC!@#</td>
+                                            <td>Description goes here...</td>
+                                            <td>50</td>
+                                            <td>50</td>
+                                            <td>50</td>
+                                            <td>40.00</td>
+                                            <td>80.00</td>
+                                            <td>80.00</td>
+                                            <td>80.00</td>
+                                            <td>80.00</td>
+                                            <td>80.00</td>
+                                            <td>80.00</td>
+                                            <td><a href="javascript:;" class="star">
+                                                    <a href="#" data-toggle="modal" data-target="#squarespaceModal"><i class="fa fa-pencil-square-o" aria-hidden="true" style="display: inline-block;color: #337ab7;" ></i></a>
+                                                </a></td>
+                                            <td><a href="javascript:;" class="star">
+                                                    <a href="#" data-toggle="modal" data-target="#squarespaceModal"><i class="fa fa-times" aria-hidden="true" style="display: inline-block;color: #d9534f;" ></i></a>
+                                                </a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
                         </div>
 
                     </div>
@@ -211,8 +213,8 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Search Drug</label>
                                         <div class="col-md-8">
-                                            <input id="orderSearchMDCCode" name="orderSearchMDCCode" type="text" placeholder="Search"  class="form-control input-md">                                           
-                                            <div id="match18"></div>                          
+                                            <input class="form-control input-lg" type="text" name="problem"  id="pproblem11" placeholder="Search Drug..." tabindex="4">
+                                            <div id="match13"></div>                 
                                         </div>
                                     </div>
 
@@ -377,8 +379,153 @@
         <!-- Add Modal End -->    
 
 
-       <!-- Bootstrap core JavaScript
-        ================================================== -->
+        <!--Modal add Drug Order Ahmed-->
+        <div class="modal fade" id="squarespaceModa20" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title" id="lineModalLabel">Drug Order Form</h3>
+                    </div>
+                    <div class="modal-body">
+                        <!-- content goes here -->
+                        <div class="form-group">
+                            <input type="hidden" name="DTO" id="codeDTO" class="form-control input-lg" value="DTO" tabindex="4">
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control input-lg" type="text" name="problem"  id="problem11" placeholder="Search Drug..." tabindex="4">
+                            <div id="match12" ></div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="lineModalLabel">Drug Details</h3>
+                    </div>
+                    <div class="modal-body">
+                        <!-- content goes here -->
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="dtoCode"  id="dtoCode" placeholder="Drug Code..." tabindex="4" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="qty" id="qty" placeholder="Stock Quantity" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="pro" id="pro" placeholder="Product Name (GNR_Name)" readonly="">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="pack" id="pack" placeholder="Packaging Type" readonly="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="d_strength" id="d_strength" placeholder="Drug Strength">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="d_strength1" id="d_strength1" placeholder="Drug Strength">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="text" name="dose" id="dose" placeholder="Dose">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <select name="site" id="freq" class="form-control input-lg">
+                                        <option value="1" selected="" disabled="">Frequency [Select]</option>
+                                        <option value="Once">Once</option>
+                                        <option value="In the morning">In the morning</option>
+                                        <option value="At night">At night</option>
+                                        <option value="Daily">Daily</option>
+                                        <option value="Twice a day">Twice a day</option>
+                                        <option value="3 times a day">3 times a day</option>
+                                        <option value="4 times a day">4 times a day</option>
+                                        <option value="2 hourly">2 hourly</option>
+                                        <option value="4 hourly">4 hourly</option>
+                                        <option value="6 hourly">6 hourly</option>
+                                        <option value="8 hourly">8 hourly</option>
+                                        <option value="Immediately">Immediately</option>
+                                        <option value="As needed">As needed</option>     
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" type="number" name="dur1" id="dur1" placeholder="Duration" max = "31" min="1">
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <select name="site" id="ddwwmm" class="form-control input-lg">
+                                        <option value="Day">Day</option>
+                                        <option value="Week">Week</option>
+                                        <option value="Month">Month</option>     
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <select name="inst" id="inst" class="form-control input-lg">
+                                <option value="1" selected="" disabled="">Instruction</option>
+                                <option value="If required">If required</option>
+                                <option value="As directed">As directed</option>
+                                <option value="Before meats">Before meats</option>
+                                <option value="Every second day">Every second day</option>
+                                <option value="Left side">Left side</option>
+                                <option value="Right side">Right side</option>
+                                <option value="To both side">To both sides</option>
+                                <option value="Other">Other</option> 
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea type="text" name="display_name" id="comment11" class="form-control input-lg" placeholder="cautionary" tabindex="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                            <div class="btn-group" role="group">
+                                <button type="submit" class="btn btn-success btn-block btn-lg" id="acceptBtn12" role="button">Accept</button>
+                            </div>
+                            <div class="btn-group btn-delete hidden" role="group">
+                                <button type="button" id="delImage" class="btn btn-danger btn-block btn-lg" data-dismiss="modal"  role="button">Clear</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" id="saveImage" class="btn btn-danger btn-block btn-lg" data-dismiss="modal" role="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End add Drug Order Ahmed -->
+
+
+        <!-- Bootstrap core JavaScript
+         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -390,11 +537,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
         <script src="bootstrap-3.3.6-dist/js/jquery.dataTables.min.js"></script>
         <script src="bootstrap-3.3.6-dist/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+        <script src="SearchDTO.js" type="text/javascript" ></script>
+        <script src="SearchDTO_cd.js" type="text/javascript" ></script>
 
         <script>
             w3IncludeHTML();
 
-            $('#searchUI').load('searchPatient.jsp');
+            $('#orderDrugSearch').load('searchPatient.jsp');
 
 //            $('#searchPatient').click(function () {
 //                var opt = $('#idType option[disabled]:selected').val();
