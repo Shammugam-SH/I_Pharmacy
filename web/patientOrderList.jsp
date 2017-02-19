@@ -194,7 +194,7 @@
 
                         <!-- content goes here -->
 
-                        <form class="form-horizontal" >
+                        <form class="form-horizontal" id="addDrugOrderForm" >
                             <div class="row">
                                 <div class="col-md-6">
 
@@ -398,10 +398,10 @@
                     <div class="modal-footer">
                         <div class="btn-group btn-group-justified" role="group" aria-label="group button">
                             <div class="btn-group" role="group">
-                                <button type="submit" class="btn btn-success btn-block btn-lg" role="button" id="addButton">Add</button>
+                                <button type="submit" class="btn btn-success btn-block btn-lg" role="button" id="orderDrugAddButton">Add</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="reset" id="addReset" class="btn btn-default btn-block btn-lg" data-dismiss="modal" role="button" >Cancel</button>
+                                <button type="reset" id="orderDrugResetButton" class="btn btn-default btn-block btn-lg" data-dismiss="modal" role="button" >Cancel</button>
                             </div>
                         </div>
                     </div>

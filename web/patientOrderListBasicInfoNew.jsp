@@ -331,9 +331,169 @@
     });
     //End js Search Select drug
 
+
+
+    $('#orderDrugAddButton').on('click', function (e) {
+
+        e.preventDefault();
+
+        var orderNo = $('#orderDrugDetailsID').val();
+        var orderDate = $('#orderDrugDetailsDate').val();
+
+        var drugTradeName = $('#orderDrugSearchInput').val();
+        var drugCode = $('#orderDrugDisplayDrugCode').val();
+        var drugGName = $('#orderDrugDisplayTradeName').val();
+        var drugRoute = $('#orderDrugDisplayRoute').val();
+        var drugForm = $('#orderDrugDisplayForm').val();
+
+        var drugStrength = $('#orderDrugDisplayStrength').val();
+        var drugInstruction = $('#orderDrugDisplayInstruction').val();
+        var drugCaution = $('#orderDrugDisplayCautionary').val();
+        var drugTotalQty = $('#orderDrugDisplayStockQuantity').val();
+
+        var drugQty = $('#orderDrugInputQuantity').val();
+        var drugDose = $('#orderDrugInputDose').val();
+        var drugDoseT = $('#orderDrugInputDoseT').val();
+        var drugFrequency = $('#orderDrugInputFrequency').val();
+        var drugDuration = $('#orderDrugInputDuration').val();
+        var drugDurationT = $('#orderDrugInputDurationT').val();
+
+        if (drugTradeName === "" || drugTradeName === null) {
+            bootbox.alert("Please Search The Drug Before Continue");
+        } else if (drugQty === "" || drugQty === null) {
+            bootbox.alert("Please Insert Drug Order Quantity");
+        } else if (drugDose === "" || drugDose === null) {
+            bootbox.alert("Please Insert Drug Order Dose");
+        } else if (drugDoseT === "No Dose" || drugDoseT === null) {
+            bootbox.alert("Please Select Drug Dose Type");
+        } else if (drugFrequency === "No Frequency" || drugFrequency === null) {
+            bootbox.alert("Please Select Drug Frequency");
+        } else if (drugDuration === "" || drugDuration === null) {
+            bootbox.alert("Please Insert Drug Duration");
+        } else if (drugDurationT === "No Duration" || drugDurationT === null) {
+            bootbox.alert("Please Select Drug Frequency");
+        } else {
+
+            var ItemDesc = (drugTradeName + " - " + drugGName);
+            var dosage = (drugDose + drugDoseT);
+
+            var data = {
+                orderNo: orderNo
+            };
+
+            var datas = {
+                orderNo: orderNo,
+                drugCode: drugCode,
+                drugDesc: ItemDesc,
+                drugFrequency: drugFrequency,
+                drugRoute: drugRoute,
+                drugFrom: drugForm,
+                drugStrength: drugStrength,
+                dosage: dosage,
+                orderOUM: "-",
+                drugDuration: drugDuration,
+                orderStatus: "0",
+                drugQty: drugQty,
+                qtySupplied: "0",
+                suppliedOUM: "-",
+                qtyDispensed: "0",
+                dispensedOUM: "-",
+                drugDurationT: drugDurationT
+            };
+
+            console.log(datas);
+
+            $.ajax({
+                url: "patientOrderListNewOrderInsert.jsp",
+                type: "post",
+                data: datas,
+                timeout: 10000,
+                success: function (datas) {
+
+                    if (datas.trim() === 'Success') {
+
+                        $('#addOrderDrug').modal('hide');
+                        bootbox.alert({
+                            message: "Order is Added Successful",
+                            title: "Process Result",
+                            backdrop: true
+                        });
+                        resetAddOrder();
+
+                        $.ajax({
+                            url: "patientOrderListDetailsNew.jsp",
+                            type: "post",
+                            data: data,
+                            timeout: 3000,
+                            success: function (returnOrderDetailsTableHTML) {
+                                //console.log(returnOrderDetailsTableHTML);
+                                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+
+                            }
+                        });
+
+                    } else if (datas.trim() === 'Duplicate') {
+
+                        bootbox.alert({
+                            message: "Order Product Code Duplication Detected. Please Order diffrent drug as the data already there",
+                            title: "Process Result",
+                            backdrop: true
+                        });
+
+                    } else if (datas.trim() === 'Failed') {
+
+                        bootbox.alert({
+                            message: "Order Add Failed",
+                            title: "Process Result",
+                            backdrop: true
+                        });
+                        $('#addOrderDrug').modal('hide');
+                        resetAddOrder();
+                    }
+
+                },
+                error: function (err) {
+                    console.log("Ajax Is Not Success");
+                }
+
+            });
+        }
+
+    });
+
+
+    $('#orderDrugResetButton').on('click', function (e) {
+        resetAddOrder();
+    });
+
+    function resetAddOrder() {
+        document.getElementById("addDrugOrderForm").reset();
+    }
+
+
 // Add part End
 
+// delete Part
+// get data
+    $('#patientOrderDetailContent').off('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton').on('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton', function (e) {
 
+        e.preventDefault();
+
+        var row = $(this).closest("tr");
+        var rowData = row.find("#dataPatientOrderDetailsListhidden").val();
+        var arrayData = rowData.split("|");
+        console.log(arrayData);
+
+        var updateOrderNo = arrayData[0];
+        var updateDrugCode = arrayData[1];
+  
+
+        $("#updateOrderNo").val(updateOrderNo);
+        $("#updateDrugCode").val(updateDrugCode);
+ 
+
+
+    });
 
 
 
