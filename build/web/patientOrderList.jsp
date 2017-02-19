@@ -263,6 +263,16 @@
                                         </div>
                                     </div>
 
+
+                                    <br/>
+
+                                </div>
+
+
+
+                                <div class="col-md-6">
+                                    <br>
+
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Strength</label>
@@ -271,7 +281,20 @@
                                         </div>
                                     </div>
 
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textinput">Instruction</label>
+                                        <div class="col-md-8">
+                                            <input id="orderDrugDisplayInstruction" name="orderDrugDisplayFrequency" type="text" placeholder="Frequency"  class="form-control input-md" readonly>
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textinput">Cautionary</label>
+                                        <div class="col-md-8">
+                                            <input id="orderDrugDisplayCautionary" name="orderDrugDisplayCautionary" type="text" placeholder="Cautionary"  class="form-control input-md" readonly>
+                                        </div>
+                                    </div>
 
                                     <!-- Text input-->
                                     <div class="form-group">
@@ -281,13 +304,7 @@
                                         </div>
                                     </div>
 
-                                    <br/>
-
-                                </div>
-
-
-
-                                <div class="col-md-6">
+                                    <br>
 
                                     <h4>Order Details</h4>
                                     <hr/>
@@ -304,7 +321,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="selectbasic">Dose</label>
                                         <div class="col-md-4">
-                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" step="0.01" maxlength="20">
+                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" step="0.01" maxlength="50">
                                         </div>
                                         <div class="col-md-4">
                                             <select id="orderDrugInputDoseT" name="orderDrugInputDoseT" class="form-control">
@@ -368,37 +385,6 @@
                                                     }
                                                 %>
                                             </select>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Select Basic -->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="selectbasic">Instruction</label>
-                                        <div class="col-md-8">
-                                            <select id="orderDrugInputInstruction" name="addD_ADVISORY_CODE" class="form-control">
-                                                <option value="No Instruction">No Instruction</option>
-                                                <%
-                                                    String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' ";
-                                                    ArrayList<ArrayList<String>> listOfDInst = conn.getData(sql7);
-
-                                                    int size7 = listOfDInst.size();
-
-                                                    for (int i = 0; i < size7; i++) {
-                                                %>
-                                                <option value="<%= listOfDInst.get(i).get(2)%>"><%= listOfDInst.get(i).get(1)%> - <%= listOfDInst.get(i).get(2)%> </option>
-                                                <%
-                                                    }
-                                                %>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="textinput">Cautionary</label>
-                                        <div class="col-md-8">
-                                            <textarea id="orderDrugInputInstructionCautionary" class="form-control" rows="3" placeholder="Drug Cautionary" maxlength="150"></textarea>
                                         </div>
                                     </div>
 

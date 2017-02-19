@@ -232,9 +232,9 @@
             }
         });
     }
-    
-    
-    
+
+
+
 // Add part start
 
 // Getting Order Id And date
@@ -247,14 +247,14 @@
         var patientOrderDate = $("#patientOrderDate").val();
 
         if (patientOrderNo === "" || patientOrderNo === null) {
-            
+
             $('.nav-tabs a[href="#tab_default_1"]').tab('show');
             bootbox.alert("Please Select A Order First");
-            
+
         } else {
-            
+
             $('#addOrderDrug').modal('show');
-            
+
             console.log(patientOrderDate);
             console.log(patientOrderNo);
 
@@ -308,10 +308,12 @@
                 var dtoCode = array_data[0];
                 var dtoGnr = array_data[1];
                 var dtoQty = array_data[2];
-                var dtoPackage = array_data[6];
+                var dtoPackage = array_data[8];
                 var dtoRoute = array_data[3];
                 var dtoForm = array_data[4];
                 var dtoStrength = array_data[5];
+                var dtoInstruction = array_data[6];
+                var dtoCaution = array_data[7];
 
                 console.log(dtoCode);
 
@@ -321,6 +323,8 @@
                 $('#orderDrugDisplayForm').val(dtoForm);
                 $('#orderDrugDisplayRoute').val(dtoRoute);
                 $('#orderDrugDisplayStrength').val(dtoStrength);
+                $('#orderDrugDisplayInstruction').val(dtoInstruction);
+                $('#orderDrugDisplayCautionary').val(dtoCaution);
 
             }
         });
