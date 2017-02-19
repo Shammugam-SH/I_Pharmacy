@@ -24,6 +24,7 @@
     <th>Order Date</th>
     <th>Health Facility Code</th>
     <th>Doctor's Name</th>
+    <th>Incomplete Orders</th>
 </thead>
 <tbody>
 
@@ -46,6 +47,7 @@
 <td><%= dataPatientOrderList.get(i).get(5)%></td>
 <td><%= dataPatientOrderList.get(i).get(2)%></td>
 <td><%= dataPatientOrderList.get(i).get(6)%></td>
+<td><%= dataPatientOrderList.get(i).get(13)%></td>
 </tr>
 <%
     }
