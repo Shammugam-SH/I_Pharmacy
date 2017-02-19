@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Generic Name</label>
                                 <div class="col-md-8">
-                                    <textarea id="addD_GNR_NAME" class="form-control" rows="3" maxlength="200" placeholder="Generic Name"></textarea>
+                                    <textarea id="addD_GNR_NAME" class="form-control" rows="3" maxlength="500" placeholder="Generic Name"></textarea>
                                 </div>
                             </div>
 
@@ -145,7 +145,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Stock Quantity</label>
                                 <div class="col-md-8">
-                                    <input id="addD_STOCK_QTY" name="textinput" type="number" placeholder="Stock Qty" class="form-control input-md" maxlength="13">
+                                    <input id="addD_STOCK_QTY" name="textinput" type="number" placeholder="Stock Qty" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -168,13 +168,6 @@
                                 </div>
                             </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Stock Minimum Quantity</label>
-                                <div class="col-md-8">
-                                    <input id="addMINIMUM_STOCK_LEVEL" name="textinput" type="number" step="0.01" placeholder="Minimum Stock Qty" class="form-control input-md" maxlength="13">
-                                </div>
-                            </div>
 
                         </div>
 
@@ -188,7 +181,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Packaging</label>
                                 <div class="col-md-8">
-                                    <input id="addD_PACKAGING" name="textinput" type="number" placeholder="Packaging" class="form-control input-md" step="0.01" maxlength="10">
+                                    <input id="addD_PACKAGING" name="textinput" type="number" placeholder="Packaging" class="form-control input-md" step="0.01" maxlength="60">
                                 </div>
                             </div>
 
@@ -196,7 +189,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Price per Pack</label>
                                 <div class="col-md-8">
-                                    <input id="addD_PRICE_PPACK" name="textinput" type="number" placeholder="Price per Pack" class="form-control input-md" step="0.01" maxlength="13">
+                                    <input id="addD_PRICE_PPACK" name="textinput" type="number" placeholder="Price per Pack" class="form-control input-md" step="0.01" maxlength="20">
                                 </div>
                             </div>
 
@@ -204,7 +197,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Purchase Price</label>
                                 <div class="col-md-8">
-                                    <input id="addD_COST_PRICE" name="textinput" type="number" placeholder="Purchase Price" class="form-control input-md" step="0.01" maxlength="13">
+                                    <input id="addD_COST_PRICE" name="textinput" type="number" placeholder="Purchase Price" class="form-control input-md" step="0.01" maxlength="20">
                                 </div>
                             </div>
 
@@ -212,7 +205,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Sell Price</label>
                                 <div class="col-md-8">
-                                    <input id="addD_SELL_PRICE" name="textinput" type="number" placeholder="Sell Price" class="form-control input-md" step="0.01" maxlength="13">
+                                    <input id="addD_SELL_PRICE" name="textinput" type="number" placeholder="Sell Price" class="form-control input-md" step="0.01" maxlength="20">
                                 </div>
                             </div>
 
@@ -223,7 +216,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Dose</label>
                                 <div class="col-md-4">
-                                    <input id="addD_QTY" name="textinput" type="number" class="form-control input-md" maxlength="13">
+                                    <input id="addD_QTY" name="textinput" type="number" class="form-control input-md" step="0.01" maxlength="20">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="addD_QTYT" name="addD_QTYT" class="form-control">
@@ -248,7 +241,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Frequency</label>
                                 <div class="col-md-8">
-                                    <select id="addD_FREQUENCY" name="addD_FREQUENCY" class="form-control">
+                                    <select id="addD_FREQUENCY" name="addD_FREQUENCY" class="form-control" >
                                         <option value="No Frequency">No Frequency</option>
                                         <%
                                             String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' ";
@@ -270,7 +263,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Duration</label>
                                 <div class="col-md-4">
-                                    <input id="addD_DURATION" name="textinput" type="number" class="form-control input-md" step="0.01" maxlength="12">
+                                    <input id="addD_DURATION" name="textinput" type="number" class="form-control input-md" step="0.01" maxlength="60">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="addD_DURATIONT" name="addD_DURATIONT" class="form-control">
@@ -384,7 +377,8 @@
         $("#addD_EXP_DATE").datepicker({
             changeMonth: true,
             changeYear: true,
-            dateFormat: 'dd/mm/yy'
+            dateFormat: 'dd/mm/yy',
+            minDate: '0'
         });
 
         function reset() {
@@ -399,7 +393,6 @@
             document.getElementById("addD_STOCK_QTY").value = "";
             document.getElementById("addD_LOCATION_CODE").value = "";
             document.getElementById("addSTATUS").value = "No Status";
-            document.getElementById("addMINIMUM_STOCK_LEVEL").value = "";
 
             document.getElementById("addD_PACKAGING").value = "";
             document.getElementById("addD_PRICE_PPACK").value = "";
@@ -433,7 +426,6 @@
             var D_STOCK_QTY = document.getElementById("addD_STOCK_QTY").value;
             var D_LOCATION_CODE = document.getElementById("addD_LOCATION_CODE").value;
             var STATUS = document.getElementById("addSTATUS").value;
-            var MINIMUM_STOCK_LEVEL = document.getElementById("addMINIMUM_STOCK_LEVEL").value;
 
             var D_PACKAGING = document.getElementById("addD_PACKAGING").value;
             var D_PRICE_PPACK = document.getElementById("addD_PRICE_PPACK").value;
@@ -452,54 +444,52 @@
 
 
             if (UD_MDC_CODE === "") {
-                alert("Please Insert MDC Code");
+                bootbox.alert("Please Insert MDC Code");
             } else if (UD_ATC_CODE === "Select ATC Code") {
-                alert("Select Any ATC Code");
+                bootbox.alert("Select Any ATC Code");
             } else if (D_TRADE_NAME === "") {
-                alert("Please Insert Drug Trade Name");
+                bootbox.alert("Please Insert Drug Trade Name");
             } else if (D_GNR_NAME === "") {
-                alert("Please Insert Drug Generic Name");
+                bootbox.alert("Please Insert Drug Generic Name");
             } else if (D_ROUTE_CODE === "Select Drug Route") {
-                alert("Select Any Route");
+                bootbox.alert("Select Any Route");
             } else if (D_FORM_CODE === "Select Dosage Form") {
-                alert("Select Any Form");
+                bootbox.alert("Select Any Form");
             } else if (D_STRENGTH === "") {
-                alert("Please Insert Drug Strength");
+                bootbox.alert("Please Insert Drug Strength");
             } else if (D_STOCK_QTY === "") {
-                alert("Please Insert Drug Stock Quantity");
+                bootbox.alert("Please Insert Drug Stock Quantity");
             } else if (D_LOCATION_CODE === "") {
-                alert("Please Insert Drug Location Code");
+                bootbox.alert("Please Insert Drug Location Code");
             } else if (STATUS === "No Status") {
-                alert("Select Any Status");
-            } else if (MINIMUM_STOCK_LEVEL === "") {
-                alert("Please Insert Drug Minimum Stock Level");
+                bootbox.alert("Select Any Status");
 
             } else if (D_PACKAGING === "") {
-                alert("Please Insert Drug Packaging");
+                bootbox.alert("Please Insert Drug Packaging");
             } else if (D_PRICE_PPACK === "") {
-                alert("Please Insert Drug Per Pack Price");
+                bootbox.alert("Please Insert Drug Per Pack Price");
             } else if (D_COST_PRICE === "") {
-                alert("Please Insert Drug Cost Price");
+                bootbox.alert("Please Insert Drug Cost Price");
             } else if (D_SELL_PRICE === "") {
-                alert("Please Insert Drug Sell Price");
+                bootbox.alert("Please Insert Drug Sell Price");
             } else if (D_QTY === "") {
-                alert("Please Insert Drug Quantity");
+                bootbox.alert("Please Insert Drug Quantity");
             } else if (D_QTYT === "No Dose") {
-                alert("Select Any Dose");
+                bootbox.alert("Select Any Dose");
             } else if (D_FREQUENCY === "No Frequency") {
-                alert("Select Any Frequency");
+                bootbox.alert("Select Any Frequency");
             } else if (D_DURATION === "") {
-                alert("Please Insert Drug Duration");
+                bootbox.alert("Please Insert Drug Duration");
             } else if (D_DURATIONT === "No Duration") {
-                alert("Select Any Duration");
+                bootbox.alert("Select Any Duration");
             } else if (D_ADVISORY_CODE === "No Instruction") {
-                alert("Select Any Instruction");
+                bootbox.alert("Select Any Instruction");
             } else if (D_CAUTIONARY_CODE === "") {
-                alert("Please Insert Drug Cautionary Code");
+                bootbox.alert("Please Insert Drug Cautionary Code");
             } else if (D_EXP_DATE === "") {
-                alert("Please Insert Drug Expire Date");
+                bootbox.alert("Please Insert Drug Expire Date");
             } else if (D_CLASSIFICATION === "No Classification") {
-                alert("Select Any Classification");
+                bootbox.alert("Select Any Classification");
             } else {
 
                 var data = {
@@ -513,7 +503,6 @@
                     D_STOCK_QTY: D_STOCK_QTY,
                     D_LOCATION_CODE: D_LOCATION_CODE,
                     STATUS: STATUS,
-                    MINIMUM_STOCK_LEVEL: MINIMUM_STOCK_LEVEL,
                     D_PACKAGING: D_PACKAGING,
                     D_PRICE_PPACK: D_PRICE_PPACK,
                     D_COST_PRICE: D_COST_PRICE,
@@ -542,16 +531,24 @@
                             $('#contentMDCTable').load('mdcTableLoop.jsp');
                             $('#mdcAddModal').modal('hide');
                             bootbox.alert({
-                                message: "Add is Successful",
+                                message: "MDC Code is Added Successful",
                                 title: "Process Result",
                                 backdrop: true
                             });
                             reset();
 
+                        } else if (datas.trim() === 'Duplicate') {
+
+                            bootbox.alert({
+                                message: "MDC Code Duplication Detected. Please use diffrerent MDC code",
+                                title: "Process Result",
+                                backdrop: true
+                            });
+
                         } else if (datas.trim() === 'Failed') {
 
                             bootbox.alert({
-                                message: "Add Failed",
+                                message: "MDC Code Add Failed",
                                 title: "Process Result",
                                 backdrop: true
                             });

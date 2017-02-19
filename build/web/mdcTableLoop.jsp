@@ -30,14 +30,19 @@
 <tbody>
 
     <%
-        String sqlMain = " SELECT UD_MDC_CODE,UD_ATC_CODE,D_TRADE_NAME,D_GNR_NAME,D_ROUTE_CODE,D_FORM_CODE,D_STRENGTH,D_ADVISORY_CODE,D_STOCK_QTY,D_QTY,D_QTYT,D_DURATION,D_DURATIONT,D_FREQUENCY,D_CAUTION_CODE,D_EXP_DATE,D_CLASSIFICATION,STATUS,D_LOCATION_CODE,D_SELL_PRICE,D_COST_PRICE,D_PACKAGING,D_PACKAGINGT,D_PRICE_PPACK,MINIMUM_STOCK_LEVEL FROM pis_mdc2 ";
+        String sqlMain = " SELECT UD_MDC_CODE,UD_ATC_CODE,D_TRADE_NAME,D_GNR_NAME,D_ROUTE_CODE,D_FORM_CODE,D_STRENGTH,D_ADVISORY_CODE,D_STOCK_QTY,D_QTY,D_QTYT,D_DURATION,D_DURATIONT,D_FREQUENCY,D_CAUTION_CODE,D_EXP_DATE,D_CLASSIFICATION,STATUS,D_LOCATION_CODE,D_SELL_PRICE,D_COST_PRICE,D_PACKAGING,D_PACKAGINGT,D_PRICE_PPACK FROM pis_mdc2 ";
         ArrayList<ArrayList<String>> dataMTC = conn.getData(sqlMain);
 
         int sizeMain = dataMTC.size();
         for (int s = 0; s < sizeMain; s++) {
     %>
+    <%
+        if (Integer.parseInt(dataMTC.get(s).get(8)) < 100) {    %>
+    <tr style="font-weight:bolder; color:red;" >
+        <% } else {   %>
+    <tr >
+        <%   }%>
 
-    <tr>
 <input id="dataMDChidden" type="hidden" value="<%=String.join("|", dataMTC.get(s))%>">
 <td><%= dataMTC.get(s).get(0)%></td>
 <td><%= dataMTC.get(s).get(1)%></td>
@@ -103,7 +108,9 @@
 
                                             int size = listofATCCode.size();
 
-                                            for (int i = 0; i < size; i++) {
+                                            for (int i = 0;
+                                                    i < size;
+                                                    i++) {
                                         %>
                                         <option value="<%= listofATCCode.get(i).get(0)%>"><%= listofATCCode.get(i).get(0)%> - <%= listofATCCode.get(i).get(1)%> </option>
                                         <%
@@ -117,7 +124,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Product Name</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_TRADE_NAME" name="textinput" type="text" placeholder="Product Name" class="form-control input-md" >
+                                    <input id="updateD_TRADE_NAME" name="textinput" type="text" placeholder="Product Name" class="form-control input-md" maxlength="200">
                                 </div>
                             </div>
 
@@ -125,7 +132,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Generic Name</label>
                                 <div class="col-md-8">
-                                    <textarea id="updateD_GNR_NAME" class="form-control" rows="3"></textarea>
+                                    <textarea id="updateD_GNR_NAME" class="form-control" rows="3" maxlength="500"></textarea>
                                 </div>
                             </div>
 
@@ -141,7 +148,9 @@
 
                                             int size2 = listOfDRoute.size();
 
-                                            for (int i = 0; i < size2; i++) {
+                                            for (int i = 0;
+                                                    i < size2;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDRoute.get(i).get(2)%>"><%= listOfDRoute.get(i).get(1)%> - <%= listOfDRoute.get(i).get(2)%> </option>
                                         <%
@@ -163,7 +172,9 @@
 
                                             int size3 = listOfDForm.size();
 
-                                            for (int i = 0; i < size3; i++) {
+                                            for (int i = 0;
+                                                    i < size3;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDForm.get(i).get(2)%>"><%= listOfDForm.get(i).get(1)%> - <%= listOfDForm.get(i).get(2)%> </option>
                                         <%
@@ -178,7 +189,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Strength</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_STRENGTH" name="textinput" type="text" placeholder="Strength" class="form-control input-md" >
+                                    <input id="updateD_STRENGTH" name="textinput" type="text" placeholder="Strength" class="form-control input-md" maxlength="50">
                                 </div>
                             </div>
 
@@ -186,7 +197,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Stock Quantity</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_STOCK_QTY" name="textinput" type="number" step="0.01" placeholder="Stock Qty" class="form-control input-md" >
+                                    <input id="updateD_STOCK_QTY" name="textinput" type="number" step="0.01" placeholder="Stock Qty" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -194,7 +205,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Location Code</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_LOCATION_CODE" name="textinput" type="text" placeholder="Location Code" class="form-control input-md" >
+                                    <input id="updateD_LOCATION_CODE" name="textinput" type="text" placeholder="Location Code" class="form-control input-md" maxlength="4">
                                 </div>
                             </div>
 
@@ -209,13 +220,6 @@
                                 </div>
                             </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Stock Minimum Quantity</label>
-                                <div class="col-md-8">
-                                    <input id="updateMINIMUM_STOCK_LEVEL" name="textinput" type="number" step="0.01" placeholder="Minimum Stock Qty" class="form-control input-md">
-                                </div>
-                            </div>
 
                         </div>
 
@@ -229,7 +233,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Packaging</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_PACKAGING" name="textinput" type="text" placeholder="Packaging" class="form-control input-md">
+                                    <input id="updateD_PACKAGING" name="textinput" type="text" placeholder="Packaging" class="form-control input-md" maxlength="60">
                                 </div>
                             </div>
 
@@ -237,7 +241,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Price per Pack</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_PRICE_PPACK" name="textinput" type="text" placeholder="Price per Pack" class="form-control input-md" >
+                                    <input id="updateD_PRICE_PPACK" name="textinput" type="text" placeholder="Price per Pack" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -245,7 +249,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Purchase Price</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_COST_PRICE" name="textinput" type="text" placeholder="Purchase Price" class="form-control input-md">
+                                    <input id="updateD_COST_PRICE" name="textinput" type="text" placeholder="Purchase Price" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -253,7 +257,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Sell Price</label>
                                 <div class="col-md-8">
-                                    <input id="updateD_SELL_PRICE" name="textinput" type="text" placeholder="Sell Price" class="form-control input-md">
+                                    <input id="updateD_SELL_PRICE" name="textinput" type="text" placeholder="Sell Price" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -264,7 +268,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Dose</label>
                                 <div class="col-md-4">
-                                    <input id="updateD_QTY" name="textinput" type="text" class="form-control input-md" >
+                                    <input id="updateD_QTY" name="textinput" type="text" class="form-control input-md" step="0.01" maxlength="20">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="updateD_QTYT" name="addD_QTYT" class="form-control">
@@ -275,7 +279,9 @@
 
                                             int size4 = listOfDUOM.size();
 
-                                            for (int i = 0; i < size4; i++) {
+                                            for (int i = 0;
+                                                    i < size4;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDUOM.get(i).get(2)%>"><%= listOfDUOM.get(i).get(1)%> - <%= listOfDUOM.get(i).get(2)%> </option>
                                         <%
@@ -297,7 +303,9 @@
 
                                             int size5 = listOfDFreq.size();
 
-                                            for (int i = 0; i < size5; i++) {
+                                            for (int i = 0;
+                                                    i < size5;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDFreq.get(i).get(2)%>"><%= listOfDFreq.get(i).get(1)%> - <%= listOfDFreq.get(i).get(2)%> </option>
                                         <%
@@ -311,7 +319,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Duration</label>
                                 <div class="col-md-4">
-                                    <input id="updateD_DURATION" name="textinput" type="number" class="form-control input-md" >
+                                    <input id="updateD_DURATION" name="textinput" type="number" class="form-control input-md" step="0.01" maxlength="60">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="updateD_DURATIONT" name="addD_DURATIONT" class="form-control">
@@ -322,7 +330,9 @@
 
                                             int size6 = listOfDDura.size();
 
-                                            for (int i = 0; i < size6; i++) {
+                                            for (int i = 0;
+                                                    i < size6;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDDura.get(i).get(2)%>"><%= listOfDDura.get(i).get(1)%> - <%= listOfDDura.get(i).get(2)%> </option>
                                         <%
@@ -344,7 +354,9 @@
 
                                             int size7 = listOfDInst.size();
 
-                                            for (int i = 0; i < size7; i++) {
+                                            for (int i = 0;
+                                                    i < size7;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDInst.get(i).get(2)%>"><%= listOfDInst.get(i).get(1)%> - <%= listOfDInst.get(i).get(2)%> </option>
                                         <%
@@ -358,7 +370,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Cautionary</label>
                                 <div class="col-md-8">
-                                    <textarea id="updateD_CAUTIONARY_CODE" class="form-control" rows="3"></textarea>
+                                    <textarea id="updateD_CAUTIONARY_CODE" class="form-control" rows="3" placeholder="Drug Cautionary" maxlength="150"></textarea>
                                 </div>
                             </div>
 
@@ -382,7 +394,9 @@
 
                                             int size8 = listOfDClass.size();
 
-                                            for (int i = 0; i < size8; i++) {
+                                            for (int i = 0;
+                                                    i < size8;
+                                                    i++) {
                                         %>
                                         <option value="<%= listOfDClass.get(i).get(2)%>"><%= listOfDClass.get(i).get(1)%> - <%= listOfDClass.get(i).get(2)%> </option>
                                         <%
@@ -420,7 +434,8 @@
     $("#updateD_EXP_DATE").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: 'dd/mm/yy'
+        dateFormat: 'dd/mm/yy',
+        minDate: '0'
     });
 
 
@@ -468,13 +483,13 @@
                             if (datas.trim() === 'Success') {
                                 $('#contentMDCTable').load('mdcTableLoop.jsp');
                                 bootbox.alert({
-                                    message: "Delete is Successful",
+                                    message: "MDC Code is Deleted Successful",
                                     title: "Process Result",
                                     backdrop: true
                                 });
                             } else if (datas.trim() === 'Failed') {
                                 bootbox.alert({
-                                    message: "Delete Failed",
+                                    message: "MDC Code Delete Failed",
                                     title: "Process Result",
                                     backdrop: true
                                 });
@@ -516,7 +531,6 @@
         var D_STOCK_QTY = arrayData[8];
         var D_LOCATION_CODE = arrayData[18];
         var STATUS = arrayData[17];
-        var MINIMUM_STOCK_LEVEL = arrayData[24];
 
         var D_PACKAGING = arrayData[21];
         var D_PRICE_PPACK = arrayData[23];
@@ -543,7 +557,6 @@
         $("#updateD_STOCK_QTY").val(D_STOCK_QTY);
         $("#updateD_LOCATION_CODE").val(D_LOCATION_CODE);
         $("#updateSTATUS").val(STATUS);
-        $("#updateMINIMUM_STOCK_LEVEL").val(MINIMUM_STOCK_LEVEL);
 
         $("#updateD_PACKAGING").val(D_PACKAGING);
         $("#updateD_PRICE_PPACK").val(D_PRICE_PPACK);
@@ -576,7 +589,6 @@
         var D_STOCK_QTY = $("#updateD_STOCK_QTY").val();
         var D_LOCATION_CODE = $("#updateD_LOCATION_CODE").val();
         var STATUS = $("#updateSTATUS").val();
-        var MINIMUM_STOCK_LEVEL = $("#updateMINIMUM_STOCK_LEVEL").val();
 
         var D_PACKAGING = $("#updateD_PACKAGING").val();
         var D_PRICE_PPACK = $("#updateD_PRICE_PPACK").val();
@@ -593,54 +605,52 @@
         var D_CLASSIFICATION = $("#updateD_CLASSIFICATION").val();
 
         if (UD_MDC_CODE === "") {
-            alert("Please Insert MDC Code");
-        } else if (UD_ATC_CODE === "Select ATC Code") {
-            alert("Select Any ATC Code");
+            bootbox.alert("Please Insert MDC Code");
+        } else if (UD_ATC_CODE === "Select ATC Code" || UD_ATC_CODE === null) {
+            bootbox.alert("Select Any ATC Code");
         } else if (D_TRADE_NAME === "") {
-            alert("Please Insert Drug Trade Name");
+            bootbox.alert("Please Insert Drug Trade Name");
         } else if (D_GNR_NAME === "") {
-            alert("Please Insert Drug Generic Name");
-        } else if (D_ROUTE_CODE === "Select Drug Route") {
-            alert("Select Any Route");
-        } else if (D_FORM_CODE === "Select Dosage Form") {
-            alert("Select Any Form");
+            bootbox.alert("Please Insert Drug Generic Name");
+        } else if (D_ROUTE_CODE === "Select Drug Route" || D_ROUTE_CODE === null) {
+            bootbox.alert("Select Any Route");
+        } else if (D_FORM_CODE === "Select Dosage Form" || D_FORM_CODE === null) {
+            bootbox.alert("Select Any Form");
         } else if (D_STRENGTH === "") {
-            alert("Please Insert Drug Strength");
+            bootbox.alert("Please Insert Drug Strength");
         } else if (D_STOCK_QTY === "") {
-            alert("Please Insert Drug Stock Quantity");
+            bootbox.alert("Please Insert Drug Stock Quantity");
         } else if (D_LOCATION_CODE === "") {
-            alert("Please Insert Drug Location Code");
-        } else if (STATUS === "No Status") {
-            alert("Select Any Status");
-        } else if (MINIMUM_STOCK_LEVEL === "") {
-            alert("Please Insert Drug Minimum Stock Level");
+            bootbox.alert("Please Insert Drug Location Code");
+        } else if (STATUS === "No Status" || STATUS === null) {
+            bootbox.alert("Select Any Status");
 
         } else if (D_PACKAGING === "") {
-            alert("Please Insert Drug Packaging");
+            bootbox.alert("Please Insert Drug Packaging");
         } else if (D_PRICE_PPACK === "") {
-            alert("Please Insert Drug Per Pack Price");
+            bootbox.alert("Please Insert Drug Per Pack Price");
         } else if (D_COST_PRICE === "") {
-            alert("Please Insert Drug Cost Price");
+            bootbox.alert("Please Insert Drug Cost Price");
         } else if (D_SELL_PRICE === "") {
-            alert("Please Insert Drug Sell Price");
+            bootbox.alert("Please Insert Drug Sell Price");
         } else if (D_QTY === "") {
-            alert("Please Insert Drug Quantity");
-        } else if (D_QTYT === "No Dose") {
-            alert("Select Any Dose");
-        } else if (D_FREQUENCY === "No Frequency") {
-            alert("Select Any Frequency");
+            bootbox.alert("Please Insert Drug Quantity");
+        } else if (D_QTYT === "No Dose" || D_QTYT === null) {
+            bootbox.alert("Select Any Dose");
+        } else if (D_FREQUENCY === "No Frequency" || D_FREQUENCY === null) {
+            bootbox.alert("Select Any Frequency");
         } else if (D_DURATION === "") {
-            alert("Please Insert Drug Duration");
-        } else if (D_DURATIONT === "No Duration") {
-            alert("Select Any Duration");
-        } else if (D_ADVISORY_CODE === "No Instruction") {
-            alert("Select Any Instruction");
+            bootbox.alert("Please Insert Drug Duration");
+        } else if (D_DURATIONT === "No Duration" || D_DURATIONT === null) {
+            bootbox.alert("Select Any Duration");
+        } else if (D_ADVISORY_CODE === "No Instruction" || D_ADVISORY_CODE === null) {
+            bootbox.alert("Select Any Instruction");
         } else if (D_CAUTIONARY_CODE === "") {
-            alert("Please Insert Drug Cautionary Code");
+            bootbox.alert("Please Insert Drug Cautionary Code");
         } else if (D_EXP_DATE === "") {
-            alert("Please Insert Drug Expire Date");
-        } else if (D_CLASSIFICATION === "No Classification") {
-            alert("Select Any Classification");
+            bootbox.alert("Please Insert Drug Expire Date");
+        } else if (D_CLASSIFICATION === "No Classification" || D_CLASSIFICATION === null) {
+            bootbox.alert("Select Any Classification");
         } else {
 
             var data = {
@@ -654,7 +664,6 @@
                 D_STOCK_QTY: D_STOCK_QTY,
                 D_LOCATION_CODE: D_LOCATION_CODE,
                 STATUS: STATUS,
-                MINIMUM_STOCK_LEVEL: MINIMUM_STOCK_LEVEL,
                 D_PACKAGING: D_PACKAGING,
                 D_PRICE_PPACK: D_PRICE_PPACK,
                 D_COST_PRICE: D_COST_PRICE,
@@ -681,13 +690,13 @@
                         $('#contentMDCTable').load('mdcTableLoop.jsp');
                         $(".modal-backdrop").hide();
                         bootbox.alert({
-                            message: "Update is Successful",
+                            message: "MDC Code is Updated Successful",
                             title: "Process Result",
                             backdrop: true
                         });
                     } else if (datas.trim() === 'Failed') {
                         bootbox.alert({
-                            message: "Update Failed",
+                            message: "MDC Code Update Failed",
                             title: "Process Result",
                             backdrop: true
                         });

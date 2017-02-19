@@ -38,7 +38,11 @@
 <td><%= dataATC.get(i).get(0)%></td>
 <td><%= dataATC.get(i).get(1)%></td>
 <td><%= dataATC.get(i).get(2)%></td>
-<td><%= dataATC.get(i).get(3)%></td>
+<td><%if (dataATC.get(i).get(3).equals("1")) {
+        out.print("Active");
+    } else {
+        out.print("Inactive");
+    } %></td> <!--status 3 --> 
 <td>
     <!-- Update Part Start -->
     <a id="updateTButton" data-toggle="modal" data-target="#atcUpdateModal"><i class="fa fa-pencil-square-o" aria-hidden="true" style="display: inline-block;color: #337ab7;"></i></a>
@@ -74,7 +78,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">ATC Code</label>
                         <div class="col-md-8">
-                            <input id="updateatcCode" name="textinput" type="text" class="form-control input-md" maxlength="15" readonly>
+                            <input id="updateatcCode" name="textinput" type="text" placeholder="ATC Code" class="form-control input-md" maxlength="15" readonly>
                         </div>
                     </div>
 
@@ -82,7 +86,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">ATC Description</label>
                         <div class="col-md-8">
-                            <textarea id="updateatcDesc" class="form-control" rows="4" maxlength="200" ></textarea>
+                            <textarea id="updateatcDesc" class="form-control" rows="4" placeholder="ATC Description" maxlength="200" ></textarea>
                         </div>
                     </div>
 
@@ -90,7 +94,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Category Code</label>
                         <div class="col-md-8">
-                            <input id="updatecategory" name="textinput" type="text" maxlength="50" class="form-control input-md" >
+                            <input id="updatecategory" name="textinput" type="text" placeholder="Category Code" maxlength="50" class="form-control input-md" >
                         </div>
                     </div>
 
@@ -164,13 +168,13 @@
         var status = $("#updatestatus").val();
 
         if (atcCode === "" || atcCode === null) {
-            alert("Fill in the ATC code");
+            bootbox.alert("Please Insert ATC Code Name");
         } else if (atcDesc === "" || atcDesc === null) {
-            alert("Fill in the ATC Description");
+            bootbox.alert("Please Insert ATC Code Description");
         } else if (category === "" || category === null) {
-            alert("Fill in the ATC Category");
-        } else if (status !== '1' && status !== '0') {
-            alert("Select the status");
+            bootbox.alert("Please Insert ATC Code Category");
+        } else if (status !== "1" && status !== "0") {
+            bootbox.alert("Please Select Any Status");
         } else {
 
             var data = {
@@ -190,13 +194,13 @@
                         $('#contentATCTable').load('atcTableLoop.jsp');
                         $(".modal-backdrop").hide();
                         bootbox.alert({
-                            message: "Update is Successful",
+                            message: "ATC Code is Updated Successful",
                             title: "Process Result",
                             backdrop: true
                         });
                     } else if (datas.trim() === 'Failed') {
                         bootbox.alert({
-                            message: "Update Failed",
+                            message: "ATC Code Update Failed",
                             title: "Process Result",
                             backdrop: true
                         });
@@ -256,13 +260,13 @@
                             if (datas.trim() === 'Success') {
                                 $('#contentATCTable').load('atcTableLoop.jsp');
                                 bootbox.alert({
-                                    message: "Delete is Successful",
+                                    message: "ATC Code is Deleted Successful",
                                     title: "Process Result",
                                     backdrop: true
                                 });
                             } else if (datas.trim() === 'Failed') {
                                 bootbox.alert({
-                                    message: "Delete Failed",
+                                    message: "ATC Code Delete Failed",
                                     title: "Process Result",
                                     backdrop: true
                                 });

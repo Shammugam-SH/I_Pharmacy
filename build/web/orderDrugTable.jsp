@@ -49,7 +49,7 @@
         <th>Delete</th>
         </thead>
         <tbody>
-            
+
         </tbody>
     </table>
 
@@ -75,12 +75,23 @@
 
                             <h4>Order Details</h4>
                             <hr/>
+                            <%     String query1 = "SELECT MAX(item_code) FROM far_miscellaneous_item";
+                                ArrayList<ArrayList<String>> data1 = conn.getData(query1);
+                                String itemCode = data1.get(0).get(0);
+                                itemCode = itemCode.replaceAll("[^0-9]", "");
+                                itemCode = String.valueOf(Integer.parseInt(itemCode) + 1);
 
+                                String code = "RG";
+                                for (int i = 0; itemCode.length() < 5; i++) {
+                                    itemCode = "0" + itemCode;
+                                }
+                                code = code + itemCode;
+                            %>
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Drug Order ID</label>
                                 <div class="col-md-8">
-                                    <input id="orderDrugDetailsID" name="orderDrugDetailsID" type="text" placeholder="Drug Order ID"  class="form-control input-md">
+                                    <input id="orderDrugDetailsID" name="orderDrugDetailsID" type="text" placeholder="Drug Order ID" value="<%= code %>"  class="form-control input-md">
                                 </div>
                             </div> 
 
@@ -261,9 +272,9 @@
 
 
 <script type="text/javascript">
-    
- //$("#orderAddDetailsListTableDiv").hide();
- 
+
+    //$("#orderAddDetailsListTableDiv").hide();
+
 
 //js Search in add drug
     $(function () {

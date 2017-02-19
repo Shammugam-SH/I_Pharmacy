@@ -22,16 +22,6 @@
     <th>Name</th>  
     <th>Office No.</th>
     <th>Email</th>
-    <th>Mobile No.</th>
-    <th>Fax No.</th>
-    <th>Address1</th>
-    <th>Address2</th>
-    <th>Address3</th>
-    <th>District Code</th>
-    <th>Town Code</th>
-    <th>Postcode</th>
-    <th>State Code</th>
-    <th>Country Code</th>
     <th>Update</th>
     <th>Delete</th>
 </thead>
@@ -51,16 +41,6 @@
 <td><%= dataSupplier.get(i).get(1)%></td>
 <td><%= dataSupplier.get(i).get(2)%></td>
 <td><%= dataSupplier.get(i).get(3)%></td>
-<td><%= dataSupplier.get(i).get(4)%></td>
-<td><%= dataSupplier.get(i).get(5)%></td>
-<td><%= dataSupplier.get(i).get(6)%></td>
-<td><%= dataSupplier.get(i).get(7)%></td>
-<td><%= dataSupplier.get(i).get(8)%></td>
-<td><%= dataSupplier.get(i).get(9)%></td>
-<td><%= dataSupplier.get(i).get(10)%></td>
-<td><%= dataSupplier.get(i).get(11)%></td>
-<td><%= dataSupplier.get(i).get(12)%></td>
-<td><%= dataSupplier.get(i).get(13)%></td>
 <td>
     <!-- Update Part Start -->
     <a id="supplierUpdateTButton" data-toggle="modal" data-target="#supplierUpdateModal"><i class="fa fa-pencil-square-o" aria-hidden="true" style="display: inline-block;color: #337ab7;"></i></a>
@@ -99,7 +79,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Supplier ID:</label>
                                 <div class="col-md-8">
-                                    <input id="updateSupplier_ID" type="text" class="form-control" placeholder="Supplier ID" readonly>
+                                    <input id="updateSupplier_ID" type="text" class="form-control" placeholder="Supplier ID" readonly maxlength="10">
                                 </div>
                             </div>
 
@@ -107,7 +87,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Supplier Name:</label>
                                 <div class="col-md-8">
-                                    <input id="updateSupplier_Name" type="text" class="form-control" placeholder="Supplier ID">
+                                    <input id="updateSupplier_Name" type="text" class="form-control" placeholder="Supplier NAME" maxlength="100">
                                 </div>
                             </div>
 
@@ -115,7 +95,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Office No:</label>
                                 <div class="col-md-8">
-                                    <input id="updateOffice_Tel_No" type="text" class="form-control" placeholder="Office No">
+                                    <input id="updateOffice_Tel_No" type="text" class="form-control" placeholder="Office No" maxlength="30">
                                 </div>
                             </div>
 
@@ -123,7 +103,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Email:</label>
                                 <div class="col-md-8">
-                                    <input id="updateEmail" type="text" class="form-control" placeholder="Email">
+                                    <input id="updateEmail" type="text" class="form-control" placeholder="Email" maxlength="30">
                                 </div>
                             </div>
 
@@ -131,7 +111,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 1:</label>
                                 <div class="col-md-8">
-                                    <input id="updateADDRESS1" type="text" class="form-control">
+                                    <input id="updateADDRESS1" type="text" class="form-control" placeholder="Address 1 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -139,7 +119,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 2:</label>
                                 <div class="col-md-8">
-                                    <input id="updateADDRESS2" type="text" class="form-control">
+                                    <input id="updateADDRESS2" type="text" class="form-control" placeholder="Address 2 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -147,7 +127,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 3:</label>
                                 <div class="col-md-8">
-                                    <input id="updateADDRESS3" type="text" class="form-control">
+                                    <input id="updateADDRESS3" type="text" class="form-control" placeholder="Address 3 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -160,49 +140,49 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">District Code:</label>
                                 <div class="col-md-8">
-                                    <input id="updateDISTRICT_CODE" type="text" class="form-control">
+                                    <input id="updateDISTRICT_CODE" type="text" class="form-control" placeholder="District Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Town Code:</label>
                                 <div class="col-md-8">
-                                    <input id="updateTOWN_CODE" type="text" class="form-control">
+                                    <input id="updateTOWN_CODE" type="text" class="form-control" placeholder="Town Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Postcode:</label>
                                 <div class="col-md-8">
-                                    <input id="updatePOSTCODE" type="text" class="form-control">
+                                    <input id="updatePOSTCODE" type="text" class="form-control" placeholder="Postcode (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">State Code:</label>
                                 <div class="col-md-8">
-                                    <input id="updateSTATE_CODE" type="text" class="form-control">
+                                    <input id="updateSTATE_CODE" type="text" class="form-control" placeholder="State Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Country Code:</label>
                                 <div class="col-md-8">
-                                    <input id="updateCOUNTRY_CODE" type="text" class="form-control">
+                                    <input id="updateCOUNTRY_CODE" type="text" class="form-control" placeholder="Country Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Mobile No:</label>
                                 <div class="col-md-8">
-                                    <input id="updateMobile_No" type="text" class="form-control">
+                                    <input id="updateMobile_No" type="text" class="form-control" placeholder="Mobile No (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Fax No:</label>
                                 <div class="col-md-8">
-                                    <input id="updateFax_No" type="text" class="form-control">
+                                    <input id="updateFax_No" type="text" class="form-control" placeholder="Fax No (Optional)" maxlength="30">
                                 </div>
                             </div>
 
@@ -303,13 +283,13 @@
         var Fax_No = $('#updateFax_No').val();
 
         if (Supplier_ID === "") {
-            alert("Please Insert The Supplier ID");
+            bootbox.alert("Please Insert The Supplier ID");
         } else if (Supplier_Name === "") {
-            alert("Please Insert The Supplier Name");
+            bootbox.alert("Please Insert The Supplier Name");
         } else if (Office_Tel_No === "") {
-            alert("Please Insert The Supplier Office Number");
+            bootbox.alert("Please Insert The Supplier Office Number");
         } else if (Email === "") {
-            alert("Please Insert The Supplier Email");
+            bootbox.alert("Please Insert The Supplier Email");
         } else {
 
             var data = {
@@ -341,13 +321,13 @@
                         $('#contentSupplierTable').load('supplierTableLoop.jsp');
                         $(".modal-backdrop").hide();
                         bootbox.alert({
-                            message: "Update is Successful",
+                            message: "Supplier is Updated Successful",
                             title: "Process Result",
                             backdrop: true
                         });
                     } else if (datas.trim() === 'Failed') {
                         bootbox.alert({
-                            message: "Update Failed",
+                            message: "Supplier Update Failed",
                             title: "Process Result",
                             backdrop: true
                         });
@@ -409,13 +389,13 @@
                             if (datas.trim() === 'Success') {
                                 $('#contentSupplierTable').load('supplierTableLoop.jsp');
                                 bootbox.alert({
-                                    message: "Delete is Successful",
+                                    message: "Supplier is Deleted Successful",
                                     title: "Process Result",
                                     backdrop: true
                                 });
                             } else if (datas.trim() === 'Failed') {
                                 bootbox.alert({
-                                    message: "Delete Failed",
+                                    message: "Supplier Delete Failed",
                                     title: "Process Result",
                                     backdrop: true
                                 });

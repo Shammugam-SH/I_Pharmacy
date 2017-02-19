@@ -113,14 +113,14 @@
             var category = $('#category').val();
             var status = $('input[name="status"]:checked').val();
 
-            if (atcCode === "") {
-                alert("Complete The Fields");
-            } else if (atcDesc === "") {
-                alert("Complete The Fields");
-            } else if (category === "") {
-                alert("Complete The Fields");
+            if (atcCode === "" || atcCode === null) {
+                bootbox.alert("Please Insert ATC Code Name");
+            } else if (atcDesc === "" || atcDesc === null) {
+                bootbox.alert("Please Insert ATC Code Description");
+            } else if (category === "" || category === null) {
+                bootbox.alert("Please Insert ATC Code Category");
             } else if (status !== "1" && status !== "0") {
-                alert("Select Any Status");
+                bootbox.alert("Please Select Any Status");
             } else {
 
                 var data = {
@@ -142,16 +142,24 @@
                             $('#contentATCTable').load('atcTableLoop.jsp');
                             $('#detail').modal('hide');
                             bootbox.alert({
-                                message: "Add is Successful",
+                                message: "ATC Code is Added Successful",
                                 title: "Process Result",
                                 backdrop: true
                             });
                             reset();
 
+                        } else if (datas.trim() === 'Duplicate') {
+
+                            bootbox.alert({
+                                message: "ATC Code Duplication Detected. Please use diffrerent ATC code",
+                                title: "Process Result",
+                                backdrop: true
+                            });
+                            
                         } else if (datas.trim() === 'Failed') {
 
                             bootbox.alert({
-                                message: "Add Failed",
+                                message: "ATC Code Add Failed",
                                 title: "Process Result",
                                 backdrop: true
                             });

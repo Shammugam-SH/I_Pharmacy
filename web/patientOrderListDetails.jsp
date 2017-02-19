@@ -45,12 +45,13 @@
     <th>Price/Pack</th>
     <th>Total Price</th>
     <th>Status</th>
+    <th>Action</th>
 </thead>
 <tbody>
     <%        for (int i = 0; i < dataOrderList.size(); i++) {
 
     %>
-    <tr id="moveToOrderDispenseDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#type">
+    <tr id="moveToOrderDispenseDetailsTButton-test" data-status="pagado" data-toggle="modal" data-id="1" data-target="#type">
 <input id="dataPatientOrderDetailsListhidden" type="hidden" value="<%=String.join("|", dataOrderList.get(i))%>">
 <td ><%=dataOrderList.get(i).get(0)%></td>
 <td ><%=dataOrderList.get(i).get(1)%></td>
@@ -66,6 +67,7 @@
 <td ><%=dataOrderList.get(i).get(19)%></td>
 <td ><%= formatter.format(Double.parseDouble(dataOrderList.get(i).get(11)) * Double.parseDouble(dataOrderList.get(i).get(19))) %></td>
 <td ><%=dataOrderList.get(i).get(16)%></td>
+<td ></td>
 </tr>
 <%  }
 %>

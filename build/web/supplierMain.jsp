@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Supplier ID:</label>
                                 <div class="col-md-8">
-                                    <input id="addSupplier_ID" type="text" class="form-control" placeholder="Supplier ID">
+                                    <input id="addSupplier_ID" type="text" class="form-control" placeholder="Supplier ID" maxlength="10">
                                 </div>
                             </div>
 
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Supplier Name:</label>
                                 <div class="col-md-8">
-                                    <input id="addSupplier_Name" type="text" class="form-control" placeholder="Supplier ID">
+                                    <input id="addSupplier_Name" type="text" class="form-control" placeholder="Supplier Name" maxlength="100" >
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Office No:</label>
                                 <div class="col-md-8">
-                                    <input id="addOffice_Tel_No" type="text" class="form-control" placeholder="Office No">
+                                    <input id="addOffice_Tel_No" type="text" class="form-control" placeholder="Office No" maxlength="30">
                                 </div>
                             </div>
 
@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Email:</label>
                                 <div class="col-md-8">
-                                    <input id="addEmail" type="text" class="form-control" placeholder="Email">
+                                    <input id="addEmail" type="text" class="form-control" placeholder="Email" maxlength="30">
                                 </div>
                             </div>
 
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 1:</label>
                                 <div class="col-md-8">
-                                    <input id="addADDRESS1" type="text" class="form-control" >
+                                    <input id="addADDRESS1" type="text" class="form-control"  placeholder="Address 1 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 2:</label>
                                 <div class="col-md-8">
-                                    <input id="addADDRESS2" type="text" class="form-control" >
+                                    <input id="addADDRESS2" type="text" class="form-control" placeholder="Address 2 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Address 3:</label>
                                 <div class="col-md-8">
-                                    <input id="addADDRESS3" type="text" class="form-control" >
+                                    <input id="addADDRESS3" type="text" class="form-control" placeholder="Address 3 (Optional)" maxlength="100">
                                 </div>
                             </div>
 
@@ -92,49 +92,49 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">District Code:</label>
                                 <div class="col-md-8">
-                                    <input id="addDISTRICT_CODE" type="text" class="form-control">
+                                    <input id="addDISTRICT_CODE" type="text" class="form-control" placeholder="District Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Town Code:</label>
                                 <div class="col-md-8">
-                                    <input id="addTOWN_CODE" type="text" class="form-control" >
+                                    <input id="addTOWN_CODE" type="text" class="form-control" placeholder="Town Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Postcode:</label>
                                 <div class="col-md-8">
-                                    <input id="addPOSTCODE" type="text" class="form-control" >
+                                    <input id="addPOSTCODE" type="text" class="form-control" placeholder="Postcode (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">State Code:</label>
                                 <div class="col-md-8">
-                                    <input id="addSTATE_CODE" type="text" class="form-control" >
+                                    <input id="addSTATE_CODE" type="text" class="form-control" placeholder="State Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Country Code:</label>
                                 <div class="col-md-8">
-                                    <input id="addCOUNTRY_CODE" type="text" class="form-control" >
+                                    <input id="addCOUNTRY_CODE" type="text" class="form-control" placeholder="Country Code (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Mobile No:</label>
                                 <div class="col-md-8">
-                                    <input id="addMobile_No" type="text" class="form-control" >
+                                    <input id="addMobile_No" type="text" class="form-control" placeholder="Mobile No (Optional)" maxlength="30">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Fax No:</label>
                                 <div class="col-md-8">
-                                    <input id="addFax_No" type="text" class="form-control" >
+                                    <input id="addFax_No" type="text" class="form-control" placeholder="Fax No (Optional)" maxlength="30">
                                 </div>
                             </div>
 
@@ -210,13 +210,13 @@
             var Fax_No = $('#addFax_No').val();
 
             if (Supplier_ID === "") {
-                alert("Please Insert The Supplier ID");
+                bootbox.alert("Please Insert The Supplier ID");
             } else if (Supplier_Name === "") {
-                alert("Please Insert The Supplier Name");
+                bootbox.alert("Please Insert The Supplier Name");
             } else if (Office_Tel_No === "") {
-                alert("Please Insert The Supplier Office Number");
+                bootbox.alert("Please Insert The Supplier Office Number");
             } else if (Email === "") {
-                alert("Please Insert The Supplier Email");
+                bootbox.alert("Please Insert The Supplier Email");
             } else {
 
                 var data = {
@@ -249,16 +249,24 @@
                             $('#supplierAddModal').modal('hide');
                             $('#detail').modal('hide');
                             bootbox.alert({
-                                message: "Add is Successful",
+                                message: "Supllier is Added Successful",
                                 title: "Process Result",
                                 backdrop: true
                             });
                             reset();
 
+                        } else if (datas.trim() === 'Duplicate') {
+
+                            bootbox.alert({
+                                message: "Supplier ID Duplication Detected. Please use diffrerent Supplier ID",
+                                title: "Process Result",
+                                backdrop: true
+                            });
+
                         } else if (datas.trim() === 'Failed') {
 
                             bootbox.alert({
-                                message: "Add Failed",
+                                message: "Supplier Add Failed",
                                 title: "Process Result",
                                 backdrop: true
                             });

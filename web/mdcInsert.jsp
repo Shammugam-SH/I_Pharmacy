@@ -4,7 +4,7 @@
     Author     : Shammugam
 --%>
 
-
+<%@page import="Formatter.DateFormatter"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DateFormat"%>
@@ -27,7 +27,6 @@
     String D_STOCK_QTY = request.getParameter("D_STOCK_QTY");
     String D_LOCATION_CODE = request.getParameter("D_LOCATION_CODE");
     String STATUS = request.getParameter("STATUS");
-    String MINIMUM_STOCK_LEVEL = request.getParameter("MINIMUM_STOCK_LEVEL");
 
     String D_PACKAGING = request.getParameter("D_PACKAGING");
     String D_PRICE_PPACK = request.getParameter("D_PRICE_PPACK");
@@ -46,15 +45,23 @@
     RMIConnector rmic = new RMIConnector();
     Conn conn = new Conn();
 
-    String sqlInsert = "INSERT INTO pis_mdc2 (UD_MDC_CODE,UD_ATC_CODE,D_TRADE_NAME,D_GNR_NAME,D_ROUTE_CODE,D_FORM_CODE,D_STRENGTH,D_STOCK_QTY,D_LOCATION_CODE,STATUS,MINIMUM_STOCK_LEVEL , D_PACKAGING,D_PRICE_PPACK,D_COST_PRICE,D_SELL_PRICE,D_QTY,D_QTYT,D_FREQUENCY,D_DURATION,D_DURATIONT,D_ADVISORY_CODE,D_CAUTION_CODE,D_EXP_DATE,D_CLASSIFICATION)"
-            + " VALUES ('" + UD_MDC_CODE + "','" + UD_ATC_CODE + "','" + D_TRADE_NAME + "','" + D_GNR_NAME + "','" + D_ROUTE_CODE + "','" + D_FORM_CODE + "','" + D_STRENGTH + "','" + D_STOCK_QTY + "','" + D_LOCATION_CODE + "','" + STATUS + "','" + MINIMUM_STOCK_LEVEL + "' , '" + D_PACKAGING + "','" + D_PRICE_PPACK + "','" + D_COST_PRICE + "','" + D_SELL_PRICE + "','" + D_QTY + "','" + D_QTYT + "','" + D_FREQUENCY + "','" + D_DURATION + "','" + D_DURATIONT + "','" + D_ADVISORY_CODE + "','" + D_CAUTIONARY_CODE + "','" + D_EXP_DATE + "','" + D_CLASSIFICATION + "'  )";
+    String sqlCheck = "SELECT UD_MDC_CODE from pis_mdc2 WHERE UD_MDC_CODE = '" + UD_MDC_CODE + "' LIMIT 1 ";
+    ArrayList<ArrayList<String>> duplicate = conn.getData(sqlCheck);
 
-    boolean isInsert = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsert);
-
-    if (isInsert == true) {
-        out.print("Success");
+    if (duplicate.size() > 0) {
+        out.print("Duplicate");
     } else {
-        out.print("Failed");
+
+        String sqlInsert = "INSERT INTO pis_mdc2 (UD_MDC_CODE,UD_ATC_CODE,D_TRADE_NAME,D_GNR_NAME,D_ROUTE_CODE,D_FORM_CODE,D_STRENGTH,D_STOCK_QTY,D_LOCATION_CODE,STATUS , D_PACKAGING,D_PRICE_PPACK,D_COST_PRICE,D_SELL_PRICE,D_QTY,D_QTYT,D_FREQUENCY,D_DURATION,D_DURATIONT,D_ADVISORY_CODE,D_CAUTION_CODE,D_EXP_DATE,D_CLASSIFICATION)"
+                + " VALUES ('" + UD_MDC_CODE + "','" + UD_ATC_CODE + "','" + D_TRADE_NAME + "','" + D_GNR_NAME + "','" + D_ROUTE_CODE + "','" + D_FORM_CODE + "','" + D_STRENGTH + "','" + D_STOCK_QTY + "','" + D_LOCATION_CODE + "','" + STATUS + "','" + D_PACKAGING + "','" + D_PRICE_PPACK + "','" + D_COST_PRICE + "','" + D_SELL_PRICE + "','" + D_QTY + "','" + D_QTYT + "','" + D_FREQUENCY + "','" + D_DURATION + "','" + D_DURATIONT + "','" + D_ADVISORY_CODE + "','" + D_CAUTIONARY_CODE + "','" + D_EXP_DATE + "','" + D_CLASSIFICATION + "'  )";
+
+        boolean isInsert = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsert);
+
+        if (isInsert == true) {
+            out.print("Success");
+        } else {
+            out.print("Failed");
+        }
     }
 
 %>

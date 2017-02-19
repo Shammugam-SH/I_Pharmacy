@@ -15,8 +15,8 @@
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%           
-    
+<%
+
     String Supplier_ID = request.getParameter("Supplier_ID");
     String Supplier_Name = request.getParameter("Supplier_Name");
     String Office_Tel_No = request.getParameter("Office_Tel_No");
@@ -24,7 +24,7 @@
     String ADDRESS1 = request.getParameter("ADDRESS1");
     String ADDRESS2 = request.getParameter("ADDRESS2");
     String ADDRESS3 = request.getParameter("ADDRESS3");
-    
+
     String DISTRICT_CODE = request.getParameter("DISTRICT_CODE");
     String TOWN_CODE = request.getParameter("TOWN_CODE");
     String POSTCODE = request.getParameter("POSTCODE");
@@ -36,15 +36,24 @@
     RMIConnector rmic = new RMIConnector();
     Conn conn = new Conn();
 
-    String sqlInsert = "INSERT INTO pis_supplier_info (Supplier_ID,Supplier_Name,Office_Tel_No,ADDRESS1,ADDRESS2,ADDRESS3,DISTRICT_CODE , TOWN_CODE,POSTCODE,STATE_CODE,COUNTRY_CODE,Mobile_No,Fax_No,Email)"
-            + " VALUES ('"+ Supplier_ID +"','"+ Supplier_Name +"','"+ Office_Tel_No +"','"+ ADDRESS1 +"','"+ ADDRESS2 +"','"+ ADDRESS3 +"','"+ DISTRICT_CODE +"','"+ TOWN_CODE +"','"+ POSTCODE +"','"+ STATE_CODE +"','"+ COUNTRY_CODE +"','"+ Mobile_No +"','"+ Fax_No +"','"+ Email +"'  )";
-    
-    boolean isInsert = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsert);
-    
-    if (isInsert == true) {
-        out.print("Success");
+    String sqlCheck = "SELECT Supplier_ID from pis_supplier_info WHERE Supplier_ID = '" + Supplier_ID + "' LIMIT 1 ";
+    ArrayList<ArrayList<String>> duplicate = conn.getData(sqlCheck);
+
+    if (duplicate.size() > 0) {
+        out.print("Duplicate");
     } else {
-        out.print("Failed");
+
+        String sqlInsert = "INSERT INTO pis_supplier_info (Supplier_ID,Supplier_Name,Office_Tel_No,ADDRESS1,ADDRESS2,ADDRESS3,DISTRICT_CODE , TOWN_CODE,POSTCODE,STATE_CODE,COUNTRY_CODE,Mobile_No,Fax_No,Email)"
+                + " VALUES ('" + Supplier_ID + "','" + Supplier_Name + "','" + Office_Tel_No + "','" + ADDRESS1 + "','" + ADDRESS2 + "','" + ADDRESS3 + "','" + DISTRICT_CODE + "','" + TOWN_CODE + "','" + POSTCODE + "','" + STATE_CODE + "','" + COUNTRY_CODE + "','" + Mobile_No + "','" + Fax_No + "','" + Email + "'  )";
+
+        boolean isInsert = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsert);
+
+        if (isInsert == true) {
+            out.print("Success");
+        } else {
+            out.print("Failed");
+        }
+
     }
 
 %>

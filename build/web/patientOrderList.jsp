@@ -92,8 +92,8 @@
         </div>
 
 
-        <!-- Add Modal Start -->
-        <div class="modal fade" id="updateDispenceOrder" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <!-- Update Dispense Start -->
+        <div class="modal fade" id="updateOrder" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -125,7 +125,15 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Ordered Drug Quantity</label>
                                 <div class="col-md-8">
-                                    <input id="updateOrderedDrugQuantity" name="updateOrderedDrugQuantity" type="text" placeholder="Ordered Drug Quantity" class="form-control input-md" maxlength="50" required>
+                                    <input id="updateOrderedDrugQuantity" name="updateOrderedDrugQuantity" type="text" placeholder="Ordered Drug Quantity" class="form-control input-md" maxlength="50" readonly>
+                                </div>
+                            </div>
+                            
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Supplied Drug Quantity</label>
+                                <div class="col-md-8">
+                                    <input id="updateSuppliedDrugQuantity" name="updateSuppliedDrugQuantity" type="number" placeholder="Dispensed Drug Quantity" class="form-control input-md" maxlength="50" readonly>
                                 </div>
                             </div>
 
@@ -133,7 +141,21 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Dispensed Drug Quantity</label>
                                 <div class="col-md-8">
-                                    <input id="updateDispensedDrugQuantity" name="updateDispensedDrugQuantity" type="text" placeholder="Dispensed Drug Quantity" class="form-control input-md" maxlength="50" required>
+                                    <input id="updateDispensedDrugQuantity" name="updateDispensedDrugQuantity" type="number" placeholder="Dispensed Drug Quantity" class="form-control input-md" maxlength="50" required>
+                                </div>
+                            </div>
+
+                            <!-- Select input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Status</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="tstatus" id="updatestatus">
+                                        <option value="0" selected="">-- Select Order Status --</option>
+                                        <option value="1" >Partial</option>
+                                        <option value="2" >Complete Partial</option>
+                                        <option value="3" >Complete Full</option>
+                                        <option value="4" >Full</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -147,15 +169,15 @@
                                 <button type="submit" class="btn btn-success btn-block btn-lg" role="button" id="updateOrderMButton">Update</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="reset" class="btn btn-default btn-block btn-lg" data-dismiss="modal" role="button" >Cancel</button>
+                                <button type="reset" class="btn btn-danger btn-block btn-lg" data-dismiss="modal" role="button" >Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Add Modal End -->                         
-        <!-- Add Part End -->
+        <!-- Update Dispense End -->                         
+
 
 
 
@@ -178,7 +200,7 @@
             w3IncludeHTML();
 
             $("#patientOrderListContent").load("patientOrderListTable.jsp");
-            $("#patientOrderDetailContent").load("patientOrderListBasicInfo.jsp");
+            $("#patientOrderDetailContent").load("patientOrderListBasicInfoNew.jsp");
 
         </script>
 
