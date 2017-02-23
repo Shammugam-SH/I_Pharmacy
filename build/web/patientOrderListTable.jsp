@@ -40,12 +40,12 @@
 
     <tr id="moveToOrderDetailsTButton">
 <input id="dataPatientOrderListhidden" type="hidden" value="<%=String.join("|", dataPatientOrderList.get(i))%>">
-<td><%= dataPatientOrderList.get(i).get(0)%></td>
-<td><%= dataPatientOrderList.get(i).get(1)%></td>
-<td><%= dataPatientOrderList.get(i).get(15)%></td>
-<td><%= dataPatientOrderList.get(i).get(5)%></td>
-<td><%= dataPatientOrderList.get(i).get(2)%></td>
-<td><%= dataPatientOrderList.get(i).get(6)%></td>
+<td><%= dataPatientOrderList.get(i).get(0)%></td> <!-- Order No -->
+<td><%= dataPatientOrderList.get(i).get(1)%></td> <!-- PMI No -->
+<td><%= dataPatientOrderList.get(i).get(15)%></td> <!-- Name -->
+<td><%= dataPatientOrderList.get(i).get(5)%></td> <!-- Order Date -->
+<td><%= dataPatientOrderList.get(i).get(2)%></td> <!-- Health Facility Code -->
+<td><%= dataPatientOrderList.get(i).get(6)%></td> <!-- Doctor's Name -->
 </tr>
 <%
     }

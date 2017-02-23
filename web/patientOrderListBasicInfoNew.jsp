@@ -144,13 +144,13 @@
             <th>Strength</th>
             <th>Frequency</th>
             <th>Duration</th>
-            <th>Duration Type</th>
             <th>Dose</th>
-            <th>Ordered Qty</th>
-            <th>Stock Qty</th>
-            <th>Dispense Qty</th>
             <th>Price/Pack</th>
-            <th>Total Price</th>
+            <th>Stock Qty</th>
+            <th>Ordered Qty</th>
+            <th>Supplied Qty</th>
+            <th>Dispensed Qty</th>
+            <!--    <th>Total Price (RM)</th>-->
             <th>Status</th>
             </thead>
             <tbody>
@@ -175,7 +175,9 @@
 
 <script>
 
-    // Move to Order Details Fetch Details
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // Move to Order Details Fetch Details Start
     $('#patientOrderListContent').off('click', '#patientOrderListTable #moveToOrderDetailsTButton').on('click', '#patientOrderListTable #moveToOrderDetailsTButton', function (e) {
 
         e.preventDefault();
@@ -211,8 +213,9 @@
         loadOrder(patientOrderNo);
 
     });
+    // Move to Order Details Fetch Details End
 
-    // Move to Order Details Load Table Data
+    // Move to Order Details Load Table Data Start
     function loadOrder(orderNo) {
 
         var data = {
@@ -232,13 +235,29 @@
             }
         });
     }
+    // Move to Order Details Load Table Data End
+
+//    // Table
+//    setInterval((function () {
+//        function loop() {
+//            var table = $("#patientOrderDetailsListTable tbody tr");
+//            var data = table.eq(3).text();
+//            var dataInt = parseInt(data);
+//            alert(data);
+//        };
+//
+//        loop();
+//        return loop;
+//    }()), 5000);
+
+//======================================================================================================================================================================================//
 
 
 
-// Add part start
 
-// Getting Order Id And date
+//------------------------------------------------------------------------------  Add Part Start  -------------------------------------------------------------------------------------//
 
+    // Getting Order Id And Date Start
     $('#patientOrderDetailContent').off('click', '#patientOrderNewDrugButton').on('click', '#patientOrderNewDrugButton', function (e) {
 
         e.preventDefault();
@@ -264,7 +283,10 @@
         }
 
     });
-    //js Search in add drug
+    // Getting Order Id And Date End
+
+
+    //js Search in add drug Start
     $(function () {
         $("#orderDrugSearchInput").on('keyup', function () { // everytime keyup event
             var input = $(this).val(); // We take the input value
@@ -292,10 +314,10 @@
             }
         });
     });
-//End js Search in add drug
+    //js Search in add drug End
 
 
-//Start js Search Select drug
+    //Start js Search Select drug
     $('#orderDrugSearchInputDisplayResult').on('click', function () {
         var id = $('#orderDrugSearchInput').val();
         $.ajax({
@@ -332,7 +354,7 @@
     //End js Search Select drug
 
 
-
+    // Add Order Start
     $('#orderDrugAddButton').on('click', function (e) {
 
         e.preventDefault();
@@ -460,44 +482,377 @@
         }
 
     });
+    // Add Order End
 
 
+    // Reset Order Button Start
     $('#orderDrugResetButton').on('click', function (e) {
         resetAddOrder();
     });
+    // Reset Order Button End
 
+
+    // Reset Order Function Start
     function resetAddOrder() {
         document.getElementById("addDrugOrderForm").reset();
     }
+    // Reset Order Function End
+
+//================================================================================  Add Part End  =====================================================================================//
 
 
-// Add part End
 
-// delete Part
-// get data
+
+
+//-------------------------------------------------------------------------  Update And Delete Part Start  ----------------------------------------------------------------------------//
+
+    // global variable declaration
+    var row;
+
+
+    // Get Data For Delete And Update To Load On the Modal
     $('#patientOrderDetailContent').off('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton').on('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton', function (e) {
 
         e.preventDefault();
 
-        var row = $(this).closest("tr");
+        row = $(this).closest("tr");
         var rowData = row.find("#dataPatientOrderDetailsListhidden").val();
         var arrayData = rowData.split("|");
+        console.log(row);
         console.log(arrayData);
 
         var updateOrderNo = arrayData[0];
-        var updateDrugCode = arrayData[1];
-  
+        var updateOrderDrugCode = arrayData[1];
+        var updateOrderDrugOrdered = parseInt(arrayData[11]);
+        var updateOrderDrugSupplied = arrayData[12];
+        var updateOrderDrugStockQty = arrayData[18];
+        var updateOrderDrugDispensed = row.find('td').eq(11).text();
+        var updateOrderDrugStatus = row.find('td').eq(12).text();
 
         $("#updateOrderNo").val(updateOrderNo);
-        $("#updateDrugCode").val(updateDrugCode);
- 
+        $("#updateStockQuantity").val(updateOrderDrugStockQty);
+        $("#updateDrugCode").val(updateOrderDrugCode);
+        $("#updateOrderedDrugQuantity").val(updateOrderDrugOrdered);
+        $("#updateOrderedDrugQuantity").val(updateOrderDrugOrdered);
+        $("#updateSuppliedDrugQuantity").val(updateOrderDrugSupplied);
+        $("#updatestatus").val(updateOrderDrugStatus);
 
+        if (updateOrderDrugDispensed === "0") {
+            $("#updateDispensedDrugQuantity").val("");
+        } else {
+            $("#updateDispensedDrugQuantity").val(updateOrderDrugDispensed);
+        }
 
     });
+    // Get Data For Delete And Update To Load On the Modal End
+
+
+    // Update Order Data
+    $('#updateOrder').off('click', '#updateOrderMButton').on('click', '#updateOrderMButton', function (e) {
+
+        e.preventDefault();
+
+        var updateStockQty = $("#updateStockQuantity").val();
+        var updateOrderedQty = $("#updateOrderedDrugQuantity").val();
+        var updateSuppliedQty = $("#updateSuppliedDrugQuantity").val();
+        var updateDispensedQuantity = $("#updateDispensedDrugQuantity").val();
+        var updateOrderStatusStatic = $("#updatestatus").val();
+
+        if (updateDispensedQuantity === "" || updateDispensedQuantity === null || parseInt(updateDispensedQuantity) < 1) {
+            bootbox.alert("Please Insert The Dispense Quantity Than Is More That 0");
+        } else if (updateOrderStatusStatic === "New" || updateOrderStatusStatic === null) {
+            bootbox.alert("Please Select The Order Status");
+        } else if ( parseInt(updateDispensedQuantity) < parseInt(updateOrderedQty) ) {
+            bootbox.alert("The Dispense Quantity Is Invalid. Please Choose Valid Number");
+            $("#updateDispensedDrugQuantity").val("");
+        } else {
+
+            var updateOrderDrugDispensed = row.find('td').eq(11).text(updateDispensedQuantity);
+            var updateOrderDrugStatus = row.find('td').eq(12).text(updateOrderStatusStatic);
+            $('#updateOrder').modal('hide');
+
+            bootbox.alert({
+                message: "Drug Order Detail is Updated Successfully",
+                title: "Process Result",
+                backdrop: true
+            });
+
+        }
+    });
+    // Update Order Data End
+
+
+    // Delete Order Data 
+    $('#updateOrder').on('click', '#deleteOrderMButton', function (e) {
+
+        var orderNo = $("#updateOrderNo").val();
+        var drugCode = $("#updateDrugCode").val();
+
+        var data = {
+            orderNo: orderNo,
+            drugCode: drugCode
+        };
+
+        console.log(data);
+
+        bootbox.confirm({
+            message: "Are you sure want to delete this order ?",
+            title: "Delete Item?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+
+                if (result === true) {
+
+                    $.ajax({
+                        url: "patientOrderListNewOrderDelete.jsp",
+                        type: "post",
+                        data: data,
+                        timeout: 10000, // 10 seconds
+                        success: function (datas) {
+
+                            if (datas.trim() === 'Success') {
+
+                                $('#updateOrder').modal('hide');
+
+                                $.ajax({
+                                    url: "patientOrderListDetailsNew.jsp",
+                                    type: "post",
+                                    data: data,
+                                    timeout: 3000,
+                                    success: function (returnOrderDetailsTableHTML) {
+                                        //console.log(returnOrderDetailsTableHTML);
+                                        $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+
+                                        bootbox.alert({
+                                            message: "Drug Order is Deleted Successfully",
+                                            title: "Process Result",
+                                            backdrop: true
+                                        });
+
+                                    }
+                                });
+
+                            } else if (datas.trim() === 'Failed') {
+                                bootbox.alert({
+                                    message: "Drug Order Delete Failed",
+                                    title: "Process Result",
+                                    backdrop: true
+                                });
+                            }
+
+                        },
+                        error: function (err) {
+                            alert("Error! Deletion Ajax failed!!");
+                        }
+
+                    });
+                } else {
+                    console.log("Process Is Canceled");
+                }
+
+            }
+        });
+    });
+    // Delete Order Data End
+
+
+//============================================================================  Update And Delete Part End  ===========================================================================//
+
+
+//-------------------------------------------------------------------------------  Dispense Part Start  -------------------------------------------------------------------------------//
+
+
+    // Dispense Order Data
+    $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispense').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispense', function (e) {
+
+        e.preventDefault();
+
+        var table = $("#patientOrderDetailsListTable tbody");
+
+        var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose, drugPrice,
+                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugStatus;
+
+        var orderDate, locationCode, arrivalDate;
+
+        orderDate = $("#patientOrderDate").val();
+        locationCode = $("#patientOrderLocationCode").val();
+        arrivalDate = $("#patientOrderDate").val();
+
+        table.find('tr').each(function (i) {
+
+            var $tds = $(this).find('td');
+
+            // Get The Data
+            orderNo = $tds.eq(0).text();
+            drugCode = $tds.eq(1).text();
+            drugDesc = $tds.eq(2).text();
+            drugStrength = $tds.eq(3).text();
+            drugFrequency = $tds.eq(4).text();
+            drugDuration = $tds.eq(5).text();
+            drugDose = $tds.eq(6).text();
+            drugPrice = $tds.eq(7).text();
+            drugStockQty = $tds.eq(8).text();
+            drugOrderedQty = String(parseInt($tds.eq(9).text()));
+            drugSuppliedQty = $tds.eq(10).text();
+            drugDispensedQty = $tds.eq(11).text();
+            drugStatus = $tds.eq(12).text();
+
+            // do something with productId, product, Quantity
+            if (drugStatus === "New") {
+                drugStatus = "0";
+            } else if (drugStatus === "Partial") {
+                drugStatus = "1";
+            } else if (drugStatus === "Complete Partial") {
+                drugStatus = "2";
+            } else if (drugStatus === "Full Complete") {
+                drugStatus = "3";
+            } else {
+                drugStatus = "4";
+            }
+
+            var updatedQtySupplied = String(parseInt(drugDispensedQty) + parseInt(drugSuppliedQty));
+            var updateQtyStock = parseInt(drugStockQty) - parseInt(drugDispensedQty);
+
+            var dataAjax = {
+                orderNo: orderNo,
+                drugCode: drugCode,
+                drugPrice: drugPrice,
+                drugStockQty: updateQtyStock,
+                drugOrderedQty: drugOrderedQty,
+                drugSuppliedQty: updatedQtySupplied,
+                drugDispensedQty: drugDispensedQty,
+                drugStatus: drugStatus,
+                orderDate: orderDate,
+                locationCode: locationCode,
+                arrivalDate: arrivalDate
+            };
+
+            console.log(dataAjax);
+
+            $.ajax({
+                url: "patientOrderListDetailsDispenceUpdateOrderTable.jsp",
+                type: "post",
+                data: dataAjax,
+                timeout: 3000,
+                success: function (datas) {
+                    console.log(datas);
+
+                    $.ajax({
+                        url: "patientOrderListDetailsDispenceUpdateDispenseTable.jsp",
+                        type: "post",
+                        data: dataAjax,
+                        timeout: 3000,
+                        success: function (datas) {
+                            console.log(datas);
+
+                            $.ajax({
+                                url: "patientOrderListDetailsDispenceUpdateMDCTable.jsp",
+                                type: "post",
+                                data: dataAjax,
+                                timeout: 3000,
+                                success: function (datas) {
+                                    console.log(datas);
+                                },
+                                error: function (err) {
+                                    console.log("Error update!");
+                                }
+
+                            });
+                        },
+                        error: function (err) {
+                            console.log("Error update!");
+                        }
+
+                    });
+
+                },
+                error: function (err) {
+                    console.log("Error update!");
+                }
+
+            });
+        });
+
+    });
+    // Dispense Order Data End
+
+
+//===============================================================================  Dispense Part End  ================================================================================//
 
 
 
 
+//            var orderNo = $("#updateOrderNo").val();
+//            var drugCode = $("#updateDrugCode").val();
+
+//            var data = {
+//                orderNo: orderNo
+//            };
+//
+//            var dataUpdate = {
+//                orderNo: orderNo,
+//                drugCode: drugCode,
+//                updateDispensedQuantity: updateDispensedQuantity,
+//                updateOrderStatusStatic: updateOrderStatusStatic
+//            };
+//
+//
+//            console.log(data);
+//            console.log(dataUpdate);
+//
+//            $.ajax({
+//                url: "patientOrderListDetailsDispenceUpdateNew.jsp",
+//                type: "post",
+//                data: dataUpdate,
+//                timeout: 3000,
+//                success: function (datas) {
+//                    if (datas.trim() === 'Success') {
+//
+//
+//                        $.ajax({
+//                            url: "patientOrderListDetailsNew.jsp",
+//                            type: "post",
+//                            data: data,
+//                            timeout: 3000,
+//                            success: function (returnOrderDetailsTableHTML) {
+//
+//                                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+//
+//                                console.log(row);
+//
+//                                var tdnew = row.find('td').eq(1).text("DataUUpdate");
+//                                console.log(tdnew);
+//
+//                                $('#updateOrder').modal('hide');
+//
+//
+//
+//                            }
+//                        });
+//
+//
+//                    } else if (datas.trim() === 'Failed') {
+//                        alert("Update Failed");
+//                    }
+//                },
+//                error: function (err) {
+//                    alert("Error update!");
+//                }
+//
+//            });
+//
+//        }
+//
+//    });
 
 
     // Update Part Start
@@ -570,38 +925,7 @@
 //            console.log(dataOrderNo);
 //            console.log(dataDispence);
 //
-//            $.ajax({
-//                url: "patientOrderListDetailsDispenceUpdateNew.jsp",
-//                type: "post",
-//                data: data,
-//                timeout: 3000,
-//                success: function (datas) {
-//                    if (datas.trim() === 'Success') {
-//
-//                        $.ajax({
-//                            url: "patientOrderListDetailsNew.jsp",
-//                            type: "post",
-//                            data: dataOrderNo,
-//                            timeout: 3000,
-//                            success: function (returnOrderDetailsTableHTML) {
-//
-//                                console.log(returnOrderDetailsTableHTML);
-//
-//                                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
-//                                $('#updateOrder').modal('hide');
-//
-//                            }
-//                        });
-//
-//                    } else if (datas.trim() === 'Failed') {
-//                        alert("Update Failed");
-//                    }
-//                },
-//                error: function (err) {
-//                    alert("Error update!");
-//                }
-//
-//            });
+
 //        }
 //
 //
