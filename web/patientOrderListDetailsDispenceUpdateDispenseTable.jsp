@@ -39,7 +39,7 @@
     String SCREENED_BY = (String) session.getAttribute("USER_ID"); // Data 15
     String ASSIGNED_BY = (String) session.getAttribute("USER_ID"); // Data 16
     String DISPENSED_UOM = "-";
-    String STATUS = "1";
+    int STATUS = 1;
 
     RMIConnector rmic = new RMIConnector();
     Conn conn = new Conn();
@@ -56,18 +56,20 @@
         ArrayList<ArrayList<String>> checkDispenseMaster = conn.getData(sqlFetchMasterData);
 
         // No Master Data
-        if (checkDispenseMaster.size() < 1) {
+        if (checkDispenseMaster.size() == 0) {
 
             // Insert Master 
             String sqlInsertMaster = "INSERT INTO pis_dispense_master (ORDER_NO, ORDER_DATE, LOCATION_CODE, ARRIVAL_DATE, DISPENSED_DATE, DISPENSED_BY, FILLED_BY, SCREENED_BY, ASSIGNED_BY,STATUS) "
-                    + " VALUES ('" + ORDER_NO + "','" + ORDER_DATE + "','" + LOCATION_CODE + "','" + ARRIVAL_DATE + "','" + DISPENSED_DATE + "','" + DISPENSED_BY + "','" + FILLED_BY + "','" + SCREENED_BY + "','" + ASSIGNED_BY + "','" + STATUS + "' )";
+                    + " VALUES ('" + ORDER_NO + "','" + ORDER_DATE + "','" + LOCATION_CODE + "','" + ARRIVAL_DATE + "','" + DISPENSED_DATE + "','" + DISPENSED_BY + "','" + FILLED_BY + "','" + SCREENED_BY + "','" + ASSIGNED_BY + "'," + STATUS + " )";
 
+            
             boolean isInsertMaster = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsertMaster);
+            
 
             if (isInsertMaster == true) {
-                out.print("Master Insert Ok");
+                out.print("Master Dispense Insert Ok");
             } else {
-                out.print("Master Insert Not Ok");
+                out.print("Master Dispense Insert Not Ok");
             }
 
         } else {
@@ -82,14 +84,15 @@
         if (checkDispenseDetails.size() == 0) {
 
             String sqlInsertDetail = "INSERT INTO pis_dispense_detail (ORDER_NO, DRUG_ITEM_CODE, DISPENSED_QTY, DISPENSED_UOM,STATUS) "
-                    + " VALUES ('" + ORDER_NO + "','" + DRUG_ITEM_CODE + "','" + QTY_SUPPLIED + "','" + DISPENSED_UOM + "','" + STATUS + "' )";
+                    + " VALUES ('" + ORDER_NO + "','" + DRUG_ITEM_CODE + "','" + QTY_SUPPLIED + "','" + DISPENSED_UOM + "'," + STATUS + " )";
+            
 
             boolean isInsertDetail = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsertDetail);
 
             if (isInsertDetail == true) {
-                out.print("Detail Insert Ok");
+                out.print("Detail Dispense Insert Ok");
             } else {
-                out.print("Detail Insert Not Ok");
+                out.print("Detail Dispense Insert Not Ok");
             }
 
         } else {
@@ -97,12 +100,13 @@
             String sqlUpdateDispenseDetails = "UPDATE pis_dispense_detail SET DISPENSED_QTY = '" + QTY_SUPPLIED + "' "
                     + "WHERE ORDER_NO = '" + ORDER_NO + "' AND DRUG_ITEM_CODE = '" + DRUG_ITEM_CODE + "' ";
             
+            
             boolean isUpdateDetail = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlUpdateDispenseDetails);
             
             if (isUpdateDetail == true) {
-                out.print("Detail Update Ok");
+                out.print("Detail Dispense Update Ok");
             } else {
-                out.print("Detail Update Not Ok");
+                out.print("Detail Dispense Update Not Ok");
             }
         }
 

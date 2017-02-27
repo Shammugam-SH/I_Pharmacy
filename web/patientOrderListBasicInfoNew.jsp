@@ -160,10 +160,10 @@
     </div>
 
     <div class="text-center" id="patientOrderDispenseButtonDiv"> 
-        <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa- fa-lg"></i>&nbsp; Dispense</button>
+        <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa- fa-lg"></i>&nbsp; Dispense &nbsp;</button>
+        <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa- fa-lg" ></i>&nbsp; Prescribe &nbsp;</button>
     </div>
 </div>
-
 
 
 
@@ -177,6 +177,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
     // Move to Order Details Fetch Details Start
     $('#patientOrderListContent').off('click', '#patientOrderListTable #moveToOrderDetailsTButton').on('click', '#patientOrderListTable #moveToOrderDetailsTButton', function (e) {
 
@@ -215,6 +216,7 @@
     });
     // Move to Order Details Fetch Details End
 
+
     // Move to Order Details Load Table Data Start
     function loadOrder(orderNo) {
 
@@ -237,25 +239,15 @@
     }
     // Move to Order Details Load Table Data End
 
-//    // Table
-//    setInterval((function () {
-//        function loop() {
-//            var table = $("#patientOrderDetailsListTable tbody tr");
-//            var data = table.eq(3).text();
-//            var dataInt = parseInt(data);
-//            alert(data);
-//        };
-//
-//        loop();
-//        return loop;
-//    }()), 5000);
 
 //======================================================================================================================================================================================//
 
 
 
 
+
 //------------------------------------------------------------------------------  Add Part Start  -------------------------------------------------------------------------------------//
+
 
     // Getting Order Id And Date Start
     $('#patientOrderDetailContent').off('click', '#patientOrderNewDrugButton').on('click', '#patientOrderNewDrugButton', function (e) {
@@ -498,6 +490,7 @@
     }
     // Reset Order Function End
 
+
 //================================================================================  Add Part End  =====================================================================================//
 
 
@@ -508,7 +501,6 @@
 
     // global variable declaration
     var row;
-
 
     // Get Data For Delete And Update To Load On the Modal
     $('#patientOrderDetailContent').off('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton').on('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton', function (e) {
@@ -546,11 +538,12 @@
     });
     // Get Data For Delete And Update To Load On the Modal End
 
-
     // Update Order Data
     $('#updateOrder').off('click', '#updateOrderMButton').on('click', '#updateOrderMButton', function (e) {
 
         e.preventDefault();
+        
+        var validDispense = document.getElementById("updateDispensedDrugQuantity");
 
         var updateStockQty = $("#updateStockQuantity").val();
         var updateOrderedQty = $("#updateOrderedDrugQuantity").val();
@@ -559,11 +552,20 @@
         var updateOrderStatusStatic = $("#updatestatus").val();
 
         if (updateDispensedQuantity === "" || updateDispensedQuantity === null || parseInt(updateDispensedQuantity) < 1) {
-            bootbox.alert("Please Insert The Dispense Quantity Than Is More That 0");
+            bootbox.alert("Please Insert The Dispense Quantity Than Is More That 0 !!!");
         } else if (updateOrderStatusStatic === "New" || updateOrderStatusStatic === null) {
             bootbox.alert("Please Select The Order Status");
-        } else if ( parseInt(updateDispensedQuantity) < parseInt(updateOrderedQty) ) {
-            bootbox.alert("The Dispense Quantity Is Invalid. Please Choose Valid Number");
+        } else if ((parseInt(updateDispensedQuantity) > parseInt(updateOrderedQty))) {
+            bootbox.alert("The Dispense Quantity Is More Than Ordered Quantity. Please Choose Valid Number !!!");
+            $("#updateDispensedDrugQuantity").val("");
+        } else if (validDispense.checkValidity() === false) {
+            bootbox.alert("The Dispense Quantity Should Not Be Decimal Number. Please Choose Valid Number !!!");
+            $("#updateDispensedDrugQuantity").val("");
+        } else if ((parseInt(updateDispensedQuantity) > parseInt(updateStockQty))) {
+            bootbox.alert("The Dispense Quantity Is More Than Stock Quantity. Please Choose Valid Number !!!");
+            $("#updateDispensedDrugQuantity").val("");
+        } else if (((parseInt(updateDispensedQuantity) + parseInt(updateSuppliedQty)) > parseInt(updateOrderedQty))) {
+            bootbox.alert("The Combination of Dispense And Supplied Quantity Is More Than Ordered Quantity. Please Choose Valid Number !!!");
             $("#updateDispensedDrugQuantity").val("");
         } else {
 
@@ -595,6 +597,8 @@
 
         console.log(data);
 
+        $('#updateOrder').modal('hide');
+
         bootbox.confirm({
             message: "Are you sure want to delete this order ?",
             title: "Delete Item?",
@@ -620,8 +624,6 @@
                         success: function (datas) {
 
                             if (datas.trim() === 'Success') {
-
-                                $('#updateOrder').modal('hide');
 
                                 $.ajax({
                                     url: "patientOrderListDetailsNew.jsp",
@@ -668,6 +670,9 @@
 //============================================================================  Update And Delete Part End  ===========================================================================//
 
 
+
+
+
 //-------------------------------------------------------------------------------  Dispense Part Start  -------------------------------------------------------------------------------//
 
 
@@ -675,6 +680,64 @@
     $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispense').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispense', function (e) {
 
         e.preventDefault();
+
+        bootbox.confirm({
+            message: "Are you sure want to dispense this order ?",
+            title: "Dispense Item?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+
+                if (result === true) {
+
+                    var orderNo = $("#patientOrderNo").val();
+                    var totalOrder = (document.getElementById("patientOrderDetailsListTable").rows.length) - 1;
+                    var table = $("#patientOrderDetailsListTable tbody");
+
+                    var drugPrice, drugDispensedQty, product;
+
+                    var grandTotal = 0.0;
+
+                    table.find('tr').each(function (i) {
+
+                        var $tds = $(this).find('td');
+
+                        drugPrice = parseFloat($tds.eq(7).text());
+                        drugDispensedQty = parseFloat($tds.eq(11).text());
+                        product = drugDispensedQty * drugPrice;
+
+                        grandTotal = grandTotal + product;
+
+                    });
+
+                    $("#dispenseOrderNo").val(orderNo);
+                    $("#dispenseTotalOrder").val(totalOrder);
+                    $("#dispenseGrandTotal").val(grandTotal);
+
+                    $('#dispenseOrder').modal('show');
+
+                } else {
+                    console.log("Process Is Canceled");
+                }
+
+            }
+        });
+
+
+    });
+    // Dispense Order Data End
+
+
+    // Dispense Order
+    $('#dispenseOrder').off('click', '#dispenseOrderMButton').on('click', '#dispenseOrderMButton', function (e) {
 
         var table = $("#patientOrderDetailsListTable tbody");
 
@@ -761,6 +824,8 @@
                                 timeout: 3000,
                                 success: function (datas) {
                                     console.log(datas);
+
+
                                 },
                                 error: function (err) {
                                     console.log("Error update!");
@@ -780,10 +845,22 @@
                 }
 
             });
+        }).promise().done(function () {
+
+            $('#dispenseOrder').modal('hide');
+
+            bootbox.alert({
+                message: "Dispense Order is Successfully",
+                title: "Dispense Result",
+                backdrop: true
+            });
+
+            resetDispense();
+
         });
 
     });
-    // Dispense Order Data End
+    // Dispense Function End
 
 
 //===============================================================================  Dispense Part End  ================================================================================//
@@ -791,231 +868,35 @@
 
 
 
-//            var orderNo = $("#updateOrderNo").val();
-//            var drugCode = $("#updateDrugCode").val();
-
-//            var data = {
-//                orderNo: orderNo
-//            };
-//
-//            var dataUpdate = {
-//                orderNo: orderNo,
-//                drugCode: drugCode,
-//                updateDispensedQuantity: updateDispensedQuantity,
-//                updateOrderStatusStatic: updateOrderStatusStatic
-//            };
-//
-//
-//            console.log(data);
-//            console.log(dataUpdate);
-//
-//            $.ajax({
-//                url: "patientOrderListDetailsDispenceUpdateNew.jsp",
-//                type: "post",
-//                data: dataUpdate,
-//                timeout: 3000,
-//                success: function (datas) {
-//                    if (datas.trim() === 'Success') {
-//
-//
-//                        $.ajax({
-//                            url: "patientOrderListDetailsNew.jsp",
-//                            type: "post",
-//                            data: data,
-//                            timeout: 3000,
-//                            success: function (returnOrderDetailsTableHTML) {
-//
-//                                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
-//
-//                                console.log(row);
-//
-//                                var tdnew = row.find('td').eq(1).text("DataUUpdate");
-//                                console.log(tdnew);
-//
-//                                $('#updateOrder').modal('hide');
-//
-//
-//
-//                            }
-//                        });
-//
-//
-//                    } else if (datas.trim() === 'Failed') {
-//                        alert("Update Failed");
-//                    }
-//                },
-//                error: function (err) {
-//                    alert("Error update!");
-//                }
-//
-//            });
-//
-//        }
-//
-//    });
+//-------------------------------------------------------------------------------  Reset Part Start  --------------------------------------------------------------------------------//
 
 
-    // Update Part Start
-    // 
-    // Get Order Data
-//    $('#patientOrderDetailContent').off('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton').on('click', '#patientOrderDetailsListTable #updateOrderDetailsTButton', function (e) {
-//
-//        e.preventDefault();
-//
-//        var row = $(this).closest("tr");
-//        var rowData = row.find("#dataPatientOrderDetailsListhidden").val();
-//        var arrayData = rowData.split("|");
-//        console.log(arrayData);
-//
-//        var updateOrderNo = arrayData[0];
-//        var updateDrugCode = arrayData[1];
-//        var updateOrderedQuantity = parseInt(arrayData[11]);
-//        var updateSuppliedDrugQuantity = parseInt(arrayData[12]);
-//        var updateDispensedQuantity = parseInt(arrayData[14]);
-//        var status = parseInt(arrayData[20]);
-//
-//        $("#updateOrderNo").val(updateOrderNo);
-//        $("#updateDrugCode").val(updateDrugCode);
-//        $("#updateOrderedDrugQuantity").val(updateOrderedQuantity);
-//        $("#updateSuppliedDrugQuantity").val(updateSuppliedDrugQuantity);
-//        $("#updateDispensedDrugQuantity").val("");
-//        $("#updatestatus").val(status);
-//
-//
-//    });
-
-    // Update Order Data
-//    $('#updateOrder').on('click', '#updateOrderMButton', function (e) {
-//
-//        e.preventDefault();
-//
-//
-//
-//        var ORDER_NO = $("#updateOrderNo").val();
-//        var DRUG_ITEM_CODE = $("#updateDrugCode").val();
-//        var QTY_ORDERED = $("#updateOrderedDrugQuantity").val();
-//        var QTY_DISPENSED = $("#updateDispensedDrugQuantity").val();
-//        var ORDER_STATUS = $("#updatestatus").val();
-//
-//
-//        if (QTY_DISPENSED === "") {
-//            alert("Enter Dispense Qty");
-//        } else if (ORDER_STATUS === "") {
-//            alert("Select A Order Status");
-//        } else {
-//
-//            var data = {
-//                ORDER_NO: ORDER_NO,
-//                DRUG_ITEM_CODE: DRUG_ITEM_CODE,
-//                QTY_ORDERED: QTY_ORDERED,
-//                QTY_DISPENSED: QTY_DISPENSED,
-//                ORDER_STATUS: ORDER_STATUS
-//            };
-//
-//            var dataOrderNo = {
-//                orderNo: ORDER_NO
-//            };
-//
-//            var dataDispence = {
-//                orderNo: ORDER_NO,
-//                orderProductCode: DRUG_ITEM_CODE
-//            };
-//
-//            console.log(data);
-//            console.log(dataOrderNo);
-//            console.log(dataDispence);
-//
-
-//        }
-//
-//
-//
-//
-//    });
-//
+    // Dispense Reset Function  
+    function resetDispense() {
+        console.log("Ok Clean");
+        $.ajax({
+            timeout: 3000,
+            success: function () {
+                $("#patientOrderListContent").load("patientOrderListTable.jsp");
+            }
+        });
+        document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
+        document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
+        $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
+        $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+    }
+    // Dispense Reset Function End
 
 
-//    // Dispense Order Data
-//    $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispense').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispense', function (e) {
-//
-//        e.preventDefault();
-//
-//        var row = $("#patientOrderDetailsListTable");
-//        var rowData = row.find("#dataPatientOrderDetailsListhidden").val();
-//        var rowDataArray = row.find("#dataPatientOrderDetailsListhiddenArray").val();
-//        console.log(rowData);
-//        console.log(rowDataArray);
-//
-//
-//
-//        var table = $("#patientOrderDetailsListTable tbody");
-//
-//        var data = new Array();
-//        var dataIn = new Array();
-//        var productId, product;
-//        var dataAjax;
-//
-//        table.find('tr').each(function (i) {
-//
-//            var $tds = $(this).find('td');
-//            dataIn = new Array();
-//
-//            productId = $tds.eq(0).text();
-//            product = $tds.eq(1).text();
-//            // do something with productId, product, Quantity
-//
-//            dataIn.push(productId);
-//            dataIn.push(product);
-//
-//            dataAjax = {
-//                id: productId,
-//                type: product
-//            };
-//
-//            console.log(dataAjax);
-//            data.push(dataIn);
-//
-//        });
-//
-//        console.log(data);
-//
-//
-//
-//
-//
-////for (row = 0; row < rowDataArray.length ; row++) {
-////    console.log(row);
-////}
-//
-//
-////        var patientpmino = $("#patientpmino").val();
-////        var patientName = $("#patientName").val();
-////        var patientnic = $("#patientnic").val();
-////        var patientGender = $("#patientGender").val();
-////        var patientBdate = $("#patientBdate").val();
-////        var patientBtype = $("#patientBtype").val();
-////
-////        var patientOrderNo = $("#patientOrderNo").val();
-////        var patientOrderDate = $("#patientOrderDate").val();
-////        var patientOrderLocationCode = $("#patientOrderLocationCode").val();
-////
-////        var data = {
-////            patientpmino: patientpmino,
-////            patientName: patientName,
-////            patientnic: patientnic,
-////            patientGender: patientGender,
-////            patientBdate: patientBdate,
-////            patientBtype: patientBtype,
-////            patientOrderNo: patientOrderNo,
-////            patientOrderDate: patientOrderDate,
-////            patientOrderLocationCode: patientOrderLocationCode
-////        };
-////
-////        console.log(data);
-//
-//    });
-//
+    // Reset Fields    
+    $('#patientOrderDetailContent').on('click', '#btnClearOrderDetailDispense', function (e) {
+        document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
+        document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
+        $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
+    });
 
+
+//=================================================================================  Reset Part End  ==================================================================================//
 
 
 </script>

@@ -43,7 +43,7 @@
         if (isUpdateOrderMasterData == true) {
             out.print("Success");
         } else {
-            out.print("Master Total Update Failed");
+            out.print("Master Total Delete Failed");
         }
         
     } else {

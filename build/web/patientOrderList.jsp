@@ -321,7 +321,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Quantity</label>
                                         <div class="col-md-8">
-                                            <input id="orderDrugInputQuantity" name="orderDrugInputQuantity" type="text" placeholder="Drug Quantity" class="form-control input-md" maxlength="7">
+                                            <input id="orderDrugInputQuantity" name="orderDrugInputQuantity" type="number" placeholder="Drug Quantity" class="form-control input-md" min="1" maxlength="7">
                                         </div>
                                     </div>
 
@@ -329,7 +329,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="selectbasic">Dose</label>
                                         <div class="col-md-4">
-                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" step="0.01" maxlength="50">
+                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" placeholder="Drug Dose" step="0.01" maxlength="50">
                                         </div>
                                         <div class="col-md-4">
                                             <select id="orderDrugInputDoseT" name="orderDrugInputDoseT" class="form-control">
@@ -375,7 +375,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="selectbasic">Duration</label>
                                         <div class="col-md-4">
-                                            <input id="orderDrugInputDuration" name="orderDrugInputDuration" type="number" class="form-control input-md" step="0.01" maxlength="12">
+                                            <input id="orderDrugInputDuration" name="orderDrugInputDuration" type="number" class="form-control input-md" step="0.01" placeholder="Duration" maxlength="12">
                                         </div>
                                         <div class="col-md-4">
                                             <select id="orderDrugInputDurationT" name="orderDrugInputDurationT" class="form-control">
@@ -418,6 +418,59 @@
         </div>
         <!-- Add Modal End -->    
 
+        
+        <!-- Dispense Start -->
+        <div class="modal fade" id="dispenseOrder" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
+                        <h3 class="modal-title" id="lineModalLabel">Dispense Summary</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- content goes here -->
+                        <form class="form-horizontal" id="addForm">
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Order No</label>
+                                <div class="col-md-8">
+                                    <input id="dispenseOrderNo" name="dispenseOrderNo" type="text" placeholder="Order No" class="form-control input-md" maxlength="15" readonly>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Total Order</label>
+                                <div class="col-md-8">
+                                    <input id="dispenseTotalOrder" name="dispenseTotalOrder" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Grand Total (RM)</label>
+                                <div class="col-md-8">
+                                    <input id="dispenseGrandTotal" name="dispenseGrandTotal" type="number" placeholder="Grand Total (RM)" class="form-control input-md" maxlength="50" readonly>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- content goes here -->
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                            <div class="btn-group" role="group">
+                                <button type="submit" class="btn btn-success btn-block btn-lg" role="button" id="dispenseOrderMButton">Dispense</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Dispense End -->     
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
