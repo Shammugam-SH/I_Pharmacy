@@ -37,9 +37,11 @@
         for (int s = 0; s < sizeMain; s++) {
     %>
     <%
-        if (Integer.parseInt(dataMTC.get(s).get(8)) < 100) {    %>
-    <tr style="font-weight:bolder; color:red;" >
-        <% } else {   %>
+        if (Integer.parseInt(dataMTC.get(s).get(8)) < 30) {    %>
+    <tr style="font-weight:bolder; color:yellow; background-color: red" >
+        <% } else if (Integer.parseInt(dataMTC.get(s).get(8)) < 100) {   %>
+    <tr style="font-weight:bolder; color:red; background-color: yellow">
+         <% } else {   %>
     <tr >
         <%   }%>
 

@@ -54,7 +54,7 @@
 
                 <!--Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient Birthday Date</label>
+                    <label class="col-md-4 control-label" for="textinput">Patient D.O.B</label>
                     <div class="col-md-8">
                         <input id="patientBdate" name="patientBdate" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -86,7 +86,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Order Received No.</label>
+                    <label class="col-md-4 control-label" for="textinput">Order No.</label>
                     <div class="col-md-8">
                         <input id="patientOrderNo" name="patientOrderNo" type="text" placeholder=" " readonly class="form-control input-md">   
                     </div>
@@ -99,7 +99,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Order Received Date</label>
+                    <label class="col-md-4 control-label" for="textinput">Order Date</label>
                     <div class="col-md-8">
                         <input id="patientOrderDate" name="patientOrderDate" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -112,7 +112,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Order Location Code</label>
+                    <label class="col-md-4 control-label" for="textinput">Location</label>
                     <div class="col-md-8">
                         <input id="patientOrderLocationCode" name="patientOrderLocationCode" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -159,19 +159,54 @@
         </table>
     </div>
 
-    <div class="text-center" id="patientOrderDispenseButtonDiv"> 
-        <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa- fa-lg"></i>&nbsp; Dispense &nbsp;</button>
-        <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa- fa-lg" ></i>&nbsp; Prescribe &nbsp;</button>
+    <div style="padding-top: 1%; padding-bottom: 5%;">
+        <!-- content goes here -->
+        <form class="form-horizontal" id="addForm">
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Total Order</label>
+                    <div class="col-md-4">
+                        <input id="dispenseTotalOrder" name="dispenseTotalOrder" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                        <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Grand Total (RM)</label>
+                    <div class="col-md-4">
+                        <input id="dispenseGrandTotal" name="dispenseGrandTotal" type="number" placeholder="Grand Total (RM)" class="form-control input-md" maxlength="50" readonly>
+                        <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="hidden" class="form-control input-md" maxlength="50" readonly>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="text-center" id="patientOrderDispenseButtonDiv" > 
+        <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Dispense &nbsp;</button>
+        <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa-print fa-lg" ></i>&nbsp; Print Label &nbsp;</button>
+        <button class="btn btn-default " type="button" id="btnClearOrderDetailDispense" name="btnClearOrderDetailDispense" > <i class="fa fa-ban fa-lg"></i>&nbsp; Back &nbsp;</button>
     </div>
 </div>
 
-
-
-<div class="thumbnail">
-    <div class="text-center"> 
-        <button class="btn btn-default " type="button" id="btnClearOrderDetailDispense" name="btnClearOrderDetailDispense" > <i class="fa fa-ban fa-lg"></i>&nbsp; Clear Screen</button>
-    </div>
-</div>
 
 <script>
 
@@ -200,18 +235,32 @@
         var patientOrderLocationCode = arrayData[2];
 
 
-        //Set value to the Second Tab 
-        $("#patientpmino").val(patientpmino);
-        $("#patientName").val(patientName);
-        $("#patientnic").val(patientnic);
-        $("#patientGender").val(patientGender);
-        $("#patientBdate").val(patientBdate);
-        $("#patientBtype").val(patientBtype);
-        $("#patientOrderNo").val(patientOrderNo);
-        $("#patientOrderDate").val(patientOrderDate);
-        $("#patientOrderLocationCode").val(patientOrderLocationCode);
+        $.ajax({
+            url: "patientOrderListDetailsDispenceFarTableBillNo.jsp",
+            type: "post",
+            timeout: 3000,
+            success: function (data) {
 
-        loadOrder(patientOrderNo);
+                var billNo = data.trim();
+
+                //Set value to the Second Tab 
+                $("#patientpmino").val(patientpmino);
+                $("#patientName").val(patientName);
+                $("#patientnic").val(patientnic);
+                $("#patientGender").val(patientGender);
+                $("#patientBdate").val(patientBdate);
+                $("#patientBtype").val(patientBtype);
+                $("#patientOrderNo").val(patientOrderNo);
+                $("#patientOrderDate").val(patientOrderDate);
+                $("#patientOrderLocationCode").val(patientOrderLocationCode);
+                $("#dispenseFarBillNo").val(billNo);
+
+
+                loadOrder(patientOrderNo);
+            }
+        });
+
+
 
     });
     // Move to Order Details Fetch Details End
@@ -232,6 +281,7 @@
             success: function (returnOrderDetailsTableHTML) {
                 //console.log(returnOrderDetailsTableHTML);
                 $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+
                 $('.nav-tabs a[href="#tab_default_2"]').tab('show');
 
             }
@@ -518,13 +568,12 @@
         var updateOrderDrugOrdered = parseInt(arrayData[11]);
         var updateOrderDrugSupplied = arrayData[12];
         var updateOrderDrugStockQty = arrayData[18];
-        var updateOrderDrugDispensed = row.find('td').eq(11).text();
-        var updateOrderDrugStatus = row.find('td').eq(12).text();
+        var updateOrderDrugDispensed = row.find('td').eq(10).text();
+        var updateOrderDrugStatus = row.find('td').eq(13).text();
 
         $("#updateOrderNo").val(updateOrderNo);
         $("#updateStockQuantity").val(updateOrderDrugStockQty);
         $("#updateDrugCode").val(updateOrderDrugCode);
-        $("#updateOrderedDrugQuantity").val(updateOrderDrugOrdered);
         $("#updateOrderedDrugQuantity").val(updateOrderDrugOrdered);
         $("#updateSuppliedDrugQuantity").val(updateOrderDrugSupplied);
         $("#updatestatus").val(updateOrderDrugStatus);
@@ -542,7 +591,7 @@
     $('#updateOrder').off('click', '#updateOrderMButton').on('click', '#updateOrderMButton', function (e) {
 
         e.preventDefault();
-        
+
         var validDispense = document.getElementById("updateDispensedDrugQuantity");
 
         var updateStockQty = $("#updateStockQuantity").val();
@@ -550,6 +599,12 @@
         var updateSuppliedQty = $("#updateSuppliedDrugQuantity").val();
         var updateDispensedQuantity = $("#updateDispensedDrugQuantity").val();
         var updateOrderStatusStatic = $("#updatestatus").val();
+        var updateOrderPrice = row.find('td').eq(11).text();
+
+        var orderTotal = parseFloat(updateOrderPrice) * parseFloat(updateDispensedQuantity);
+        var orderTotalFloat = parseFloat(orderTotal).toFixed(2);
+
+
 
         if (updateDispensedQuantity === "" || updateDispensedQuantity === null || parseInt(updateDispensedQuantity) < 1) {
             bootbox.alert("Please Insert The Dispense Quantity Than Is More That 0 !!!");
@@ -569,8 +624,11 @@
             $("#updateDispensedDrugQuantity").val("");
         } else {
 
-            var updateOrderDrugDispensed = row.find('td').eq(11).text(updateDispensedQuantity);
-            var updateOrderDrugStatus = row.find('td').eq(12).text(updateOrderStatusStatic);
+            var updateOrderDrugDispensed = row.find('td').eq(10).text(updateDispensedQuantity);
+            var updateOrderTotalPrice = row.find('td').eq(12).text(orderTotalFloat);
+            var updateOrderDrugStatus = row.find('td').eq(13).text(updateOrderStatusStatic);
+
+
             $('#updateOrder').modal('hide');
 
             bootbox.alert({
@@ -682,8 +740,8 @@
         e.preventDefault();
 
         bootbox.confirm({
-            message: "Are you sure want to dispense this order ?",
-            title: "Dispense Item?",
+            message: "Are you sure that you want to dispense this order ?",
+            title: "Dispense Item ?",
             buttons: {
                 confirm: {
                     label: 'Yes',
@@ -698,31 +756,7 @@
 
                 if (result === true) {
 
-                    var orderNo = $("#patientOrderNo").val();
-                    var totalOrder = (document.getElementById("patientOrderDetailsListTable").rows.length) - 1;
-                    var table = $("#patientOrderDetailsListTable tbody");
-
-                    var drugPrice, drugDispensedQty, product;
-
-                    var grandTotal = 0.0;
-
-                    table.find('tr').each(function (i) {
-
-                        var $tds = $(this).find('td');
-
-                        drugPrice = parseFloat($tds.eq(7).text());
-                        drugDispensedQty = parseFloat($tds.eq(11).text());
-                        product = drugDispensedQty * drugPrice;
-
-                        grandTotal = grandTotal + product;
-
-                    });
-
-                    $("#dispenseOrderNo").val(orderNo);
-                    $("#dispenseTotalOrder").val(totalOrder);
-                    $("#dispenseGrandTotal").val(grandTotal);
-
-                    $('#dispenseOrder').modal('show');
+                    fullDispense();
 
                 } else {
                     console.log("Process Is Canceled");
@@ -735,6 +769,236 @@
     });
     // Dispense Order Data End
 
+
+    function fullDispense() {
+
+        var table = $("#patientOrderDetailsListTable tbody");
+
+        var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
+                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus;
+
+        var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarBillNo, dispenseFarMasterQuantity, dispenseFarMasterTotal;
+
+
+        pmino = $("#patientpmino").val();
+        pname = $("#patientName").val();
+        orderDate = $("#patientOrderDate").val();
+        locationCode = $("#patientOrderLocationCode").val();
+        arrivalDate = $("#patientOrderDate").val();
+        dispenseFarBillNo = $("#dispenseFarBillNo").val();
+        dispenseFarMasterQuantity = $("#dispenseTotalQuantity").val();
+        dispenseFarMasterTotal = $("#dispenseGrandTotal").val();
+
+        table.find('tr').each(function (i) {
+
+            var $tds = $(this).find('td');
+
+            // Get The Data
+            orderNo = $tds.eq(0).text();
+            drugCode = $tds.eq(1).text();
+            drugDesc = $tds.eq(2).text();
+            drugStrength = $tds.eq(3).text();
+            drugFrequency = $tds.eq(4).text();
+            drugDuration = $tds.eq(5).text();
+            drugDose = $tds.eq(6).text();
+            drugStockQty = $tds.eq(7).text();
+            drugOrderedQty = $tds.eq(8).text();
+            drugSuppliedQty = $tds.eq(9).text();
+            drugDispensedQty = $tds.eq(10).text();
+            drugPrice = $tds.eq(11).text();
+            drugTotalPrice = $tds.eq(12).text();
+            drugStatus = $tds.eq(13).text();
+
+
+            if (drugStatus === "New") {
+
+                if (drugDispensedQty >= drugOrderedQty) {
+                    drugStatus = "4";
+                } else if (drugDispensedQty < drugOrderedQty) {
+                    drugStatus = "1";
+                }
+
+            } else if (drugStatus === "Partial") {
+
+                if ((parseInt(drugDispensedQty) + parseInt(drugSuppliedQty)) === parseInt(drugOrderedQty)) {
+                    drugStatus = "4";
+                } else if ((drugDispensedQty + drugSuppliedQty) < drugOrderedQty) {
+                    drugStatus = "1";
+                }
+
+            } else if (drugStatus === "Complete Partial") {
+                drugStatus = "2";
+            } else if (drugStatus === "Full Complete") {
+                drugStatus = "3";
+            } else if (drugStatus === "Full") {
+                drugStatus = "4";
+            }
+
+            var updatedQtySupplied = String(parseInt(drugDispensedQty) + parseInt(drugSuppliedQty));
+            var updateQtyStock = parseInt(drugStockQty) - parseInt(drugDispensedQty);
+
+
+            var dataAjax = {
+                orderNo: orderNo,
+                drugCode: drugCode,
+                drugDesc: drugDesc,
+                drugPrice: drugPrice,
+                drugStockQty: updateQtyStock,
+                drugOrderedQty: drugOrderedQty,
+                drugSuppliedQty: updatedQtySupplied,
+                drugDispensedQty: drugDispensedQty,
+                drugStatus: drugStatus,
+                orderDate: orderDate,
+                locationCode: locationCode,
+                arrivalDate: arrivalDate,
+                pmino: pmino,
+                pname: pname,
+                drugTotalPrice: drugTotalPrice,
+                dispenseFarBillNo: dispenseFarBillNo,
+                dispenseDrugMasterQuantity: dispenseFarMasterQuantity,
+                dispenseDrugMasterTotal: dispenseFarMasterTotal
+            };
+
+            console.log(dataAjax);
+
+            $.ajax({
+                url: "patientOrderListDetailsDispenceOverall.jsp",
+                type: "post",
+                data: dataAjax,
+                timeout: 3000,
+                success: function (datas) {
+                    console.log(datas);
+
+                    $.ajax({
+                        url: "patientOrderListDetailsDispenceFarTable.jsp",
+                        type: "post",
+                        data: dataAjax,
+                        timeout: 3000,
+                        success: function (datas) {
+                            console.log(datas);
+
+                        },
+                        error: function (err) {
+                            console.log("Error update!");
+                        }
+
+                    });
+
+                },
+                error: function (err) {
+                    console.log("Error Dispense!" + err);
+                }
+            });
+
+
+
+        });
+
+        resetDispense();
+    }
+
+    // Grand Total Calculator
+    !function calculateGrandTotal() {
+
+        // your other code here
+        var table = $("#patientOrderDetailsListTable tbody");
+        var totalOrder = (document.getElementById("patientOrderDetailsListTable").rows.length) - 1;
+        var drugPrice, drugDispensedQty, product, drugDispensedQtyTotal;
+
+        var grandTotal = 0.0;
+        var drugDispensedQtyTotal = 0.0;
+
+        table.find('tr').each(function (i) {
+
+            var $tds = $(this).find('td');
+
+            drugPrice = parseFloat($tds.eq(11).text());
+            drugDispensedQty = parseFloat($tds.eq(10).text());
+            product = drugDispensedQty * drugPrice;
+
+            grandTotal = grandTotal + product;
+            drugDispensedQtyTotal = drugDispensedQtyTotal + drugDispensedQty;
+
+        });
+
+        $("#dispenseTotalOrder").val(totalOrder);
+        $("#dispenseTotalQuantity").val(drugDispensedQtyTotal);
+        $("#dispenseGrandTotal").val(grandTotal.toFixed(2));
+
+        setTimeout(calculateGrandTotal, 1000);
+
+    }();
+    // Grand Total Calculator End
+
+
+    $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe', function (e) {
+
+        var table = $("#patientOrderDetailsListTable tbody");
+
+        var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
+                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus;
+
+        var orderDate, locationCode, arrivalDate, pmino, name;
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        var today = dd + '/' + mm + '/' + yyyy;
+
+
+        pmino = $("#patientpmino").val();
+        orderDate = $("#patientOrderDate").val();
+        locationCode = $("#patientOrderLocationCode").val();
+        arrivalDate = $("#patientOrderDate").val();
+        name = $("#patientName").val();
+
+        table.find('tr').each(function (i) {
+
+            var $tds = $(this).find('td');
+
+            // Get The Data
+            orderNo = $tds.eq(0).text();
+            drugCode = $tds.eq(1).text();
+            drugDesc = $tds.eq(2).text();
+            drugStrength = $tds.eq(3).text();
+            drugFrequency = $tds.eq(4).text();
+            drugDuration = $tds.eq(5).text();
+            drugDose = $tds.eq(6).text();
+            drugStockQty = $tds.eq(7).text();
+            drugOrderedQty = $tds.eq(8).text();
+            drugSuppliedQty = $tds.eq(9).text();
+            drugDispensedQty = $tds.eq(10).text();
+            drugPrice = $tds.eq(11).text();
+            drugTotalPrice = $tds.eq(12).text();
+            drugStatus = $tds.eq(13).text();
+
+
+            var dataAjax = {
+                orderNo: orderNo,
+                drugCode: drugCode,
+                drugDesc: drugDesc,
+                drugStrength: drugStrength,
+                drugFrequency: drugFrequency,
+                drugDuration: drugDuration,
+                drugDose: drugDose,
+                pmino: pmino,
+                name: name,
+                date: today
+            };
+
+            console.log(dataAjax);
+
+        });
+
+    });
 
     // Dispense Order
     $('#dispenseOrder').off('click', '#dispenseOrderMButton').on('click', '#dispenseOrderMButton', function (e) {
@@ -863,6 +1127,7 @@
     // Dispense Function End
 
 
+
 //===============================================================================  Dispense Part End  ================================================================================//
 
 
@@ -870,20 +1135,76 @@
 
 //-------------------------------------------------------------------------------  Reset Part Start  --------------------------------------------------------------------------------//
 
+    // Dispense Loading Part 
+    // Hidding Loading Modal
+//    $('#myModal').modal({
+//        show: false
+//    });
+
+    // prevents closure while the ajax call is in progress
+//    $('#myModal').on('hide.bs.modal', function (e) {
+//        if (inProgess === true)
+//            return false;
+//    });
+
+    var inProgess = false;
+
+    // Dispense Loading Function 
+    function loading()
+    {
+        inProgess = true;
+        $('#myModal').modal('show');
+
+        setTimeout(function () {
+            inProgess = false;
+            $('#myModal').modal('hide');
+
+            bootbox.alert({
+                message: "Dispense Order is Successfully",
+                title: "Dispense Result",
+                backdrop: true
+            });
+        }, 3000);
+    }
+    // Dispense Loading Part End
+
 
     // Dispense Reset Function  
     function resetDispense() {
         console.log("Ok Clean");
-        $.ajax({
-            timeout: 3000,
-            success: function () {
-                $("#patientOrderListContent").load("patientOrderListTable.jsp");
-            }
-        });
-        document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
-        document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
-        $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
-        $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+
+        loading();
+
+        setTimeout(
+                function () {
+                    console.log("Inclean");
+
+                    $.ajax({
+                        url: "patientOrderListDetailsDispenceFarTableBillNoUpdate.jsp",
+                        type: "post",
+                        timeout: 3000,
+                        success: function (data) {
+                            console.log(data);
+
+                            $.ajax({
+                                url: "patientOrderListTable.jsp",
+                                type: 'POST',
+                                timeout: 3000,
+                                success: function (data) {
+                                    console.log(data);
+                                    $("#patientOrderListContent").html(data);
+                                }
+                            });
+                            
+                        }
+                    });
+
+                    document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
+                    document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
+                    $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
+                    $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+                }, 2000);
+
     }
     // Dispense Reset Function End
 
@@ -893,6 +1214,7 @@
         document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
         document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
         $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
+        $('.nav-tabs a[href="#tab_default_1"]').tab('show');
     });
 
 
@@ -900,3 +1222,5 @@
 
 
 </script>
+
+

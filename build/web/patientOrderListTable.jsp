@@ -14,7 +14,7 @@
     Conn conn = new Conn();
 %>
 
-<h4 style="padding-top: 2%;padding-bottom: 1%;">Patient Information</h4>
+<h4 style="padding-top: 2%;padding-bottom: 1%;">Drug Order List</h4>
 
 <table  id="patientOrderListTable"  class="table table-filter table-striped table-bordered" style="background: #fff; border: 1px solid #ccc; width: 100%">
     <thead>

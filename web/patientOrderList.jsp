@@ -60,11 +60,11 @@
                                         <ul class="nav nav-tabs ">
                                             <li class="active">
                                                 <a href="#tab_default_1" data-toggle="tab">
-                                                    PATIENT ORDER LIST</a>
+                                                    DRUG ORDER LIST</a>
                                             </li>
                                             <li>
                                                 <a href="#tab_default_2" data-toggle="tab">
-                                                    PATIENT DETAIL LIST</a>
+                                                    DRUG ORDER DETAIL</a>
                                             </li>
                                         </ul>
                                         <!-- tab content -->
@@ -123,7 +123,7 @@
                                     <input id="updateDrugCode" name="updateDrugCode" type="text" placeholder="Drug Code" class="form-control input-md" maxlength="15" readonly>
                                 </div>
                             </div>
-                            
+
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Stock Quantity</label>
@@ -418,7 +418,7 @@
         </div>
         <!-- Add Modal End -->    
 
-        
+
         <!-- Dispense Start -->
         <div class="modal fade" id="dispenseOrder" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -471,6 +471,27 @@
             </div>
         </div>
         <!-- Dispense End -->     
+
+
+       <!-- Loading Start -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Processing Transaction</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                       <b> Your request is being processed... Please wait... </b>
+                    </div>
+                    <div class="modal-footer center-block">
+                        <i class='fa fa-spinner fa-spin fa-2x'></i>    
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- Loading End -->
+
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
