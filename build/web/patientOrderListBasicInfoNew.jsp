@@ -168,7 +168,8 @@
             </div>
 
             <div class="col-md-3">
-
+                <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="text" class="form-control input-md" maxlength="50" readonly>
             </div>
 
             <div class="col-md-3">
@@ -178,7 +179,6 @@
                     <label class="col-md-5 control-label" for="textinput">Total Order</label>
                     <div class="col-md-4">
                         <input id="dispenseTotalOrder" name="dispenseTotalOrder" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
-                        <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
                     </div>
                 </div>
 
@@ -191,7 +191,6 @@
                     <label class="col-md-5 control-label" for="textinput">Grand Total (RM)</label>
                     <div class="col-md-4">
                         <input id="dispenseGrandTotal" name="dispenseGrandTotal" type="number" placeholder="Grand Total (RM)" class="form-control input-md" maxlength="50" readonly>
-                        <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="hidden" class="form-control input-md" maxlength="50" readonly>
                     </div>
                 </div>
 
@@ -775,9 +774,10 @@
         var table = $("#patientOrderDetailsListTable tbody");
 
         var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
-                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus;
+                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus, drugChecked;
 
         var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarBillNo, dispenseFarMasterQuantity, dispenseFarMasterTotal;
+
 
 
         pmino = $("#patientpmino").val();
@@ -788,6 +788,7 @@
         dispenseFarBillNo = $("#dispenseFarBillNo").val();
         dispenseFarMasterQuantity = $("#dispenseTotalQuantity").val();
         dispenseFarMasterTotal = $("#dispenseGrandTotal").val();
+
 
         table.find('tr').each(function (i) {
 
@@ -808,93 +809,101 @@
             drugPrice = $tds.eq(11).text();
             drugTotalPrice = $tds.eq(12).text();
             drugStatus = $tds.eq(13).text();
+            drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
 
 
-            if (drugStatus === "New") {
+            if (drugChecked === true) {
+                console.log("Ok : " + drugCode);
 
-                if (drugDispensedQty >= drugOrderedQty) {
+                if (drugStatus === "New") {
+
+                    if (drugDispensedQty >= drugOrderedQty) {
+                        drugStatus = "4";
+                    } else if (drugDispensedQty < drugOrderedQty) {
+                        drugStatus = "1";
+                    }
+
+                } else if (drugStatus === "Partial") {
+
+                    if ((parseInt(drugDispensedQty) + parseInt(drugSuppliedQty)) === parseInt(drugOrderedQty)) {
+                        drugStatus = "4";
+                    } else if ((drugDispensedQty + drugSuppliedQty) < drugOrderedQty) {
+                        drugStatus = "1";
+                    }
+
+                } else if (drugStatus === "Complete Partial") {
+                    drugStatus = "2";
+                } else if (drugStatus === "Full Complete") {
+                    drugStatus = "3";
+                } else if (drugStatus === "Full") {
                     drugStatus = "4";
-                } else if (drugDispensedQty < drugOrderedQty) {
-                    drugStatus = "1";
                 }
 
-            } else if (drugStatus === "Partial") {
+                var updatedQtySupplied = String(parseInt(drugDispensedQty) + parseInt(drugSuppliedQty));
+                var updateQtyStock = parseInt(drugStockQty) - parseInt(drugDispensedQty);
 
-                if ((parseInt(drugDispensedQty) + parseInt(drugSuppliedQty)) === parseInt(drugOrderedQty)) {
-                    drugStatus = "4";
-                } else if ((drugDispensedQty + drugSuppliedQty) < drugOrderedQty) {
-                    drugStatus = "1";
-                }
 
-            } else if (drugStatus === "Complete Partial") {
-                drugStatus = "2";
-            } else if (drugStatus === "Full Complete") {
-                drugStatus = "3";
-            } else if (drugStatus === "Full") {
-                drugStatus = "4";
+                var dataAjax = {
+                    orderNo: orderNo,
+                    drugCode: drugCode,
+                    drugDesc: drugDesc,
+                    drugPrice: drugPrice,
+                    drugStockQty: updateQtyStock,
+                    drugOrderedQty: drugOrderedQty,
+                    drugSuppliedQty: updatedQtySupplied,
+                    drugDispensedQty: drugDispensedQty,
+                    drugStatus: drugStatus,
+                    orderDate: orderDate,
+                    locationCode: locationCode,
+                    arrivalDate: arrivalDate,
+                    pmino: pmino,
+                    pname: pname,
+                    drugTotalPrice: drugTotalPrice,
+                    dispenseFarBillNo: dispenseFarBillNo,
+                    dispenseDrugMasterQuantity: dispenseFarMasterQuantity,
+                    dispenseDrugMasterTotal: dispenseFarMasterTotal,
+                    drugChecked: drugChecked
+                };
+
+                console.log(dataAjax);
+
+                $.ajax({
+                    url: "patientOrderListDetailsDispenceOverall.jsp",
+                    type: "post",
+                    data: dataAjax,
+                    timeout: 3000,
+                    success: function (datas) {
+                        console.log(datas);
+
+                        $.ajax({
+                            url: "patientOrderListDetailsDispenceFarTable.jsp",
+                            type: "post",
+                            data: dataAjax,
+                            timeout: 3000,
+                            success: function (datas) {
+                                console.log(datas);
+
+                            },
+                            error: function (err) {
+                                console.log("Error update!");
+                            }
+
+                        });
+
+                    },
+                    error: function (err) {
+                        console.log("Error Dispense!" + err);
+                    }
+                });
+
+            } else {
+                console.log("Not Ok : " + drugCode);
             }
-
-            var updatedQtySupplied = String(parseInt(drugDispensedQty) + parseInt(drugSuppliedQty));
-            var updateQtyStock = parseInt(drugStockQty) - parseInt(drugDispensedQty);
-
-
-            var dataAjax = {
-                orderNo: orderNo,
-                drugCode: drugCode,
-                drugDesc: drugDesc,
-                drugPrice: drugPrice,
-                drugStockQty: updateQtyStock,
-                drugOrderedQty: drugOrderedQty,
-                drugSuppliedQty: updatedQtySupplied,
-                drugDispensedQty: drugDispensedQty,
-                drugStatus: drugStatus,
-                orderDate: orderDate,
-                locationCode: locationCode,
-                arrivalDate: arrivalDate,
-                pmino: pmino,
-                pname: pname,
-                drugTotalPrice: drugTotalPrice,
-                dispenseFarBillNo: dispenseFarBillNo,
-                dispenseDrugMasterQuantity: dispenseFarMasterQuantity,
-                dispenseDrugMasterTotal: dispenseFarMasterTotal
-            };
-
-            console.log(dataAjax);
-
-            $.ajax({
-                url: "patientOrderListDetailsDispenceOverall.jsp",
-                type: "post",
-                data: dataAjax,
-                timeout: 3000,
-                success: function (datas) {
-                    console.log(datas);
-
-                    $.ajax({
-                        url: "patientOrderListDetailsDispenceFarTable.jsp",
-                        type: "post",
-                        data: dataAjax,
-                        timeout: 3000,
-                        success: function (datas) {
-                            console.log(datas);
-
-                        },
-                        error: function (err) {
-                            console.log("Error update!");
-                        }
-
-                    });
-
-                },
-                error: function (err) {
-                    console.log("Error Dispense!" + err);
-                }
-            });
-
-
 
         });
 
         resetDispense();
+
     }
 
     // Grand Total Calculator
@@ -1195,7 +1204,7 @@
                                     $("#patientOrderListContent").html(data);
                                 }
                             });
-                            
+
                         }
                     });
 

@@ -51,6 +51,7 @@
     <th>Price/Pack</th>
     <th>Total Price (RM)</th>
     <th>Status</th>
+    <th>Dispense</th>
 </thead>
 <tbody>
     <%        for (int i = 0; i < dataOrderList.size(); i++) {
@@ -85,23 +86,23 @@
 
 
     %>
-    <tr id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center">
+    <tr >
 <input id="dataPatientOrderDetailsListhidden" type="hidden" value="<%=String.join("|", dataOrderList.get(i))%>">
-<td ><%= dataOrderList.get(i).get(0)%></td> <!-- Order No -->
-<td ><%= dataOrderList.get(i).get(1)%></td> <!-- Code -->
-<td ><%= dataOrderList.get(i).get(2)%></td> <!-- Description -->
-<td ><%= dataOrderList.get(i).get(6)%></td> <!-- Strength -->
-<td ><%= dataOrderList.get(i).get(3)%></td> <!-- Frequency -->
-<td ><%= dataOrderList.get(i).get(9)%> <%= dataOrderList.get(i).get(17)%></td> <!-- Duration/Duration T -->
-<td ><%= dataOrderList.get(i).get(7)%></td> <!-- Dose -->
-<td ><%= stock%></td> <!-- Stock -->
-<td ><%= ordered%></td> <!-- Ordered -->
-<td ><%= supplied%></td> <!-- Supplied -->
-<td ><%= checkDispensed%></td> <!-- Dispensed -->
-<td ><%= price%></td> <!-- Price -->
-<td ><%= totalPrice%></td> <!--  Total -->
-<td ><%= dataOrderList.get(i).get(20)%></td> <!-- Status -->
-<td ><input type="checkbox" id="dispenseCheck"></td> <!-- Status -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(0)%></td> <!-- Order No -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(1)%></td> <!-- Code -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(2)%></td> <!-- Description -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(6)%></td> <!-- Strength -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(3)%></td> <!-- Frequency -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(9)%> <%= dataOrderList.get(i).get(17)%></td> <!-- Duration/Duration T -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(7)%></td> <!-- Dose -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= stock%></td> <!-- Stock -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= ordered%></td> <!-- Ordered -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= supplied%></td> <!-- Supplied -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= checkDispensed%></td> <!-- Dispensed -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= price%></td> <!-- Price -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= totalPrice%></td> <!--  Total -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(20)%></td> <!-- Status -->
+<td align="center"><input type="checkbox" id="drugDispenseChecked"></td> <!-- Status -->
 </tr>
 
 
