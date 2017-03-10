@@ -35,8 +35,8 @@
     
     // Data For Header
     String item_desc_header = request.getParameter("pname"); // Data 8
-    String item_amt_header = request.getParameter("dispenseDrugMasterTotal"); // Data 9
-    String quantity_header = request.getParameter("dispenseDrugMasterQuantity"); // Data 10
+    String item_amt_header = request.getParameter("dispenseDrugMasterTotalChecked"); // Data 9
+    String quantity_header = request.getParameter("dispenseDrugMasterQuantityChecked"); // Data 10
     String order_no_header = request.getParameter("orderNo"); // Data 11
     String payment = "Unpaid"; // Data 12
     int amt_paid = 0; // Data 13

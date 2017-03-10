@@ -56,7 +56,11 @@
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
-        $('#patientOrderListTable').DataTable();
+        $('#patientOrderListTable').DataTable({
+            "language": {
+                "emptyTable": "No Order Available To Display"
+            }
+        });
     });
 </script>
 

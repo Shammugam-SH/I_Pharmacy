@@ -19,6 +19,9 @@
     <th>ATC CODE</th>
     <th>ATC CODE DESCRIPTION</th>
     <th>CATEGORY CODE</th>
+    <th>HFC CODE</th>
+    <th>DISCIPLINE CODE</th>
+    <th>SUBDISCIPLINE CODE</th>
     <th>STATUS</th>
     <th>UPDATE</th>
     <th>DELETE</th>
@@ -26,7 +29,7 @@
 <tbody>
 
     <%
-        String sql = " SELECT UD_ATC_Code, UD_ATC_Desc, Category_Code,Status FROM pis_atc ";
+        String sql = " SELECT UD_ATC_Code, UD_ATC_Desc, Category_Code,hfc_cd,discipline_cd,subdiscipline_cd,Status FROM pis_atc ";
         ArrayList<ArrayList<String>> dataATC = conn.getData(sql);
 
         int size = dataATC.size();
@@ -38,7 +41,10 @@
 <td><%= dataATC.get(i).get(0)%></td>
 <td><%= dataATC.get(i).get(1)%></td>
 <td><%= dataATC.get(i).get(2)%></td>
-<td><%if (dataATC.get(i).get(3).equals("1")) {
+<td><%= dataATC.get(i).get(3)%></td>
+<td><%= dataATC.get(i).get(4)%></td>
+<td><%= dataATC.get(i).get(5)%></td>
+<td><%if (dataATC.get(i).get(6).equals("1")) {
         out.print("Active");
     } else {
         out.print("Inactive");
@@ -78,7 +84,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">ATC Code</label>
                         <div class="col-md-8">
-                            <input id="updateatcCode" name="textinput" type="text" placeholder="ATC Code" class="form-control input-md" maxlength="15" readonly>
+                            <input id="updateatcCode" type="text" placeholder="ATC Code" class="form-control input-md" maxlength="15" readonly>
                         </div>
                     </div>
 
@@ -94,9 +100,34 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Category Code</label>
                         <div class="col-md-8">
-                            <input id="updatecategory" name="textinput" type="text" placeholder="Category Code" maxlength="50" class="form-control input-md" >
+                            <input id="updateatccategory" type="text" placeholder="Category Code" maxlength="50" class="form-control input-md" >
                         </div>
                     </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">HFC Code</label>
+                        <div class="col-md-8">
+                            <input id="updateatchfc" type="text" placeholder="HFC Code" maxlength="30" class="form-control input-md" >
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Discipline Code</label>
+                        <div class="col-md-8">
+                            <input id="updateatcdiscipline" type="text" placeholder="Discipline Code" maxlength="30" class="form-control input-md" >
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Sub-Discipline Code</label>
+                        <div class="col-md-8">
+                            <input id="updateatcsubdiscipline" type="text" placeholder="Sub-Discipline Code" maxlength="30" class="form-control input-md" >
+                        </div>
+                    </div>
+
 
                     <!-- Text input-->
                     <div class="form-group">
@@ -142,13 +173,19 @@
         var atcCode = arrayData[0];
         var atcDesc = arrayData[1];
         var category = arrayData[2];
-        var status = arrayData[3];
+        var hfc = arrayData[3];
+        var discipline = arrayData[4];
+        var subdiscipline = arrayData[5];
+        var status = arrayData[6];
 
 
         //set value to the modal 
         $("#updateatcCode").val(atcCode);
         $("#updateatcDesc").val(atcDesc);
-        $("#updatecategory").val(category);
+        $("#updateatccategory").val(category);
+        $("#updateatchfc").val(hfc);
+        $("#updateatcdiscipline").val(discipline);
+        $("#updateatcsubdiscipline").val(subdiscipline);
 
         if (status === '1')
             $('#updatestatus').val(1);
@@ -164,7 +201,10 @@
 
         var atcCode = $("#updateatcCode").val();
         var atcDesc = $("#updateatcDesc").val();
-        var category = $("#updatecategory").val();
+        var category = $("#updateatccategory").val();
+        var hfc = $("#updateatchfc").val();
+        var discipline = $("#updateatcdiscipline").val();
+        var subdiscipline = $("#updateatcsubdiscipline").val();
         var status = $("#updatestatus").val();
 
         if (atcCode === "" || atcCode === null) {
@@ -173,6 +213,12 @@
             bootbox.alert("Please Insert ATC Code Description");
         } else if (category === "" || category === null) {
             bootbox.alert("Please Insert ATC Code Category");
+        } else if (hfc === "" || hfc === null) {
+            bootbox.alert("Please Insert HFC Code");
+        } else if (discipline === "" || discipline === null) {
+            bootbox.alert("Please Insert Discipline Code");
+        } else if (subdiscipline === "" || subdiscipline === null) {
+            bootbox.alert("Please Insert Sub-Discipline Code");
         } else if (status !== "1" && status !== "0") {
             bootbox.alert("Please Select Any Status");
         } else {
@@ -181,6 +227,9 @@
                 atcCode: atcCode,
                 atcDesc: atcDesc,
                 category: category,
+                hfc: hfc,
+                discipline: discipline,
+                subdiscipline: subdiscipline,
                 status: status
             };
 
@@ -293,7 +342,21 @@
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
-        $('#atcTable').DataTable();
+        $('#atcTable').DataTable({
+            pageLength: 15,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export To Excel',
+                    title: 'Pharmacy Yearly Report'
+                }, {
+                    extend: 'csvHtml5',
+                    text: 'Export To Excel CSV',
+                    title: 'Pharmacy Yearly Report'
+                }
+            ]
+        });
 
     });
 </script>

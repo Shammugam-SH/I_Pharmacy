@@ -106,7 +106,7 @@
                     <div class="modal-body">
 
                         <!-- content goes here -->
-                        <form class="form-horizontal" id="addForm">
+                        <form class="form-horizontal" id="addForm" autocomplete="off">
 
                             <!-- Text input-->
                             <div class="form-group">
@@ -202,13 +202,12 @@
 
                         <!-- content goes here -->
 
-                        <form class="form-horizontal" id="addDrugOrderForm" >
+                        <form class="form-horizontal" id="addDrugOrderForm" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-6">
 
                                     <h4>Order Details</h4>
                                     <hr/>
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Drug Order ID</label>
@@ -216,7 +215,6 @@
                                             <input id="orderDrugDetailsID" name="orderDrugDetailsID" type="text" placeholder="Drug Order ID"  class="form-control input-md" readonly>
                                         </div>
                                     </div> 
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Drug Order Date</label>
@@ -224,23 +222,19 @@
                                             <input id="orderDrugDetailsDate" name="orderDrugDetailsDate" type="text" placeholder="Drug Order Date"  class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
                                     <br/>
-
 
 
                                     <h4>Choose Drug</h4>
                                     <hr/>
-
                                     <!-- Text input-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="textinput">Search Drug</label>
+                                        <label class="col-md-4 control-label" for="textinput">Search Drug *</label>
                                         <div class="col-md-8">
                                             <input id="orderDrugSearchInput" name="orderDrugSearchInput" type="text" placeholder="Search Drug"  class="form-control input-md">
                                             <div id="orderDrugSearchInputDisplayResult"></div>
                                         </div>
                                     </div>
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Drug Code</label>
@@ -248,7 +242,6 @@
                                             <input id="orderDrugDisplayDrugCode" name="orderDrugDisplayDrugCode" type="text" placeholder="Drug Code"  class="form-control input-md" readonly>
                                         </div>
                                     </div>                           
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Trade Name</label>
@@ -256,31 +249,26 @@
                                             <input id="orderDrugDisplayTradeName" name="orderDrugDisplayStockQuantity" type="text" placeholder="Drug Name" class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
+                                    <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Route</label>
                                         <div class="col-md-8">
                                             <input id="orderDrugDisplayRoute" name="orderDrugDisplayRoute" type="text" placeholder="Drug Route"  class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
+                                    <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Form</label>
                                         <div class="col-md-8">
                                             <input id="orderDrugDisplayForm" name="orderDrugDisplayForm" type="text" placeholder="Drug Form"  class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
-
                                     <br/>
 
                                 </div>
 
-
-
                                 <div class="col-md-6">
                                     <br>
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Strength</label>
@@ -288,7 +276,6 @@
                                             <input id="orderDrugDisplayStrength" name="orderDrugDisplayStrength" type="text" placeholder="Drug Strength" class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Instruction</label>
@@ -296,14 +283,13 @@
                                             <input id="orderDrugDisplayInstruction" name="orderDrugDisplayFrequency" type="text" placeholder="Frequency"  class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
+                                    <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Cautionary</label>
                                         <div class="col-md-8">
                                             <input id="orderDrugDisplayCautionary" name="orderDrugDisplayCautionary" type="text" placeholder="Cautionary"  class="form-control input-md" readonly>
                                         </div>
                                     </div>
-
                                     <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Stock Quantity</label>
@@ -314,26 +300,25 @@
 
                                     <br>
 
-                                    <h4>Order Details</h4>
+                                    <h4>Order Information</h4>
                                     <hr/>
-
                                     <!-- Text input-->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="textinput">Quantity</label>
+                                        <label class="col-md-4 control-label" for="textinput">Order Quantity *</label>
                                         <div class="col-md-8">
-                                            <input id="orderDrugInputQuantity" name="orderDrugInputQuantity" type="number" placeholder="Drug Quantity" class="form-control input-md" min="1" maxlength="7">
+                                            <input id="orderDrugInputQuantity" name="orderDrugInputQuantity" type="number" placeholder="Insert Drug Quantity" class="form-control input-md" min="1" maxlength="7">
                                         </div>
                                     </div>
 
                                     <!-- Select Basic -->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="selectbasic">Dose</label>
+                                        <label class="col-md-4 control-label" for="selectbasic">Dose *</label>
                                         <div class="col-md-4">
-                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" placeholder="Drug Dose" step="0.01" maxlength="50">
+                                            <input id="orderDrugInputDose" name="orderDrugInputDose" type="number" class="form-control input-md" placeholder="Insert Drug Dose" step="0.01" maxlength="50">
                                         </div>
                                         <div class="col-md-4">
                                             <select id="orderDrugInputDoseT" name="orderDrugInputDoseT" class="form-control">
-                                                <option value="No Dose">No Dose</option>
+                                                <option value="No Dose">Select Dose</option>
                                                 <%                                            String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' ";
                                                     ArrayList<ArrayList<String>> listOfDUOM = conn.getData(sql4);
 
@@ -341,7 +326,7 @@
 
                                                     for (int i = 0; i < size4; i++) {
                                                 %>
-                                                <option value="<%= listOfDUOM.get(i).get(2)%>"><%= listOfDUOM.get(i).get(1)%> - <%= listOfDUOM.get(i).get(2)%> </option>
+                                                <option value="<%= listOfDUOM.get(i).get(2)%>"> <%= listOfDUOM.get(i).get(2)%> </option>
                                                 <%
                                                     }
                                                 %>
@@ -352,10 +337,10 @@
 
                                     <!-- Select Basic -->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="selectbasic">Frequency</label>
+                                        <label class="col-md-4 control-label" for="selectbasic">Frequency *</label>
                                         <div class="col-md-8">
                                             <select id="orderDrugInputFrequency" name="orderDrugInputFrequency" class="form-control">
-                                                <option value="No Frequency">No Frequency</option>
+                                                <option value="No Frequency">Select Frequency</option>
                                                 <%                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' ";
                                                     ArrayList<ArrayList<String>> listOfDFreq = conn.getData(sql5);
 
@@ -363,7 +348,7 @@
 
                                                     for (int i = 0; i < size5; i++) {
                                                 %>
-                                                <option value="<%= listOfDFreq.get(i).get(2)%>"><%= listOfDFreq.get(i).get(1)%> - <%= listOfDFreq.get(i).get(2)%> </option>
+                                                <option value="<%= listOfDFreq.get(i).get(2)%>"> <%= listOfDFreq.get(i).get(2)%> </option>
                                                 <%
                                                     }
                                                 %>
@@ -373,13 +358,13 @@
 
                                     <!-- Select Basic -->
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label" for="selectbasic">Duration</label>
+                                        <label class="col-md-4 control-label" for="selectbasic">Duration *</label>
                                         <div class="col-md-4">
-                                            <input id="orderDrugInputDuration" name="orderDrugInputDuration" type="number" class="form-control input-md" step="0.01" placeholder="Duration" maxlength="12">
+                                            <input id="orderDrugInputDuration" name="orderDrugInputDuration" type="number" class="form-control input-md" step="0.01" placeholder="Insert Drug Duration" maxlength="12">
                                         </div>
                                         <div class="col-md-4">
                                             <select id="orderDrugInputDurationT" name="orderDrugInputDurationT" class="form-control">
-                                                <option value="No Duration">No Duration</option>
+                                                <option value="No Duration">Select Duration</option>
                                                 <%
                                                     String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089' ";
                                                     ArrayList<ArrayList<String>> listOfDDura = conn.getData(sql6);
@@ -388,7 +373,7 @@
 
                                                     for (int i = 0; i < size6; i++) {
                                                 %>
-                                                <option value="<%= listOfDDura.get(i).get(2)%>"><%= listOfDDura.get(i).get(1)%> - <%= listOfDDura.get(i).get(2)%> </option>
+                                                <option value="<%= listOfDDura.get(i).get(2)%>"> <%= listOfDDura.get(i).get(2)%> </option>
                                                 <%
                                                     }
                                                 %>
@@ -473,7 +458,7 @@
         <!-- Dispense End -->     
 
 
-       <!-- Loading Start -->
+        <!-- Loading Start -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -482,7 +467,7 @@
                         <h4 class="modal-title" id="myModalLabel">Processing Transaction</h4>
                     </div>
                     <div class="modal-body" align="center">
-                       <b> Your request is being processed... Please wait... </b>
+                        <b> Your request is being processed... Please wait... </b>
                     </div>
                     <div class="modal-footer center-block">
                         <i class='fa fa-spinner fa-spin fa-2x'></i>    
@@ -490,7 +475,7 @@
                 </div>
             </div>
         </div>
-       <!-- Loading End -->
+        <!-- Loading End -->
 
 
         <!-- Bootstrap core JavaScript
@@ -513,6 +498,7 @@
 
             $("#patientOrderListContent").load("patientOrderListTable.jsp");
             $("#patientOrderDetailContent").load("patientOrderListBasicInfoNew.jsp");
+
 
         </script>
 

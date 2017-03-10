@@ -12,8 +12,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-
-
 <%
     Conn conn = new Conn();
     String orderNo = request.getParameter("orderNo");
@@ -35,10 +33,10 @@
 
 %>
 
-<table class="table table-filter table-striped table-bordered" style="background: #fff; border: 1px solid #ccc; width: 100%; text-align: center" id="patientOrderDetailsListTable">
+<table class="table table-filter table-striped table-bordered dt-head-right" style="background: #fff; border: 1px solid #ccc; width: 100%; text-align: center" id="patientOrderDetailsListTable">
     <thead>
-    <th>Order No</th>
-    <th>Code</th>
+    <th style="display: none">Order No</th>
+    <th >Code</th>
     <th>Description</th>
     <th>Strength</th>
     <th>Frequency</th>
@@ -49,9 +47,9 @@
     <th>Supplied Qty</th>
     <th>Dispensed Qty</th>
     <th>Price/Pack</th>
-    <th>Total Price (RM)</th>
+    <th>Total (RM)</th>
     <th>Status</th>
-    <th>Dispense</th>
+    <th >Check<!--<br><input id="checkDispenseAll" type="checkbox" onchange="checkAll(this)" name="chk[]" />--></th>
 </thead>
 <tbody>
     <%        for (int i = 0; i < dataOrderList.size(); i++) {
@@ -88,8 +86,8 @@
     %>
     <tr >
 <input id="dataPatientOrderDetailsListhidden" type="hidden" value="<%=String.join("|", dataOrderList.get(i))%>">
-<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(0)%></td> <!-- Order No -->
-<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(1)%></td> <!-- Code -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center" style="display: none"><%= dataOrderList.get(i).get(0)%></td> <!-- Order No -->
+<td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center" ><%= dataOrderList.get(i).get(1)%></td> <!-- Code -->
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(2)%></td> <!-- Description -->
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(6)%></td> <!-- Strength -->
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(3)%></td> <!-- Frequency -->
@@ -102,7 +100,7 @@
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= price%></td> <!-- Price -->
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= totalPrice%></td> <!--  Total -->
 <td id="updateOrderDetailsTButton" data-status="pagado" data-toggle="modal" data-id="1" data-target="#updateOrder" align="center"><%= dataOrderList.get(i).get(20)%></td> <!-- Status -->
-<td align="center"><input type="checkbox" id="drugDispenseChecked"></td> <!-- Status -->
+<td align="center"><input type="checkbox" id="drugDispenseChecked" checked></td> <!-- Status -->
 </tr>
 
 

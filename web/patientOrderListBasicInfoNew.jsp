@@ -14,14 +14,14 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient PMI No.</label>
+                    <label class="col-md-4 control-label" for="textinput">PMI No.</label>
                     <div class="col-md-8">
                         <input id="patientpmino" name="patientpmino" type="text" placeholder="" readonly class="form-control input-md">   
                     </div>
                 </div>
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient Name</label>
+                    <label class="col-md-4 control-label" for="textinput">Name</label>
                     <div class="col-md-8">
                         <input id="patientName" name="patientName" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -29,19 +29,18 @@
 
             </div>
 
-
             <div class="col-md-4">
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient New IC No.</label>
+                    <label class="col-md-4 control-label" for="textinput">New IC No.</label>
                     <div class="col-md-8">
                         <input id="patientnic" name="patientnic" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
                 </div>
                 <!--Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient Gender</label>
+                    <label class="col-md-4 control-label" for="textinput">Gender</label>
                     <div class="col-md-8">
                         <input id="patientGender" name="patientGender" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -49,19 +48,18 @@
 
             </div>
 
-
             <div class="col-md-4">
 
                 <!--Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient D.O.B</label>
+                    <label class="col-md-4 control-label" for="textinput">D.O.B</label>
                     <div class="col-md-8">
                         <input id="patientBdate" name="patientBdate" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
                 </div>
                 <!--Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Patient Blood Type</label>
+                    <label class="col-md-4 control-label" for="textinput">Blood Type</label>
                     <div class="col-md-8">
                         <input id="patientBtype" name="patientBtype" type="text" readonly placeholder="" class="form-control input-md">
                     </div>
@@ -69,11 +67,53 @@
 
             </div>
 
-
         </div>
     </form>
+
+    <hr/>
+    <h5 style="padding-bottom: 1%;font-weight: bolder">
+        Allergy List
+    </h5>
+
+    <div id="patientAllergyListTableDiv" class="form-group">
+        <table class="table table-filter table-striped table-bordered" style="background: #fff; border: 1px solid #ccc; width: 100%" id="patientAllergyListTable">
+            <thead>
+            <th style="display: none">PMI NO</th>
+            <th>HFC CODE</th>
+            <th>EPISODE DATE</th>
+            <th>ENCOUNTER DATE</th>
+            <th>ALLERGY CODE</th>
+            <th>ALLERGY DESCRIPTION</th>
+            <th>COMMENT</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 
+
+<div class="thumbnail">
+    <h4>Diagnosis Info</h4>
+    <hr/>
+    <div id="patientDiagnosisListTableDiv" class="form-group">
+        <table class="table table-filter table-striped table-bordered" style="background: #fff; border: 1px solid #ccc; width: 100%" id="patientDiagnosisListTable">
+            <thead>
+            <th style="display: none">PMI NO</th>
+            <th >HFC CODE</th>
+            <th>EPISODE DATE</th>
+            <th>ENCOUNTER DATE</th>
+            <th>DIAGNOSIS CODE</th>
+            <th>DIAGNOSIS DESCRIPTION</th>
+            <th>COMMENT</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 <div class="thumbnail">
@@ -123,15 +163,12 @@
 
         </div>
     </form>
-</div>
-
-
-<div class="thumbnail">
+    <hr/>
     <h4 style="padding-bottom: 1%">
-        List of Order
         <div class="pull-right">
             <button id="patientOrderNewDrugButton" name="patientOrderNewDrugButton" class="btn btn-primary" data-toggle="modal" ><i class="fa fa-plus fa-lg"></i>&nbsp; New Order</button>
         </div>
+        <br>
     </h4>
 
 
@@ -159,17 +196,17 @@
         </table>
     </div>
 
-    <div style="padding-top: 1%; padding-bottom: 5%;">
+    <div style="padding-top: 1%; padding-bottom: 8%;">
         <!-- content goes here -->
         <form class="form-horizontal" id="addForm">
 
-            <div class="col-md-3">
-
+            <div class="col-md-2">
+                <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="hidden" class="form-control input-md" maxlength="50" readonly>
             </div>
 
             <div class="col-md-3">
-                <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
-                <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="text" class="form-control input-md" maxlength="50" readonly>
+                <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                <input id="dispenseTotalQuantityChecked" name="dispenseTotalQuantityChecked" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
             </div>
 
             <div class="col-md-3">
@@ -182,15 +219,31 @@
                     </div>
                 </div>
 
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Total Order Final</label>
+                    <div class="col-md-4">
+                        <input id="dispenseTotalOrderChecked" name="dispenseTotalOrderChecked" type="text" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-5 control-label" for="textinput">Grand Total (RM)</label>
                     <div class="col-md-4">
                         <input id="dispenseGrandTotal" name="dispenseGrandTotal" type="number" placeholder="Grand Total (RM)" class="form-control input-md" maxlength="50" readonly>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="textinput">Grand Total Final (RM)</label>
+                    <div class="col-md-4">
+                        <input id="dispenseGrandTotalChecked" name="dispenseGrandTotalChecked" type="number" placeholder="Grand Total (RM)" class="form-control input-md" maxlength="50" readonly>
                     </div>
                 </div>
 
@@ -254,8 +307,7 @@
                 $("#patientOrderLocationCode").val(patientOrderLocationCode);
                 $("#dispenseFarBillNo").val(billNo);
 
-
-                loadOrder(patientOrderNo);
+                loadAllergyDiagnosisOrder(patientOrderNo, patientpmino);
             }
         });
 
@@ -265,28 +317,80 @@
     // Move to Order Details Fetch Details End
 
 
-    // Move to Order Details Load Table Data Start
-    function loadOrder(orderNo) {
+    // Move to Order Details And Load All Table Data Start
+    function loadAllergyDiagnosisOrder(orderNo, pmino) {
 
-        var data = {
+        var dataDiagnosis = {
+            pmino: pmino
+        };
+
+        var dataAllergy = {
+            pmino: pmino
+        };
+
+        var dataOrder = {
             orderNo: orderNo
         };
 
-        $.ajax({
-            url: "patientOrderListDetailsNew.jsp",
-            type: "post",
-            data: data,
-            timeout: 3000,
-            success: function (returnOrderDetailsTableHTML) {
-                //console.log(returnOrderDetailsTableHTML);
-                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
 
-                $('.nav-tabs a[href="#tab_default_2"]').tab('show');
+        $.ajax({
+            url: "patientOrderListAllergyTable.jsp",
+            type: "post",
+            data: dataAllergy,
+            timeout: 3000,
+            success: function (returnAllergyTableHTML) {
+
+                $('#patientAllergyListTable').html(returnAllergyTableHTML);
+
+                $.ajax({
+                    url: "patientOrderListDiagnosisTable.jsp",
+                    type: "post",
+                    data: dataDiagnosis,
+                    timeout: 3000,
+                    success: function (returnDiagnosisTableHTML) {
+
+                        $('#patientDiagnosisListTable').html(returnDiagnosisTableHTML);
+
+                        $.ajax({
+                            url: "patientOrderListDetailsNew.jsp",
+                            type: "post",
+                            data: dataOrder,
+                            timeout: 3000,
+                            success: function (returnOrderDetailsTableHTML) {
+                                //console.log(returnOrderDetailsTableHTML);
+                                $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+                                $('#patientOrderDetailsListTable').trigger('contentchanged');
+                                $('.nav-tabs a[href="#tab_default_2"]').tab('show');
+                            }
+                        });
+
+                    }
+                });
 
             }
         });
+
     }
-    // Move to Order Details Load Table Data End
+    // Move to Order Details And Load All Table Data End
+
+
+    // Load Datatable To Tables Start
+    $(document).on('contentchanged', '#patientOrderDetailsListTableDiv', function () {
+
+        $('#patientOrderDetailsListTable').DataTable().destroy();
+
+        // do something after the div content has changed
+        $('#patientOrderDetailsListTable').DataTable({
+            "paging": false,
+            "searching": false,
+            "info": false,
+            "language": {
+                "emptyTable": "No Order Available To Display"
+            }
+        });
+
+    });
+    // Load Datatable To Tables End 
 
 
 //======================================================================================================================================================================================//
@@ -489,8 +593,9 @@
                             data: data,
                             timeout: 3000,
                             success: function (returnOrderDetailsTableHTML) {
-                                //console.log(returnOrderDetailsTableHTML);
+
                                 $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
+                                $('#patientOrderDetailsListTable').trigger('contentchanged');
 
                             }
                         });
@@ -640,7 +745,6 @@
     });
     // Update Order Data End
 
-
     // Delete Order Data 
     $('#updateOrder').on('click', '#deleteOrderMButton', function (e) {
 
@@ -688,7 +792,7 @@
                                     data: data,
                                     timeout: 3000,
                                     success: function (returnOrderDetailsTableHTML) {
-                                        //console.log(returnOrderDetailsTableHTML);
+
                                         $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
 
                                         bootbox.alert({
@@ -696,6 +800,8 @@
                                             title: "Process Result",
                                             backdrop: true
                                         });
+
+                                        $('#patientOrderDetailsListTable').trigger('contentchanged');
 
                                     }
                                 });
@@ -720,6 +826,7 @@
 
             }
         });
+
     });
     // Delete Order Data End
 
@@ -738,36 +845,94 @@
 
         e.preventDefault();
 
-        bootbox.confirm({
-            message: "Are you sure that you want to dispense this order ?",
-            title: "Dispense Item ?",
-            buttons: {
-                confirm: {
-                    label: 'Yes',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'No',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
+        var table = $("#patientOrderDetailsListTable tbody");
 
-                if (result === true) {
+        var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
+                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus, drugChecked;
 
-                    fullDispense();
+        var cars = [];
 
-                } else {
-                    console.log("Process Is Canceled");
-                }
+        table.find('tr').each(function (i) {
 
-            }
+            var $tds = $(this).find('td');
+
+            // Get The Data
+            orderNo = $tds.eq(0).text();
+            drugCode = $tds.eq(1).text();
+            drugDesc = $tds.eq(2).text();
+            drugStrength = $tds.eq(3).text();
+            drugFrequency = $tds.eq(4).text();
+            drugDuration = $tds.eq(5).text();
+            drugDose = $tds.eq(6).text();
+            drugStockQty = $tds.eq(7).text();
+            drugOrderedQty = $tds.eq(8).text();
+            drugSuppliedQty = $tds.eq(9).text();
+            drugDispensedQty = $tds.eq(10).text();
+            drugPrice = $tds.eq(11).text();
+            drugTotalPrice = $tds.eq(12).text();
+            drugStatus = $tds.eq(13).text();
+            drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
+
+            cars.push(drugChecked);
+
         });
+        var checkedDispense = cars.indexOf(true);
+        console.log(cars);
+        console.log(checkedDispense);
 
+        if (checkedDispense === -1) {
+            bootbox.alert("Please Select A Order To Be Dispense");
+        } else {
+
+            bootbox.confirm({
+                message: "Are you sure that you want to dispense this order ?",
+                title: "Dispense Item ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+
+                    if (result === true) {
+
+                        fullDispense();
+
+                    } else {
+                        console.log("Process Is Canceled");
+                    }
+
+                }
+            });
+
+        }
 
     });
     // Dispense Order Data End
 
+    // Dispense Order Check Function Start
+    function checkAll(ele) {
+        var checkboxes = document.getElementsByTagName('input');
+        if (ele.checked) {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type === 'checkbox') {
+                    checkboxes[i].checked = true;
+                }
+            }
+        } else {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type === 'checkbox') {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+    }
+// Dispense Order Check Function End
 
     function fullDispense() {
 
@@ -776,7 +941,7 @@
         var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
                 drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus, drugChecked;
 
-        var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarBillNo, dispenseFarMasterQuantity, dispenseFarMasterTotal;
+        var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarBillNo, dispenseFarMasterQuantity, dispenseFarMasterTotal, dispenseFarMasterQuantityChecked, dispenseFarMasterTotalChecked;
 
 
 
@@ -788,6 +953,8 @@
         dispenseFarBillNo = $("#dispenseFarBillNo").val();
         dispenseFarMasterQuantity = $("#dispenseTotalQuantity").val();
         dispenseFarMasterTotal = $("#dispenseGrandTotal").val();
+        dispenseFarMasterQuantityChecked = $("#dispenseTotalQuantityChecked").val();
+        dispenseFarMasterTotalChecked = $("#dispenseGrandTotalChecked").val();
 
 
         table.find('tr').each(function (i) {
@@ -813,13 +980,14 @@
 
 
             if (drugChecked === true) {
+
                 console.log("Ok : " + drugCode);
 
                 if (drugStatus === "New") {
 
-                    if (drugDispensedQty >= drugOrderedQty) {
+                    if (parseInt(drugDispensedQty) >= parseInt(drugOrderedQty)) {
                         drugStatus = "4";
-                    } else if (drugDispensedQty < drugOrderedQty) {
+                    } else if (parseInt(drugDispensedQty) < parseInt(drugOrderedQty)) {
                         drugStatus = "1";
                     }
 
@@ -827,7 +995,7 @@
 
                     if ((parseInt(drugDispensedQty) + parseInt(drugSuppliedQty)) === parseInt(drugOrderedQty)) {
                         drugStatus = "4";
-                    } else if ((drugDispensedQty + drugSuppliedQty) < drugOrderedQty) {
+                    } else if ((parseInt(drugDispensedQty) + parseInt(drugSuppliedQty)) < parseInt(drugOrderedQty)) {
                         drugStatus = "1";
                     }
 
@@ -862,6 +1030,8 @@
                     dispenseFarBillNo: dispenseFarBillNo,
                     dispenseDrugMasterQuantity: dispenseFarMasterQuantity,
                     dispenseDrugMasterTotal: dispenseFarMasterTotal,
+                    dispenseDrugMasterQuantityChecked: dispenseFarMasterQuantityChecked,
+                    dispenseDrugMasterTotalChecked: dispenseFarMasterTotalChecked,
                     drugChecked: drugChecked
                 };
 
@@ -906,21 +1076,30 @@
 
     }
 
-    // Grand Total Calculator
-    !function calculateGrandTotal() {
+    // Grand Total Calculator Start
+    !function calculateAllTotal() {
 
-        // your other code here
+        // Getting Table
         var table = $("#patientOrderDetailsListTable tbody");
-        var totalOrder = (document.getElementById("patientOrderDetailsListTable").rows.length) - 1;
-        var drugPrice, drugDispensedQty, product, drugDispensedQtyTotal;
 
+        // Setting Variable For Overall Dispense
+        var drugPrice, drugDispensedQty, product;
+        var drugTotalOrder = 0;
         var grandTotal = 0.0;
         var drugDispensedQtyTotal = 0.0;
 
+        // Setting Variable For Selected Dispense
+        var drugPriceChecked, drugDispensedQtyChecked, productChecked;
+        var drugTotalOrderChecked = 0;
+        var grandTotalDispenseChecked = 0.0;
+        var drugDispensedQtyTotalChecked = 0.0;
+
+
+        // Calculating Data For Overall Dispense
         table.find('tr').each(function (i) {
 
             var $tds = $(this).find('td');
-
+            drugTotalOrder = drugTotalOrder + 1;
             drugPrice = parseFloat($tds.eq(11).text());
             drugDispensedQty = parseFloat($tds.eq(10).text());
             product = drugDispensedQty * drugPrice;
@@ -930,16 +1109,42 @@
 
         });
 
-        $("#dispenseTotalOrder").val(totalOrder);
+        // Calculating Data For Selected Dispense
+        table.find('tr').each(function (i) {
+
+            var drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
+
+            if (drugChecked === true) {
+
+                var $tds = $(this).find('td');
+                drugTotalOrderChecked = drugTotalOrderChecked + 1;
+                drugPriceChecked = parseFloat($tds.eq(11).text());
+                drugDispensedQtyChecked = parseFloat($tds.eq(10).text());
+                productChecked = drugDispensedQtyChecked * drugPriceChecked;
+
+                grandTotalDispenseChecked = grandTotalDispenseChecked + productChecked;
+                drugDispensedQtyTotalChecked = drugDispensedQtyTotalChecked + drugDispensedQtyChecked;
+
+            }
+        });
+
+
+        // Assigining Value For Overall Dispense
+        $("#dispenseTotalOrder").val(drugTotalOrder);
         $("#dispenseTotalQuantity").val(drugDispensedQtyTotal);
         $("#dispenseGrandTotal").val(grandTotal.toFixed(2));
 
-        setTimeout(calculateGrandTotal, 1000);
+        // Assigining Value For Selected Dispense
+        $("#dispenseTotalOrderChecked").val(drugTotalOrderChecked);
+        $("#dispenseTotalQuantityChecked").val(drugDispensedQtyTotalChecked);
+        $("#dispenseGrandTotalChecked").val(grandTotalDispenseChecked.toFixed(2));
+
+        setTimeout(calculateAllTotal, 800);
 
     }();
     // Grand Total Calculator End
 
-
+    // Grand Total Calculator Start
     $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe', function (e) {
 
         var table = $("#patientOrderDetailsListTable tbody");
@@ -1008,134 +1213,6 @@
         });
 
     });
-
-    // Dispense Order
-    $('#dispenseOrder').off('click', '#dispenseOrderMButton').on('click', '#dispenseOrderMButton', function (e) {
-
-        var table = $("#patientOrderDetailsListTable tbody");
-
-        var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose, drugPrice,
-                drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugStatus;
-
-        var orderDate, locationCode, arrivalDate;
-
-        orderDate = $("#patientOrderDate").val();
-        locationCode = $("#patientOrderLocationCode").val();
-        arrivalDate = $("#patientOrderDate").val();
-
-        table.find('tr').each(function (i) {
-
-            var $tds = $(this).find('td');
-
-            // Get The Data
-            orderNo = $tds.eq(0).text();
-            drugCode = $tds.eq(1).text();
-            drugDesc = $tds.eq(2).text();
-            drugStrength = $tds.eq(3).text();
-            drugFrequency = $tds.eq(4).text();
-            drugDuration = $tds.eq(5).text();
-            drugDose = $tds.eq(6).text();
-            drugPrice = $tds.eq(7).text();
-            drugStockQty = $tds.eq(8).text();
-            drugOrderedQty = String(parseInt($tds.eq(9).text()));
-            drugSuppliedQty = $tds.eq(10).text();
-            drugDispensedQty = $tds.eq(11).text();
-            drugStatus = $tds.eq(12).text();
-
-            // do something with productId, product, Quantity
-            if (drugStatus === "New") {
-                drugStatus = "0";
-            } else if (drugStatus === "Partial") {
-                drugStatus = "1";
-            } else if (drugStatus === "Complete Partial") {
-                drugStatus = "2";
-            } else if (drugStatus === "Full Complete") {
-                drugStatus = "3";
-            } else {
-                drugStatus = "4";
-            }
-
-            var updatedQtySupplied = String(parseInt(drugDispensedQty) + parseInt(drugSuppliedQty));
-            var updateQtyStock = parseInt(drugStockQty) - parseInt(drugDispensedQty);
-
-            var dataAjax = {
-                orderNo: orderNo,
-                drugCode: drugCode,
-                drugPrice: drugPrice,
-                drugStockQty: updateQtyStock,
-                drugOrderedQty: drugOrderedQty,
-                drugSuppliedQty: updatedQtySupplied,
-                drugDispensedQty: drugDispensedQty,
-                drugStatus: drugStatus,
-                orderDate: orderDate,
-                locationCode: locationCode,
-                arrivalDate: arrivalDate
-            };
-
-            console.log(dataAjax);
-
-            $.ajax({
-                url: "patientOrderListDetailsDispenceUpdateOrderTable.jsp",
-                type: "post",
-                data: dataAjax,
-                timeout: 3000,
-                success: function (datas) {
-                    console.log(datas);
-
-                    $.ajax({
-                        url: "patientOrderListDetailsDispenceUpdateDispenseTable.jsp",
-                        type: "post",
-                        data: dataAjax,
-                        timeout: 3000,
-                        success: function (datas) {
-                            console.log(datas);
-
-                            $.ajax({
-                                url: "patientOrderListDetailsDispenceUpdateMDCTable.jsp",
-                                type: "post",
-                                data: dataAjax,
-                                timeout: 3000,
-                                success: function (datas) {
-                                    console.log(datas);
-
-
-                                },
-                                error: function (err) {
-                                    console.log("Error update!");
-                                }
-
-                            });
-                        },
-                        error: function (err) {
-                            console.log("Error update!");
-                        }
-
-                    });
-
-                },
-                error: function (err) {
-                    console.log("Error update!");
-                }
-
-            });
-        }).promise().done(function () {
-
-            $('#dispenseOrder').modal('hide');
-
-            bootbox.alert({
-                message: "Dispense Order is Successfully",
-                title: "Dispense Result",
-                backdrop: true
-            });
-
-            resetDispense();
-
-        });
-
-    });
-    // Dispense Function End
-
-
 
 //===============================================================================  Dispense Part End  ================================================================================//
 
@@ -1210,6 +1287,8 @@
 
                     document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
                     document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
+                    $("#patientOrderDetailContent #patientAllergyListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientAllergyListTableDiv");
+                    $("#patientOrderDetailContent #patientDiagnosisListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientDiagnosisListTableDiv");
                     $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
                     $('.nav-tabs a[href="#tab_default_1"]').tab('show');
                 }, 2000);
@@ -1222,6 +1301,8 @@
     $('#patientOrderDetailContent').on('click', '#btnClearOrderDetailDispense', function (e) {
         document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
         document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
+        $("#patientOrderDetailContent #patientAllergyListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientAllergyListTableDiv");
+        $("#patientOrderDetailContent #patientDiagnosisListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientDiagnosisListTableDiv");
         $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
         $('.nav-tabs a[href="#tab_default_1"]').tab('show');
     });
