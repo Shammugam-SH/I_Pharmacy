@@ -1101,7 +1101,6 @@ a {
 a:focus,
 a:hover {
     color: #23527c;
-    text-decoration: underline
 }
 a:focus {
     outline: 5px auto -webkit-focus-ring-color;
@@ -2638,6 +2637,7 @@ output {
 .form-control {
     display: block;
     height: 34px;
+	width: 100%;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -5089,30 +5089,50 @@ a.badge:hover {
 .thumbnail {
     display: inline-block;
 	width: 100%;
-    padding: 4px;
+    padding: 30px;
     margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
     -webkit-transition: border .2s ease-in-out;
     -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out
+    transition: border .2s ease-in-out;
+	box-shadow: 0 2px 5px rgba(0,0,0,.26);
+	position: relative;
 }
 .thumbnail a>img,
 .thumbnail>img {
     margin-right: auto;
     margin-left: auto
 }
+a.thumbnail {
+	max-height: 121px;
+}
+
 a.thumbnail.active,
 a.thumbnail:focus,
 a.thumbnail:hover {
-    border-color: #337ab7
+    border-color: #337ab7;
+	text-decoration: none;
+	-webkit-transition: .35s ease-in-out;
+    -o-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+    box-shadow: 0 2px 25px rgba(0,0,0,.26);
 }
 .thumbnail .caption {
     padding: 9px;
     color: #333
 }
+.thumbnail h3{
+    font-size: 14px;
+    text-align: left;
+    margin: 21px 0px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.4em;
+    font-weight: 500;
+    color: #666;
+}
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -5998,7 +6018,6 @@ button.close {
     background-clip: padding-box;
     border: 1px solid #999;
     border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: 6px;
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5)
