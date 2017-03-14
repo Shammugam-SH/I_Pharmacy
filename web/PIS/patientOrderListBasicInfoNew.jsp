@@ -254,7 +254,7 @@
 
     <div class="text-center" id="patientOrderDispenseButtonDiv" > 
         <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Dispense &nbsp;</button>
-        <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa-print fa-lg" ></i>&nbsp; Print Label &nbsp;</button>
+        <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa-print fa-lg" ></i>&nbsp; Generate Label &nbsp;</button>
         <button class="btn btn-default " type="button" id="btnClearOrderDetailDispense" name="btnClearOrderDetailDispense" > <i class="fa fa-ban fa-lg"></i>&nbsp; Back &nbsp;</button>
     </div>
 </div>
@@ -1167,8 +1167,58 @@
     // Priscribe Button Start
     $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispensePrescribe', function (e) {
 
-        $('#myModal').modal('show');
-        updateResetPrescribe();
+
+        var table = $("#patientOrderDetailsListTable tbody");
+
+        var drugChecked;
+        var cars = [];
+
+        table.find('tr').each(function (i) {
+
+            var $tds = $(this).find('td');
+
+
+            drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
+
+            cars.push(drugChecked);
+
+        });
+        var checkedDispense = cars.indexOf(true);
+        console.log(cars);
+        console.log(checkedDispense);
+
+        if (checkedDispense === -1) {
+            bootbox.alert("Please At least Select A Order To Generate Label");
+        } else {
+
+            bootbox.confirm({
+                message: "Are you sure that you want to Generate Label For this Drugs ?",
+                title: "Generate Label ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+
+                    if (result === true) {
+
+                        $('#myModal').modal('show');
+                        updateResetPrescribe();
+
+                    } else {
+                        console.log("Process Is Canceled");
+                    }
+
+                }
+            });
+
+        }
 
     });
     // Priscribe Button End

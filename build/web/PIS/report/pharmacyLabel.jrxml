@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="label" language="groovy" pageWidth="204" pageHeight="210" columnWidth="164" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc23b6d7-6e7c-4e8a-b101-60d5d70bac17">
 	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="115"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="testingReport" uuid="ac194b55-cdd2-4ede-968e-fe377408dd10">
 		<queryString language="SQL">
 			<![CDATA[SELECT
@@ -38,7 +38,7 @@ WHERE
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
+		<![CDATA[SELECT   
      pis_order_detail.`ORDER_NO` AS ORDER_NO,
      pis_order_detail.`DRUG_ITEM_CODE` AS ITEM_CODE,
      pis_order_detail.`DRUG_ITEM_DESC` AS ITEM_DESC,
@@ -58,18 +58,14 @@ WHERE
      pis_mdc2.`UD_MDC_CODE` AS MDC_CODE,
      pis_mdc2.`D_ADVISORY_CODE` AS ADVISORY_CODE,
      pis_mdc2.`D_CAUTION_CODE` AS D_CAUTION_CODE,
-     DATE_FORMAT(NOW(),'%d/%m/%Y')
-
+     DATE_FORMAT(NOW(),'%d/%m/%Y') AS DATE
 FROM
-     `pis_order_master` pis_order_master 
-INNER JOIN 
-	`pis_order_detail` pis_order_detail ON pis_order_master.`ORDER_NO` = pis_order_detail.`ORDER_NO`
-INNER JOIN 
-	`pms_patient_biodata` pms_patient_biodata ON pis_order_master.`PMI_NO` = pms_patient_biodata.`PMI_NO` 
-INNER JOIN 
-     	`pis_mdc2` pis_mdc2 ON pis_mdc2.`ud_mdc_code` = pis_order_detail.`DRUG_ITEM_CODE`
+     `pis_order_master` pis_order_master INNER JOIN `pis_order_detail` pis_order_detail ON pis_order_master.`ORDER_NO` = pis_order_detail.`ORDER_NO`
+     INNER JOIN `pms_patient_biodata` pms_patient_biodata ON pis_order_master.`PMI_NO` = pms_patient_biodata.`PMI_NO`
+     INNER JOIN `pis_mdc2` pis_mdc2 ON pis_order_detail.`DRUG_ITEM_CODE` = pis_mdc2.`ud_mdc_code`
 WHERE
-     	pis_order_detail.`STATUS` = 1 AND pis_order_detail.`ORDER_NO` = $P{orderNo}]]>
+     pis_order_detail.`STATUS` = 1
+ AND pis_order_detail.`ORDER_NO` = $P{orderNo}]]>
 	</queryString>
 	<field name="ORDER_NO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -104,7 +100,9 @@ WHERE
 	<field name="D_CAUTION_CODE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="DATE_FORMAT(NOW(),&apos;%d/%m/%Y&apos;)" class="java.lang.String"/>
+	<field name="DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -127,7 +125,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Date : " + $F{DATE_FORMAT(NOW(),'%d/%m/%Y')}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date : " + $F{DATE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="2" y="68" width="160" height="20" uuid="dd42aa3a-29b8-44a9-94cc-78165e18fe37"/>
