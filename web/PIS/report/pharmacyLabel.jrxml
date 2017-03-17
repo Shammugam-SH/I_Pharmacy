@@ -172,8 +172,8 @@ WHERE
 				<textFieldExpression><![CDATA[$F{ITEM_DESC} + " ( " + $F{DOSAGE} + " )"]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="2" y="2" width="45" height="23" uuid="ea65b78b-ff98-4b78-820b-9bf02caab04b"/>
-				<imageExpression><![CDATA["C:\\Users\\Shammugam\\Desktop\\UTeM.jpg"]]></imageExpression>
+				<reportElement x="3" y="2" width="41" height="23" uuid="8dcb4025-4163-435a-973c-b62f0688a8e7"/>
+				<imageExpression><![CDATA["C:\\Users\\Shammugam\\Desktop\\SHAM\\I_Pharmacy\\web\\PIS\\libraries\\UTeM.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</detail>
