@@ -94,11 +94,10 @@
 
         <script>
 
-          //  $('<div class="loading">Loading</div>').appendTo('body');
+            $('<div class="loading">Loading</div>').appendTo('body');
 
-          //  $("#risOrderListContent").load("patientOrderListTable.jsp");
-           // $("#risOrderDetailContent").load("patientOrderListBasicInfoNew.jsp");
-
+            $("#risOrderListContent").load("risManageOrderListTable.jsp");
+            $("#risOrderDetailContent").load("risManageOrderListBasicInfoNew.jsp");
 
         </script>
 
