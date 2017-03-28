@@ -1052,20 +1052,20 @@
                     success: function (datas) {
                         console.log(datas);
 
-                        $.ajax({
-                            url: "patientOrderListDetailsDispenceFarTable.jsp",
-                            type: "post",
-                            data: dataAjax,
-                            timeout: 3000,
-                            success: function (datas) {
-                                console.log(datas);
-
-                            },
-                            error: function (err) {
-                                console.log("Error update!");
-                            }
-
-                        });
+//                        $.ajax({
+//                            url: "patientOrderListDetailsDispenceFarTable.jsp",
+//                            type: "post",
+//                            data: dataAjax,
+//                            timeout: 3000,
+//                            success: function (datas) {
+//                                console.log(datas);
+//
+//                            },
+//                            error: function (err) {
+//                                console.log("Error update!");
+//                            }
+//
+//                        });
 
                     },
                     error: function (err) {
@@ -1113,9 +1113,12 @@
             drugDispensedQty = parseFloat($tds.eq(10).text());
             product = drugDispensedQty * drugPrice;
 
-            grandTotal = grandTotal + product;
-            drugDispensedQtyTotal = drugDispensedQtyTotal + drugDispensedQty;
-
+            if (isNaN(drugTotalOrder) === true || isNaN(drugPrice) === true || isNaN(drugDispensedQty) === true || isNaN(product) === true) {
+                console.log("NaN");
+            } else {
+                grandTotal = grandTotal + product;
+                drugDispensedQtyTotal = drugDispensedQtyTotal + drugDispensedQty;
+            }
         });
 
         // Calculating Data For Selected Dispense
@@ -1131,9 +1134,12 @@
                 drugDispensedQtyChecked = parseFloat($tds.eq(10).text());
                 productChecked = drugDispensedQtyChecked * drugPriceChecked;
 
-                grandTotalDispenseChecked = grandTotalDispenseChecked + productChecked;
-                drugDispensedQtyTotalChecked = drugDispensedQtyTotalChecked + drugDispensedQtyChecked;
-
+                if (isNaN(drugTotalOrderChecked) === true || isNaN(drugPriceChecked) === true || isNaN(drugDispensedQtyChecked) === true || isNaN(productChecked) === true) {
+                    console.log("NaN Checked");
+                } else {
+                    grandTotalDispenseChecked = grandTotalDispenseChecked + productChecked;
+                    drugDispensedQtyTotalChecked = drugDispensedQtyTotalChecked + drugDispensedQtyChecked;
+                }
             }
         });
 
@@ -1235,47 +1241,52 @@
             orderNo: orderNo
         };
 
-        $.ajax({
-            url: "patientOrderListDetailsPrescribeResetStatus.jsp",
-            type: "post",
-            data: data,
-            timeout: 3000,
-            success: function (datas) {
-                console.log(datas);
-            }
-        });
 
-        table.find('tr').each(function (i) {
+        setTimeout(function () {
+            $.ajax({
+                url: "patientOrderListDetailsPrescribeResetStatus.jsp",
+                type: "post",
+                data: data,
+                timeout: 3000,
+                success: function (datas) {
+                    console.log(datas);
+                }
+            });
 
-            var $tds = $(this).find('td');
+            table.find('tr').each(function (i) {
 
-            // Get The Data
-            drugCode = $tds.eq(1).text();
-            drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
+                var $tds = $(this).find('td');
 
-            if (drugChecked === true) {
+                // Get The Data
+                drugCode = $tds.eq(1).text();
+                drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
 
-                var dataAjax = {
-                    orderNo: orderNo,
-                    drugCode: drugCode
-                };
+                if (drugChecked === true) {
 
-                $.ajax({
-                    url: "patientOrderListDetailsPrescribeUpdateStatus.jsp",
-                    type: "post",
-                    data: dataAjax,
-                    timeout: 3000,
-                    success: function (datas) {
-                        console.log(datas);
-                    }
-                });
+                    var dataAjax = {
+                        orderNo: orderNo,
+                        drugCode: drugCode
+                    };
 
-            }
+                    $.ajax({
+                        url: "patientOrderListDetailsPrescribeUpdateStatus.jsp",
+                        type: "post",
+                        data: dataAjax,
+                        timeout: 3000,
+                        success: function (datas) {
+                            console.log(datas);
+                        }
+                    });
 
-        });
+                }
+
+            });
+        }, 3000);
+
         setTimeout(function () {
             loadingPrescribe();
-        }, 3000);
+        }, 4000);
+
     }
     // Priscribe Reset And Update Status End
 
@@ -1344,23 +1355,34 @@
                 function () {
                     console.log("Inclean");
 
+//                    $.ajax({
+//                        url: "patientOrderListDetailsDispenceFarTableBillNoUpdate.jsp",
+//                        type: "post",
+//                        timeout: 3000,
+//                        success: function (data) {
+//                            console.log(data);
+//
+//                            $.ajax({
+//                                url: "patientOrderListTable.jsp",
+//                                type: 'POST',
+//                                timeout: 3000,
+//                                success: function (data) {
+//                                    console.log(data);
+//                                    $("#patientOrderListContent").html(data);
+//                                }
+//                            });
+//
+//                        }
+//                    });
+
+
                     $.ajax({
-                        url: "patientOrderListDetailsDispenceFarTableBillNoUpdate.jsp",
-                        type: "post",
+                        url: "patientOrderListTable.jsp",
+                        type: 'POST',
                         timeout: 3000,
                         success: function (data) {
                             console.log(data);
-
-                            $.ajax({
-                                url: "patientOrderListTable.jsp",
-                                type: 'POST',
-                                timeout: 3000,
-                                success: function (data) {
-                                    console.log(data);
-                                    $("#patientOrderListContent").html(data);
-                                }
-                            });
-
+                            $("#patientOrderListContent").html(data);
                         }
                     });
 

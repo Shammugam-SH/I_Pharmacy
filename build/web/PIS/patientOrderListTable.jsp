@@ -28,9 +28,13 @@
 <tbody>
 
     <%
+        String hfc = "";
+
+        hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
+
         String sql = "SELECT ORDER_NO,PMI_NO,HEALTH_FACILITY_CODE,EPISODE_CODE,ENCOUNTER_DATE,ORDER_DATE,ORDER_BY,"
                 + "ORDER_FROM,ORDER_TO,HFC_FROM,HFC_TO,SPUB_NO,KEYIN_BY,TOTAL_ORDER,STATUS,PATIENT_NAME,NEW_IC_NO,BIRTH_DATE,"
-                + "SEX_CODE,BLOOD_TYPE,ORDER_STATUS FROM pis_order_master JOIN pms_patient_biodata USING (PMI_NO) WHERE ORDER_STATUS = '0';";
+                + "SEX_CODE,BLOOD_TYPE,ORDER_STATUS FROM pis_order_master JOIN pms_patient_biodata USING (PMI_NO) WHERE ORDER_STATUS = '0' AND HEALTH_FACILITY_CODE = '" + hfc + "';";
 
         ArrayList<ArrayList<String>> dataPatientOrderList = conn.getData(sql);
 
@@ -57,6 +61,8 @@
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
         $('#patientOrderListTable').DataTable({
+            pageLength: 15,
+            lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]],
             "language": {
                 "emptyTable": "No Order Available To Display"
             }, initComplete: function (settings, json) {
