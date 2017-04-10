@@ -325,5 +325,31 @@
 //======================================================================================================================================================================================//
 
 
+    // Save Button Function Start
+    $('#patientOrderDispenseButtonDiv').on('click', '#btnRISOrderSave', function (e) {
+        alert("In Save");
+    });
+    // Save Button Function End
+
+
+    // Send Button Function Start
+    $('#patientOrderDispenseButtonDiv').on('click', '#btnRISOrderSendResults', function (e) {
+        alert("In Send");
+    });
+    // Send Button Function End
+
+
+
+    // Clear Button Function Start
+    $('#patientOrderDispenseButtonDiv').on('click', '#btnRISClearOrderDetail', function (e) {
+        document.getElementById("risManageOrderDetailContentBasicInfoForm").reset();
+        document.getElementById("risManageOrderDetailContentOrderInfoForm").reset();
+        $("#risOrderDetailContent #risManageAllergyListTableDiv").load("risManageOrderListBasicInfoNew.jsp #risManageAllergyListTableDiv");
+        $("#risOrderDetailContent #risManageDiagnosisListTableDiv").load("risManageOrderListBasicInfoNew.jsp #risManageDiagnosisListTableDiv");
+        $("#risOrderDetailContent #risManageOrderDetailsListTableDiv").load("risManageOrderListBasicInfoNew.jsp #risManageOrderDetailsListTableDiv");
+        $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+    });
+    // Clear Button Function End
+
 
 </script>

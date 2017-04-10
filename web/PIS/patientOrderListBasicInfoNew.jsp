@@ -986,7 +986,7 @@
             drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
 
 
-            if (drugChecked === true) {
+            if (drugChecked === true && drugDispensedQty !== "0") {
 
                 console.log("Ok : " + drugCode);
 
@@ -1074,7 +1074,13 @@
                 });
 
             } else {
-                console.log("Not Ok : " + drugCode);
+                
+                if(drugDispensedQty === "0") {
+                    bootbox.alert("The dispense quantity of the product that is going to be dispensed is 0. Please check the dispense or the stock quantity !");
+                } else {
+                    console.log("Not Ok : " + drugCode);
+                }
+
             }
 
         });
