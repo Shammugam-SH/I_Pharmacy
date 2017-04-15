@@ -216,6 +216,10 @@
         <!-- content goes here -->
         <form class="form-horizontal" id="addForm">
 
+            <div class="col-md-2">
+                <input id="dispenseFarBillNo" name="dispenseFarBillNo" type="hidden" class="form-control input-md" maxlength="50" readonly>
+            </div>
+
             <div class="col-md-3">
                 <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
                 <input id="dispenseTotalQuantityChecked" name="dispenseTotalQuantityChecked" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
@@ -281,13 +285,6 @@
     // Disable Dispense Button
     document.getElementById("btnOrderDispense").disabled = true;
 
-    // Get date function for MSH
-    function getDate() {
-        var d = new Date();
-        var dates = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-        return dates;
-    }
-
 
     // Move to Order Details Fetch Details Start
     $('#patientOrderListContent').off('click', '#patientOrderListTable #moveToOrderDetailsTButton').on('click', '#patientOrderListTable #moveToOrderDetailsTButton', function (e) {
@@ -311,28 +308,13 @@
         var patientOrderLocationCode = arrayData[2];
 
 
-
-        var rowDataEHR = $("#patientOrderLocationCodeFull").val();
-        var pmiNo = patientpmino;
-        var arrayDataEHR = rowDataEHR.split("|");
-        var hfc_cd = arrayDataEHR[0];
-        var discipline = arrayDataEHR[1];
-        var subdis = arrayDataEHR[2];
-        
-
-        var data = {
-            pmiNo: pmiNo
-        };
-
-        var MSH = "MSH|^~|PIS|" + hfc_cd + "^" + discipline + "^" + subdis + "|||" + getDate() + "|||||||||||||<cr>\n";
-
-
         $.ajax({
-            url: "patientOrderListDetailDispenseEHRCentralGetPDI.jsp",
+            url: "patientOrderListDetailsDispenceFarTableBillNo.jsp",
             type: "post",
             timeout: 3000,
-            data: data,
             success: function (data) {
+
+                var billNo = data.trim();
 
                 //Set value to the Second Tab 
                 $("#patientpmino").val(patientpmino);
@@ -343,11 +325,8 @@
                 $("#patientBtype").val(patientBtype);
                 $("#patientOrderNo").val(patientOrderNo);
                 $("#patientOrderDate").val(patientOrderDate);
-                $("#patientOrderLocationCode").val(patientOrderLocationCode);               
-                $("#dataPDI").val(data.trim());
-                
-                console.log(MSH);
-                console.log(data.trim());
+                $("#patientOrderLocationCode").val(patientOrderLocationCode);
+                $("#dispenseFarBillNo").val(billNo);
 
                 loadAllergyDiagnosisOrder(patientOrderNo, patientpmino);
             }
@@ -1015,7 +994,7 @@
         var orderNo, drugCode, drugDesc, drugStrength, drugFrequency, drugDuration, drugDose,
                 drugStockQty, drugOrderedQty, drugSuppliedQty, drugDispensedQty, drugPrice, drugTotalPrice, drugStatus, drugChecked;
 
-        var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarMasterQuantity, dispenseFarMasterTotal, dispenseFarMasterQuantityChecked, dispenseFarMasterTotalChecked;
+        var orderDate, locationCode, arrivalDate, pmino, pname, dispenseFarBillNo, dispenseFarMasterQuantity, dispenseFarMasterTotal, dispenseFarMasterQuantityChecked, dispenseFarMasterTotalChecked;
 
 
 
@@ -1024,6 +1003,7 @@
         orderDate = $("#patientOrderDate").val();
         locationCode = $("#patientOrderLocationCode").val();
         arrivalDate = $("#patientOrderDate").val();
+        dispenseFarBillNo = $("#dispenseFarBillNo").val();
         dispenseFarMasterQuantity = $("#dispenseTotalQuantity").val();
         dispenseFarMasterTotal = $("#dispenseGrandTotal").val();
         dispenseFarMasterQuantityChecked = $("#dispenseTotalQuantityChecked").val();
@@ -1100,6 +1080,7 @@
                     pmino: pmino,
                     pname: pname,
                     drugTotalPrice: drugTotalPrice,
+                    dispenseFarBillNo: dispenseFarBillNo,
                     dispenseDrugMasterQuantity: dispenseFarMasterQuantity,
                     dispenseDrugMasterTotal: dispenseFarMasterTotal,
                     dispenseDrugMasterQuantityChecked: dispenseFarMasterQuantityChecked,
@@ -1116,6 +1097,21 @@
                     timeout: 3000,
                     success: function (datas) {
                         console.log(datas);
+
+//                        $.ajax({
+//                            url: "patientOrderListDetailsDispenceFarTable.jsp",
+//                            type: "post",
+//                            data: dataAjax,
+//                            timeout: 3000,
+//                            success: function (datas) {
+//                                console.log(datas);
+//
+//                            },
+//                            error: function (err) {
+//                                console.log("Error update!");
+//                            }
+//
+//                        });
 
                     },
                     error: function (err) {
@@ -1413,7 +1409,7 @@
                     $("#dataPDI").val(datas.trim());
                 }
             });
-
+            
         }
 
         var MSH = "MSH|^~|PIS|" + hfc_cd + "^" + discipline + "^" + subdis + "|||" + getDate() + "|||||||||||||<cr>\n";
@@ -1421,9 +1417,9 @@
         console.log(MSH);
 
         var test = getPDI();
-
+        
         test = $("#dataPDI").val();
-
+        
         console.log(test);
 
     });
@@ -1475,6 +1471,27 @@
         setTimeout(
                 function () {
                     console.log("Inclean");
+
+//                    $.ajax({
+//                        url: "patientOrderListDetailsDispenceFarTableBillNoUpdate.jsp",
+//                        type: "post",
+//                        timeout: 3000,
+//                        success: function (data) {
+//                            console.log(data);
+//
+//                            $.ajax({
+//                                url: "patientOrderListTable.jsp",
+//                                type: 'POST',
+//                                timeout: 3000,
+//                                success: function (data) {
+//                                    console.log(data);
+//                                    $("#patientOrderListContent").html(data);
+//                                }
+//                            });
+//
+//                        }
+//                    });
+
 
                     $.ajax({
                         url: "patientOrderListTable.jsp",

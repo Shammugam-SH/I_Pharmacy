@@ -14,6 +14,7 @@
 
 <%
     Conn conn = new Conn();
+    String hfc =  session.getAttribute("HEALTH_FACILITY_CODE").toString();
 %>
 
 
@@ -88,7 +89,7 @@
                                     <select id="addD_ROUTE_CODE" name="selectbasic" class="form-control">
                                         <option value="Select Drug Route">Select Drug Route</option>
                                         <%
-                                            String sql2 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0066' ";
+                                            String sql2 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0066' AND hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDRoute = conn.getData(sql2);
 
                                             int size2 = listOfDRoute.size();
@@ -110,7 +111,7 @@
                                     <select id="addD_FORM_CODE" name="selectbasic" class="form-control">
                                         <option value="Select Dosage Form">Select Dosage Form</option>
                                         <%
-                                            String sql3 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0067' ";
+                                            String sql3 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0067' AND hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDForm = conn.getData(sql3);
 
                                             int size3 = listOfDForm.size();
@@ -215,7 +216,7 @@
                                     <select id="addD_QTYT" name="addD_QTYT" class="form-control">
                                         <option value="No Dose">No Dose</option>
                                         <%
-                                            String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' ";
+                                            String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' AND hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDUOM = conn.getData(sql4);
 
                                             int size4 = listOfDUOM.size();
@@ -237,7 +238,7 @@
                                     <select id="addD_FREQUENCY" name="addD_FREQUENCY" class="form-control" >
                                         <option value="No Frequency">No Frequency</option>
                                         <%
-                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' ";
+                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' AND  hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDFreq = conn.getData(sql5);
 
                                             int size5 = listOfDFreq.size();
@@ -262,7 +263,7 @@
                                     <select id="addD_DURATIONT" name="addD_DURATIONT" class="form-control">
                                         <option value="No Duration">No Duration</option>
                                         <%
-                                            String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089' ";
+                                            String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089'  AND hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDDura = conn.getData(sql6);
 
                                             int size6 = listOfDDura.size();
@@ -284,7 +285,7 @@
                                     <select id="addD_ADVISORY_CODE" name="addD_ADVISORY_CODE" class="form-control">
                                         <option value="No Instruction">No Instruction</option>
                                         <%
-                                            String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' ";
+                                            String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' AND  hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDInst = conn.getData(sql7);
 
                                             int size7 = listOfDInst.size();
@@ -322,7 +323,7 @@
                                     <select id="addD_CLASSIFICATION" name="addD_CLASSIFICATION" class="form-control">
                                         <option value="No Classification">No Classification</option>
                                         <%
-                                            String sql8 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0091' ";
+                                            String sql8 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0091' AND  hfc_cd = '"+hfc+"' ";
                                             ArrayList<ArrayList<String>> listOfDClass = conn.getData(sql8);
 
                                             int size8 = listOfDClass.size();

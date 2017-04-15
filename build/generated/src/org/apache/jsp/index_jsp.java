@@ -54,8 +54,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     session.setAttribute("ROLE_CODE", "001");
     session.setAttribute("ROLE_NAME", "SYSTEM ADMINISTRATOR");
 
-    session.setAttribute("DISCIPLINE_CODE", "-");
-    session.setAttribute("SUB_DISCIPLINE_CODE", "-");
+    session.setAttribute("DISCIPLINE_CODE", "001");
+    session.setAttribute("SUB_DISCIPLINE_CODE", "002");
 
     session.setMaxInactiveInterval(-1);
     response.sendRedirect("PIS/patientOrderList.jsp");

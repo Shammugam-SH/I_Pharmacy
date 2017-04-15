@@ -11,6 +11,7 @@
 
 <%
     Conn conn = new Conn();
+    String hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
 %>
 
 <table  id="mdcTable"  class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -47,7 +48,7 @@
     <%
         String sqlMain = " SELECT UD_MDC_CODE,UD_ATC_CODE,D_TRADE_NAME,D_GNR_NAME,D_ROUTE_CODE,D_FORM_CODE,D_STRENGTH,D_ADVISORY_CODE,"
                 + "D_STOCK_QTY,D_QTY,D_QTYT,D_DURATION,D_DURATIONT,D_FREQUENCY,D_CAUTION_CODE,D_EXP_DATE,D_CLASSIFICATION,STATUS,D_LOCATION_CODE,"
-                + "D_SELL_PRICE,D_COST_PRICE,D_PACKAGING,D_PACKAGINGT,D_PRICE_PPACK FROM pis_mdc2 ";
+                + "D_SELL_PRICE,D_COST_PRICE,D_PACKAGING,D_PACKAGINGT,D_PRICE_PPACK FROM pis_mdc2 WHERE hfc_cd  = '"+hfc+"'";
         ArrayList<ArrayList<String>> dataMTC = conn.getData(sqlMain);
 
         int sizeMain = dataMTC.size();

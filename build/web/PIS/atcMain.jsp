@@ -3,6 +3,17 @@
     Created on : Jan 25, 2017, 9:59:32 AM
     Author     : Shammugam
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.*"%>
+<%@page import="dBConn.Conn"%>
+<%@page import="main.RMIConnector"%>
+
+<%
+    Conn conn = new Conn();
+    String hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
+    String dis = session.getAttribute("DISCIPLINE_CODE").toString();
+    String subdis = session.getAttribute("SUB_DISCIPLINE_CODE").toString();
+%>
 
 
 <!-- Add Part Start -->
@@ -10,7 +21,7 @@
 <h4 style="padding-top: 30px;padding-bottom: 35px; font-weight: bold">
     ATC MEDICINE MANAGEMENT
     <span class="pull-right">
-        <button class="btn btn-success" data-status="pagado" data-toggle="modal" data-id="1" data-target="#detail" style=" padding-right: 10px;padding-left: 10px;color: white;"><a data-toggle="tooltip" data-placement="top" title="Add Items" id="test"><i class=" fa fa-plus" style=" padding-right: 10px;padding-left: 10px;color: white;"></i></a>ADD ATC</button>
+        <button id="addATCTriggerHFC" class="btn btn-success" data-status="pagado" data-toggle="modal" data-id="1" data-target="#detail" style=" padding-right: 10px;padding-left: 10px;color: white;"><a data-toggle="tooltip" data-placement="top" title="Add Items" id="test"><i class=" fa fa-plus" style=" padding-right: 10px;padding-left: 10px;color: white;"></i></a>ADD ATC</button>
     </span>
 </h4>
 <!-- Add Button End -->
@@ -58,10 +69,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">HFC Code *</label>
                         <div class="col-md-8">
-                            <input id="hfc" type="text" placeholder="Insert HFC Code" maxlength="30" class="form-control input-md" >
-                            <div id="atcHFCSearch">
-                                <!--for search area-->
-                            </div>
+                            <input id="hfcFromSession" type="hidden" maxlength="30" class="form-control input-md" value="<%= hfc %>" readonly>
+                            <input id="hfc" type="text" placeholder="Insert HFC Code" maxlength="30" value="<%= hfc %>" class="form-control input-md" readonly>
                         </div>
                     </div>
 
@@ -69,10 +78,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Discipline Code *</label>
                         <div class="col-md-8">
-                            <input id="discipline" type="text" placeholder="Insert Discipline Code" maxlength="30" class="form-control input-md" >
-                            <div id="atcDisciplineSearch">
-                                <!--for search area-->
-                            </div>
+                            <input id="discipline" type="text" placeholder="Insert Discipline Code" value="<%= dis %>" maxlength="30" class="form-control input-md" readonly>
                         </div>
                     </div>
 
@@ -80,10 +86,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textinput">Sub-Discipline Code *</label>
                         <div class="col-md-8">
-                            <input id="subdiscipline" type="text" placeholder="Insert Sub-Discipline Code" maxlength="30" class="form-control input-md" >
-                            <div id="atcSubDisciplineSearch">
-                                <!--for search area-->
-                            </div>
+                            <input id="subdiscipline" type="text" placeholder="Insert Sub-Discipline Code" maxlength="30" value="<%= subdis %>" class="form-control input-md" readonly>
                         </div>
                     </div>
 
@@ -128,128 +131,6 @@
 
 
     $(document).ready(function () {
-
-        // Search HFC Function Start
-        $("#hfc").on('keyup', function () { // everytime keyup event
-            var input = $(this).val(); // We take the input value
-
-            if (input.length >= 1) { // Minimum characters = 2 (you can change)
-                $('#atcHFCSearch').html('<img src="libraries/LoaderIcon.gif"  />'); // Loader icon apprears in the <div id="match"></div>
-                var dataFields = {input: input}; // We pass input argument in Ajax
-                $.ajax({
-                    type: "POST",
-                    url: "atcSearchHFC.jsp", // call the php file ajax/tuto-autocomplete.php
-                    data: dataFields, // Send dataFields var
-                    timeout: 3000,
-                    success: function (dataBack) { // If success
-                        $('#atcHFCSearch').html(dataBack); // Return data (UL list) and insert it in the <div id="match"></div>
-                        $('#matchListHFC li').on('click', function () { // When click on an element in the list
-                            //$('#masterCode2').text($(this).text()); // Update the field with the new element
-                            $('#hfc').val($(this).text());
-                            $('#atcHFCSearch').text(''); // Clear the <div id="match"></div>
-                            var arrayData = $('#hfc').val().split("|");
-                            //console.log(arrayData);
-                            //console.log(arrayData[0].trim());
-                            //console.log(arrayData[1].trim());
-                        });
-                    },
-                    error: function () { // if error
-                        $('#atcHFCSearch').text('Problem!');
-                    }
-                });
-            } else {
-                $('#atcHFCSearch').text(''); // If less than 2 characters, clear the <div id="match"></div>
-            }
-
-        });
-        // Search FHC Function End
-
-
-        // Search Discipline Function Start
-        $("#discipline").on('keyup', function () { // everytime keyup event
-            var input = $(this).val(); // We take the input value
-            var hfc = $('#hfc').val();
-
-            if (hfc === "" || hfc === null) {
-                $('#discipline').val("");
-                bootbox.alert("Please Search For HFC Code Before Proceeding");
-            } else {
-                if (input.length >= 1) { // Minimum characters = 2 (you can change)
-                    $('#atcDisciplineSearch').html('<img src="libraries/LoaderIcon.gif" />'); // Loader icon apprears in the <div id="match"></div>
-                    var dataFields = {input: input}; // We pass input argument in Ajax
-                    $.ajax({
-                        type: "POST",
-                        url: "atcSearchDiscipline.jsp", // call the php file ajax/tuto-autocomplete.php
-                        data: dataFields, // Send dataFields var
-                        timeout: 3000,
-                        success: function (dataBack) { // If success
-                            $('#atcDisciplineSearch').html(dataBack); // Return data (UL list) and insert it in the <div id="match"></div>
-                            $('#matchListDis li').on('click', function () { // When click on an element in the list
-                                //$('#masterCode2').text($(this).text()); // Update the field with the new element
-                                $('#discipline').val($(this).text());
-                                $('#atcDisciplineSearch').text(''); // Clear the <div id="match"></div>
-                                var arrayData = $('#discipline').val().split("|");
-                                //console.log(arrayData);
-                                //console.log(arrayData[0].trim());
-                                //console.log(arrayData[1].trim());
-                            });
-                        },
-                        error: function () { // if error
-                            $('#atcDisciplineSearch').text('Problem!');
-                        }
-                    });
-                } else {
-                    $('#atcDisciplineSearch').text(''); // If less than 2 characters, clear the <div id="match"></div>
-                }
-            }
-        });
-        // Search Sub Discipline Function End
-
-
-        // Search Sub Discipline Function Start
-        $("#subdiscipline").on('keyup', function () { // everytime keyup event
-            var input = $(this).val(); // We take the input value
-
-            var hfc = $('#hfc').val();
-            var discipline = $('#discipline').val();
-
-            if (hfc === "" || hfc === null) {
-                $('#subdiscipline').val("");
-                bootbox.alert("Please Search For HFC Code Before Proceeding");
-            } else if (discipline === "" || discipline === null) {
-                $('#subdiscipline').val("");
-                bootbox.alert("Please Search For Discipline Code Before Proceeding");
-            } else {
-                if (input.length >= 1) { // Minimum characters = 2 (you can change)
-                    $('#atcSubDisciplineSearch').html('<img src="libraries/LoaderIcon.gif" />'); // Loader icon apprears in the <div id="match"></div>
-                    var dataFields = {input: input}; // We pass input argument in Ajax
-                    $.ajax({
-                        type: "POST",
-                        url: "atcSearchSubDiscipline.jsp", // call the php file ajax/tuto-autocomplete.php
-                        data: dataFields, // Send dataFields var
-                        timeout: 3000,
-                        success: function (dataBack) { // If success
-                            $('#atcSubDisciplineSearch').html(dataBack); // Return data (UL list) and insert it in the <div id="match"></div>
-                            $('#matchListSubDis li').on('click', function () { // When click on an element in the list
-                                //$('#masterCode2').text($(this).text()); // Update the field with the new element
-                                $('#subdiscipline').val($(this).text());
-                                $('#atcSubDisciplineSearch').text(''); // Clear the <div id="match"></div>
-                                var arrayData = $('#subdiscipline').val().split("|");
-                                //console.log(arrayData);
-                                //console.log(arrayData[0].trim());
-                                //console.log(arrayData[1].trim());
-                            });
-                        },
-                        error: function () { // if error
-                            $('#atcSubDisciplineSearch').text('Problem!');
-                        }
-                    });
-                } else {
-                    $('#atcSubDisciplineSearch').text(''); // If less than 2 characters, clear the <div id="match"></div>
-                }
-            }
-        });
-        // Search Sub Discipline Function End
 
 
         // Add Function Start
@@ -298,14 +179,6 @@
                 bootbox.alert("Please Select Any Status");
             } else {
 
-                var arrayDataHFC = $('#hfc').val().split("|");
-                var arrayDataDiscipline = $('#discipline').val().split("|");
-                var arrayDataSubDiscipline = $('#subdiscipline').val().split("|");
-
-                hfc = arrayDataHFC[0].trim();
-                discipline = arrayDataDiscipline[0].trim();
-                subdiscipline = arrayDataSubDiscipline[0].trim();
-
                 var data = {
                     atcCode: atcCode,
                     atcDesc: atcDesc,
@@ -315,6 +188,8 @@
                     subdiscipline: subdiscipline,
                     status: status
                 };
+                
+                console.log(data);
 
                 $.ajax({
                     url: "atcInsert.jsp",
@@ -378,12 +253,6 @@
             document.getElementById("atcCode").value = "";
             document.getElementById("atcDesc").value = "";
             document.getElementById("category").value = "";
-            document.getElementById("hfc").value = "";
-            document.getElementById("atcHFCSearch").innerHTML = "";
-            document.getElementById("discipline").value = "";
-            document.getElementById("atcDisciplineSearch").innerHTML = "";
-            document.getElementById("subdiscipline").value = "";
-            document.getElementById("atcSubDisciplineSearch").innerHTML = "";
             document.getElementById("status1").checked = false;
             document.getElementById("status2").checked = false;
         }

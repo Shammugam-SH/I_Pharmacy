@@ -50,7 +50,7 @@
     <ul class="nav nav-sidebar" id="side-menu">
         <li><a href="patientOrderList.jsp"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true" ></i>Dispense Drug Order</a></li>
         <li><a href="manageInventory.jsp"><i class="fa fa-barcode fa-lg" aria-hidden="true" ></i>Manage Drug Inventory </a></li>
-        <li><a href="importMedcine.jsp"><i class="fa fa-credit-card fa-lg" aria-hidden="true" ></i>Import Drug</a></li> 
+<!--        <li><a href="importMedcine.jsp"><i class="fa fa-credit-card fa-lg" aria-hidden="true" ></i>Import Drug</a></li> -->
         <li><a href="manageReport.jsp"><i class="fa fa-bar-chart fa-lg" aria-hidden="true" ></i>Report</a></li>
     </ul>  
 </div>
