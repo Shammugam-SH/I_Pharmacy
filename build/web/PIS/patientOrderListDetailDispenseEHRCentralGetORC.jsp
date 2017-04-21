@@ -28,19 +28,19 @@
 
     String ORCFinal = "";
 
-    String headORC = "ORC";                    // Data 0
+    String headORC = "ORC";                           // Data 0
     String transactionORC = "T12113";                 // Data 1
-    String orderNoORC = orderNo;                     // Data 2
-    String fillerOrderNoORC = "";               // Data 3
-    String orderStatusORC = "NO";                 // Data 4
+    String orderNoORC = orderNo;                      // Data 2
+    String fillerOrderNoORC = "";                     // Data 3
+    String orderStatusORC = "NO";                     // Data 4
     String orderPriorityORC = "NORMAL";               // Data 5
-    String orderDateORC = format.format(now);                   // Data 6
+    String orderDateORC = format.format(now);         // Data 6
 
     String episodeDateORC = orderDate;                 // Data 7
     String encounterDateORC = orderDate;               // Data 8
-    String enteredByORC = userID;                   // Data 9
-    String verifiedByORC = userID;                  // Data 10
-    String designationORC = "";                 // Data 11
+    String enteredByORC = userID;                      // Data 9
+    String verifiedByORC = userID;                     // Data 10
+    String designationORC = "";                        // Data 11
     String orderHFCORC = hfc;                    // Data 12
     String orderDispORC = dis;                   // Data 13
     String orderSubDispORC = subdis;                // Data 14

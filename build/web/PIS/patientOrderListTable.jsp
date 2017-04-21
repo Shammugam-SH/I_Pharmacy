@@ -12,8 +12,9 @@
 
 <%
     Conn conn = new Conn();
+    String userID = session.getAttribute("USER_ID").toString();
 %>
-
+<input id="dataPatientOrderListUserIDhidden" type="hidden" value="<%= userID%>">
 <h4 style="padding-top: 2%;padding-bottom: 1%;">Drug Order List</h4>
 
 <table  id="patientOrderListTable"  class="table table-filter table-striped table-bordered" style="background: #fff; border: 1px solid #ccc; width: 100%">
@@ -29,6 +30,7 @@
 
     <%
         String hfc = "";
+        
 
         hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
 
