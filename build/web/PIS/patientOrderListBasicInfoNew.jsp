@@ -314,42 +314,63 @@
 
         var rowDataEHR = $("#patientOrderLocationCodeFull").val();
         var pmiNo = patientpmino;
+        var orderNo = patientOrderNo;
+        var orderDate = patientOrderDate;
         var arrayDataEHR = rowDataEHR.split("|");
         var hfc_cd = arrayDataEHR[0];
         var discipline = arrayDataEHR[1];
         var subdis = arrayDataEHR[2];
-        
+
 
         var data = {
-            pmiNo: pmiNo
+            pmiNo: pmiNo,
+            orderNo: orderNo,
+            orderDate: orderDate
         };
 
-        var MSH = "MSH|^~|PIS|" + hfc_cd + "^" + discipline + "^" + subdis + "|||" + getDate() + "|||||||||||||<cr>\n";
+
+
+        var MSH = "MSH|^~|04|" + hfc_cd + "^" + discipline + "^" + subdis + "|08|" + hfc_cd + "^" + discipline + "^" + subdis + "|" + getDate() + "|8|9|10|11|12|13|14|15|16|17|18|19<cr>\n";
 
 
         $.ajax({
-            url: "patientOrderListDetailDispenseEHRCentralGetPDI.jsp",
+            url: "patientOrderListDetailDispenseEHRCentralGetPDIFinal.jsp",
             type: "post",
             timeout: 3000,
             data: data,
-            success: function (data) {
+            success: function (returnDataPDIFull) {
 
-                //Set value to the Second Tab 
-                $("#patientpmino").val(patientpmino);
-                $("#patientName").val(patientName);
-                $("#patientnic").val(patientnic);
-                $("#patientGender").val(patientGender);
-                $("#patientBdate").val(patientBdate);
-                $("#patientBtype").val(patientBtype);
-                $("#patientOrderNo").val(patientOrderNo);
-                $("#patientOrderDate").val(patientOrderDate);
-                $("#patientOrderLocationCode").val(patientOrderLocationCode);               
-                $("#dataPDI").val(data.trim());
-                
-                console.log(MSH);
-                console.log(data.trim());
 
-                loadAllergyDiagnosisOrder(patientOrderNo, patientpmino);
+                $.ajax({
+                    url: "patientOrderListDetailDispenseEHRCentralGetORC.jsp",
+                    type: "post",
+                    data: data,
+                    timeout: 3000,
+                    success: function (returnDataORCFull) {
+
+                        //Set value to the Second Tab 
+                        $("#patientpmino").val(patientpmino);
+                        $("#patientName").val(patientName);
+                        $("#patientnic").val(patientnic);
+                        $("#patientGender").val(patientGender);
+                        $("#patientBdate").val(patientBdate);
+                        $("#patientBtype").val(patientBtype);
+                        $("#patientOrderNo").val(patientOrderNo);
+                        $("#patientOrderDate").val(patientOrderDate);
+                        $("#patientOrderLocationCode").val(patientOrderLocationCode);
+
+                        console.log(MSH);
+                        console.log(returnDataPDIFull.trim());
+                        console.log(returnDataORCFull.trim());
+
+                        loadAllergyDiagnosisOrder(patientOrderNo, patientpmino);
+
+                    }
+
+                });
+
+
+
             }
         });
 
@@ -1384,47 +1405,7 @@
     // Dispense Order Data
     $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #test').on('click', '#patientOrderDispenseButtonDiv #test', function (e) {
 
-        var rowData = $("#patientOrderLocationCodeFull").val();
-        var pmiNo = $("#patientpmino").val();
-        var arrayData = rowData.split("|");
-        var hfc_cd = arrayData[0];
-        var discipline = arrayData[1];
-        var subdis = arrayData[2];
 
-        function getDate() {
-            var d = new Date();
-            var dates = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-            return dates;
-        }
-
-
-        function getPDI() {
-
-            var data = {
-                pmiNo: pmiNo
-            };
-
-            $.ajax({
-                url: "patientOrderListDetailDispenseEHRCentralGetPDI.jsp",
-                type: "post",
-                data: data,
-                timeout: 1000,
-                success: function (datas) {
-                    $("#dataPDI").val(datas.trim());
-                }
-            });
-
-        }
-
-        var MSH = "MSH|^~|PIS|" + hfc_cd + "^" + discipline + "^" + subdis + "|||" + getDate() + "|||||||||||||<cr>\n";
-
-        console.log(MSH);
-
-        var test = getPDI();
-
-        test = $("#dataPDI").val();
-
-        console.log(test);
 
     });
     // Dispense Order Data End
@@ -1434,16 +1415,6 @@
     //-------------------------------------------------------------------------------  Reset Part Start  --------------------------------------------------------------------------------//
 
     // Dispense Loading Part 
-    // Hidding Loading Modal
-//    $('#myModal').modal({
-//        show: false
-//    });
-
-    // prevents closure while the ajax call is in progress
-//    $('#myModal').on('hide.bs.modal', function (e) {
-//        if (inProgess === true)
-//            return false;
-//    });
 
     var inProgess = false;
 
