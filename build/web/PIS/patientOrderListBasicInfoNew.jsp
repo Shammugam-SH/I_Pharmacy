@@ -218,8 +218,8 @@
             <div class="col-md-3">
                 <input id="dispenseTotalQuantity" name="dispenseTotalQuantity" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
                 <input id="dispenseTotalQuantityChecked" name="dispenseTotalQuantityChecked" type="hidden" placeholder="Total Order" class="form-control input-md" maxlength="50" readonly>
-                <input id="dataMSHPDIORC" name="dataMSHPDIORC" type="text" placeholder="" readonly class="form-control input-md">  
-                <input id="dataBIL" name="dataBIL" type="text" placeholder="" readonly class="form-control input-md">  
+                <input id="dataMSHPDIORC" name="dataMSHPDIORC" type="hidden" placeholder="" readonly class="form-control input-md">  
+                <input id="dataBIL" name="dataBIL" type="hidden" placeholder="" readonly class="form-control input-md">  
             </div>
 
             <div class="col-md-3">
@@ -278,11 +278,13 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-    // Disable Dispense Button
-    document.getElementById("btnOrderDispense").disabled = true;
+
 
     // Move to Order Details Fetch Details Start
     $('#patientOrderListContent').off('click', '#patientOrderListTable #moveToOrderDetailsTButton').on('click', '#patientOrderListTable #moveToOrderDetailsTButton', function (e) {
+
+        // Disable Dispense Button
+        document.getElementById("btnOrderDispense").disabled = true;
 
         e.preventDefault();
 
@@ -295,9 +297,9 @@
         var patientpmino = arrayData[1];
         var patientName = arrayData[15];
         var patientnic = arrayData[16];
-        var patientGender = arrayData[18];
+        var patientGender = arrayData[21];
         var patientBdate = arrayData[17];
-        var patientBtype = arrayData[19];
+        var patientBtype = arrayData[22];
         var patientOrderNo = arrayData[0];
         var patientOrderDate = arrayData[5];
         var patientOrderLocationCode = arrayData[2];
@@ -1137,19 +1139,19 @@
 
                 console.log(dataAjax);
 
-//                $.ajax({
-//                    url: "patientOrderListDetailsDispenceOverall.jsp",
-//                    type: "post",
-//                    data: dataAjax,
-//                    timeout: 3000,
-//                    success: function (datas) {
-//                        console.log(datas);
-//
-//                    },
-//                    error: function (err) {
-//                        console.log("Error Dispense!" + err);
-//                    }
-//                });
+                $.ajax({
+                    url: "patientOrderListDetailsDispenceOverall.jsp",
+                    type: "post",
+                    data: dataAjax,
+                    timeout: 3000,
+                    success: function (datas) {
+                        console.log(datas.trim());
+
+                    },
+                    error: function (err) {
+                        console.log("Error Dispense!" + err);
+                    }
+                });
 
             } else {
                 console.log("Not Ok : " + drugCode);
@@ -1172,6 +1174,7 @@
         var EHRSecondHeader = $("#dataBIL").val();
 
         var dataEHRcentralFull = {
+            pmino: pmino,
             EHRFirstHeader: EHRFirstHeader,
             EHRSecondHeader: EHRSecondHeader
         };
@@ -1182,16 +1185,16 @@
             data: dataEHRcentralFull,
             timeout: 3000,
             success: function (datas) {
-                console.log(datas);
-                
-                 //resetDispense();
+                console.log(datas.trim());
+
+                resetDispense();
 
             },
             error: function (err) {
                 console.log("Error Dispense!" + err);
             }
         });
- 
+
 
     }
     // Dispense Order Function End
@@ -1338,7 +1341,9 @@
                         if (result === true) {
 
                             $('#myModal').modal('show');
-                            $('#drugDispenseChecked').attr('disabled', true);
+                            //$("#patientOrderDetailsListTableDiv table input:checkbox").disabled = true;
+                            //document.getElementsByTagName('input:checkbox').disabled = true;
+                            //document.getElementById('drugDispenseChecked').disabled = true;
                             updateResetPrescribe();
 
                         } else {
@@ -1371,13 +1376,14 @@
 
 
         setTimeout(function () {
+
             $.ajax({
                 url: "patientOrderListDetailsPrescribeResetStatus.jsp",
                 type: "post",
                 data: data,
                 timeout: 3000,
                 success: function (datas) {
-                    console.log(datas);
+                    console.log(datas.trim());
                 }
             });
 
@@ -1402,7 +1408,7 @@
                         data: dataAjax,
                         timeout: 3000,
                         success: function (datas) {
-                            console.log(datas);
+                            console.log(datas.trim());
                         }
                     });
 
