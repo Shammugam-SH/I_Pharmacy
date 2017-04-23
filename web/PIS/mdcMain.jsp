@@ -14,7 +14,9 @@
 
 <%
     Conn conn = new Conn();
-    String hfc =  session.getAttribute("HEALTH_FACILITY_CODE").toString();
+    String hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
+    String dis = session.getAttribute("DISCIPLINE_CODE").toString();
+    String sub = session.getAttribute("SUB_DISCIPLINE_CODE").toString();
 %>
 
 
@@ -29,7 +31,7 @@
 <!-- Add Button End -->
 <!-- Modal Add MTC Start -->
 <div class="modal fade" id="mdcAddModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width:60%;">
+    <div class="modal-dialog" style="width:70%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
@@ -41,6 +43,32 @@
                 <form class="form-horizontal" autocomplete="off">
                     <div class="row">
                         <div class="col-md-6">
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">HEALTH FACILITY CODE</label>
+                                <div class="col-md-8">
+                                    <input id="addMDCHFC" name="textinput" type="text" class="form-control input-md" value="<%= hfc%>" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">DISCIPLINE CODE</label>
+                                <div class="col-md-8">
+                                    <input id="addMDCDISCIPLINE" name="textinput" type="text" class="form-control input-md" value="<%= dis%>" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">SUB-DISCIPLINE CODE</label>
+                                <div class="col-md-8">
+                                    <input id="addMDCSUBDISCIPLINE" name="textinput" type="text" class="form-control input-md" value="<%= sub%>" readonly>
+                                </div>
+                            </div>
+
+
                             <h4>Drug Information</h4>
                             <hr/>
 
@@ -49,7 +77,7 @@
                                 <label class="col-md-4 control-label" for="textinput">ATC Drug Code *</label>
                                 <div class="col-md-8">
                                     <input id="addUD_ATC_CODE" name="textinput" type="text" placeholder="Please Search ATC Drug Code" class="form-control input-md" maxlength="25" >
-                                    <div id="addUD_ATC_CODESearch">
+                                    <div id="addUD_ATC_CODESearch" class="search-drop">
                                         <!--for search area-->
                                     </div>
                                 </div>
@@ -89,7 +117,7 @@
                                     <select id="addD_ROUTE_CODE" name="selectbasic" class="form-control">
                                         <option value="Select Drug Route">Select Drug Route</option>
                                         <%
-                                            String sql2 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0066' AND hfc_cd = '"+hfc+"' ";
+                                            String sql2 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0066' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDRoute = conn.getData(sql2);
 
                                             int size2 = listOfDRoute.size();
@@ -111,7 +139,7 @@
                                     <select id="addD_FORM_CODE" name="selectbasic" class="form-control">
                                         <option value="Select Dosage Form">Select Dosage Form</option>
                                         <%
-                                            String sql3 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0067' AND hfc_cd = '"+hfc+"' ";
+                                            String sql3 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0067' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDForm = conn.getData(sql3);
 
                                             int size3 = listOfDForm.size();
@@ -216,7 +244,7 @@
                                     <select id="addD_QTYT" name="addD_QTYT" class="form-control">
                                         <option value="No Dose">No Dose</option>
                                         <%
-                                            String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' AND hfc_cd = '"+hfc+"' ";
+                                            String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDUOM = conn.getData(sql4);
 
                                             int size4 = listOfDUOM.size();
@@ -238,7 +266,7 @@
                                     <select id="addD_FREQUENCY" name="addD_FREQUENCY" class="form-control" >
                                         <option value="No Frequency">No Frequency</option>
                                         <%
-                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' AND  hfc_cd = '"+hfc+"' ";
+                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDFreq = conn.getData(sql5);
 
                                             int size5 = listOfDFreq.size();
@@ -263,7 +291,7 @@
                                     <select id="addD_DURATIONT" name="addD_DURATIONT" class="form-control">
                                         <option value="No Duration">No Duration</option>
                                         <%
-                                            String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089'  AND hfc_cd = '"+hfc+"' ";
+                                            String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089'  AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDDura = conn.getData(sql6);
 
                                             int size6 = listOfDDura.size();
@@ -285,7 +313,7 @@
                                     <select id="addD_ADVISORY_CODE" name="addD_ADVISORY_CODE" class="form-control">
                                         <option value="No Instruction">No Instruction</option>
                                         <%
-                                            String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' AND  hfc_cd = '"+hfc+"' ";
+                                            String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDInst = conn.getData(sql7);
 
                                             int size7 = listOfDInst.size();
@@ -323,7 +351,7 @@
                                     <select id="addD_CLASSIFICATION" name="addD_CLASSIFICATION" class="form-control">
                                         <option value="No Classification">No Classification</option>
                                         <%
-                                            String sql8 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0091' AND  hfc_cd = '"+hfc+"' ";
+                                            String sql8 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0091' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDClass = conn.getData(sql8);
 
                                             int size8 = listOfDClass.size();
@@ -379,7 +407,7 @@
         function reset() {
             console.log("In reset");
             document.getElementById("addUD_MDC_CODE").value = "";
-            document.getElementById("addUD_ATC_CODE").value = "Select ATC Code";
+            document.getElementById("addUD_ATC_CODE").value = "";
             document.getElementById("addD_TRADE_NAME").value = "";
             document.getElementById("addD_GNR_NAME").value = "";
             document.getElementById("addD_ROUTE_CODE").value = "Select Drug Route";
@@ -499,7 +527,7 @@
             if (UD_MDC_CODE === "") {
                 bootbox.alert("Please Insert MDC Code");
             } else if (UD_ATC_CODE === "") {
-                bootbox.alert("Select Any ATC Code");
+                bootbox.alert("Please Search Any ATC Code");
             } else if (D_TRADE_NAME === "") {
                 bootbox.alert("Please Insert Drug Trade Name");
             } else if (D_GNR_NAME === "") {
@@ -611,7 +639,7 @@
                     data: data,
                     timeout: 10000,
                     success: function (datas) {
-
+                        console.log(datas.trim());
                         if (datas.trim() === 'Success') {
 
                             $('#contentMDCTable').load('mdcTableLoop.jsp');
@@ -632,7 +660,7 @@
                             });
 
                         } else if (datas.trim() === 'Failed') {
-
+                            console.log(datas.trim());
                             bootbox.alert({
                                 message: "MDC Code Add Failed",
                                 title: "Process Result",
