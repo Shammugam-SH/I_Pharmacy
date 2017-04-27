@@ -9,3 +9,4 @@
 <link href="libraries/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
 <link href="libraries/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <link href="libraries/css/mystyles.css" rel="stylesheet" type="text/css"/>
+<link href="libraries/css/multi-select.css" rel="stylesheet" type="text/css"/>

@@ -26,9 +26,93 @@
     MDC MEDICINE MANAGEMENT
     <span class="pull-right">
         <button class="btn btn-success" data-status="pagado" data-toggle="modal" data-id="1" data-target="#mdcAddModal" style=" padding-right: 10px;padding-left: 10px;color: white;"><a data-toggle="tooltip" data-placement="top" title="Add Items" id="test"><i class=" fa fa-plus" style=" padding-right: 10px;padding-left: 10px;color: white;"></i></a>ADD MDC CODE</button>
+        <button id="MDCClone_btnClone" class="btn btn-primary" data-status="pagado" data-toggle="modal" data-id="1" data-target="#mdcCloneModal" style=" padding-right: 10px;padding-left: 10px;color: white;"><a data-toggle="tooltip" data-placement="top" title="Add Items"><i class=" fa fa-copy" style=" padding-right: 10px;padding-left: 10px;color: white;"></i></a>CLONE MDC CODE</button>
+        <button id="MDCClone_btnSummary" class="btn btn-danger" data-status="pagado" data-toggle="modal" data-id="1" data-target="#mdcSummaryModal" style=" padding-right: 10px;padding-left: 10px;color: white;"><a data-toggle="tooltip" data-placement="top" title="Add Items"><i class=" fa fa-file" style=" padding-right: 10px;padding-left: 10px;color: white;"></i></a>MDC INVENTORY SUMMARY</button>
     </span>
 </h4>
 <!-- Add Button End -->
+
+
+<!-- Summary Modal Start -->
+<div class="modal fade" id="mdcSummaryModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
+                <h2 class="modal-title" id="lineModalLabel" align="center">MDC Inventory Summary</h2>
+            </div>
+            <div class="modal-body">
+
+                <!-- content goes here -->
+                <form style="width: 100%; margin: 0 auto;" id="mdcSummaryForm" autocomplete="off">
+
+                    <!-- Text input-->
+                    <div class="form-group">
+
+
+                        <div style="align-items: center; text-align: center">
+
+                        </div>
+                    </div>
+
+
+                </form>
+                <!-- content goes here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="button" id="MDC_btnClone"><i class=" fa fa-check"></i> Clone</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Summary Modal End -->   
+
+
+<!-- Clone Modal Start -->
+<div class="modal fade" id="mdcCloneModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
+                <h2 class="modal-title" id="lineModalLabel" align="center">Clone MDC Code</h2>
+            </div>
+            <div class="modal-body">
+
+                <!-- content goes here -->
+                <form style="width: 100%; margin: 0 auto;" id="mdcClone_addForm" autocomplete="off">
+
+                    <!-- Text input-->
+                    <div class="form-group">
+
+
+                        <div style="align-items: center; text-align: center">
+                            <br>
+                            <label>Select MDC Drug To Be Cloned</label>
+                            <br><br>
+                            <span>
+                                <a href="#" class="btn btn-default" id="MDC_Code_selectAll">&nbsp; Select all &nbsp;</a>
+                                &nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;	&nbsp;
+                                <a href="#" class="btn btn-default" id="MDC_Code_deselectAll">Deselect all</a>
+                            </span>
+                            <br><br>
+                            <div>
+                                <select id="MDC_DrugCode" multiple="multiple"></select>
+                            </div>    
+                        </div>
+                    </div>
+
+
+                </form>
+                <!-- content goes here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="button" id="MDC_btnClone"><i class=" fa fa-check"></i> Clone</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Clone Modal End -->   
+
 <!-- Modal Add MTC Start -->
 <div class="modal fade" id="mdcAddModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width:70%;">
@@ -681,6 +765,133 @@
 
         });
         // Add MDC Function End
+
+
+        // Clone MDC Function Start
+
+        var User_hfcCode = "<%= hfc%>";
+        var User_disCode = "<%= dis%>";
+
+        $('#MDCClone_btnClone').on('click', function () {
+            MDCCloneReset();
+            createMDCCodeList();
+        });
+
+        function MDCCloneReset() {
+            document.getElementById("mdcClone_addForm").reset();
+        }
+
+        function createMDCCodeList() {
+
+            var data = {
+                hfc: User_hfcCode,
+                dis: User_disCode
+            };
+
+            $('#MDC_DrugCode').multiSelect('destroy');
+            $('<div class="loading">Loading</div>').appendTo('#mdcCloneModal');
+
+            $.ajax({
+                type: 'POST',
+                url: "mdcCloneDrugList.jsp",
+                data: data,
+                success: function (data, textStatus, jqXHR) {
+                    $('#MDC_DrugCode').html(data);
+                    $('#MDC_DrugCode').multiSelect({
+                        selectableHeader: "<div style='display:block; color:white; background-color:#2196f3; '>Selectable MDC Code</div>",
+                        selectionHeader: "<div style='display:block; color:white; background-color:#2196f3'>Selected MDC Code</div>",
+                        keepOrder: true
+                    });
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    bootbox.alert("Opps! " + errorThrown);
+                },
+                complete: function (jqXHR, textStatus) {
+                    $('.loading').hide();
+                }
+            });
+
+        }
+
+        $('#MDC_btnClone').on('click', function () {
+
+            var arraySelect = [];
+            $("#MDC_DrugCode option:selected").each(function () {
+                arraySelect.push($(this));
+            });
+
+            var strMDCClone = arraySelect.map(function (elem) {
+                return elem.val();
+            }).join("|");
+
+            console.log(strMDCClone);
+
+            if (strMDCClone === "") {
+                bootbox.alert("Select at least one MDC Medcine to be cloned");
+            } else {
+                $('<div class="loading">Loading</div>').appendTo('#ARM_detail');
+
+                var data = {
+                    strMDCClone: strMDCClone
+                };
+
+                $.ajax({
+                    url: "mdcCloneDrugListInsert.jsp",
+                    type: "post",
+                    data: data,
+                    timeout: 15000,
+                    success: function (datas) {
+                        console.log(datas.trim());
+                        if (datas.trim() === 'Success') {
+
+                            $("#contentMDCTable").load("mdcTableLoop.jsp");
+                            $('#mdcCloneModal').modal('hide');
+
+                            bootbox.alert({
+                                message: "MDC Medcine is successfully cloned",
+                                title: "Process Result",
+                                backdrop: true
+                            });
+                            MDCCloneReset();
+
+                        } else if (datas.trim() === 'Failed') {
+
+                            bootbox.alert("Insertion failed!");
+                            MDCCloneReset();
+
+                        } else {
+
+                            bootbox.alert(datas.trim());
+                            $('#MDC_DrugCode').val("");
+
+                        }
+
+                    },
+                    error: function (err) {
+                        console.log("Ajax Is Not Success");
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        $('.loading').hide();
+                    }
+
+                });
+            }
+
+        });
+
+        $('#MDC_Code_selectAll').on('click', function (e) {
+            e.preventDefault();
+            $('#MDC_DrugCode').multiSelect('select_all');
+            return false;
+        });
+
+        $('#MDC_Code_deselectAll').on('click', function (e) {
+            e.preventDefault();
+            $('#MDC_DrugCode').multiSelect('deselect_all');
+            return false;
+        });
+        // Clone MDC Function End
 
 
     });

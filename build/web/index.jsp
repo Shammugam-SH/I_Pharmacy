@@ -18,7 +18,7 @@
     session.setAttribute("SUB_DISCIPLINE_CODE", "001");
 
     session.setMaxInactiveInterval(-1);
-    response.sendRedirect("PIS/patientOrderList.jsp");
+    response.sendRedirect("PIS/HIS040001.jsp");
     //response.sendRedirect("RIS/HIS060001.jsp");
  
 %>
