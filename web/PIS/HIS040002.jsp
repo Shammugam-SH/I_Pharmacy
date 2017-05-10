@@ -83,6 +83,7 @@
                                                     </div>
                                                     <div id="contentSupplierTable">
                                                     </div>
+                                                    <%@include file="supplierModal.jsp" %>
                                                 </div>
                                             </div>
                                         </div>
