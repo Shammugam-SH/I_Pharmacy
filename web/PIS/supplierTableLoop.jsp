@@ -33,7 +33,7 @@
     <th style="display: none">COUNTRY</th>
     <th style="text-align: center;">TELEPHONE NO.</th>
     <th style="text-align: center;">FAX NO.</th>
-    <th style="text-align: center;">EMAIL</th>
+    <th style="display: none">EMAIL</th>
     <th style="display: none">GL CODE</th>
     <th style="display: none">ROC NO</th>
     <th style="display: none">REGIS DATE</th>
@@ -76,7 +76,7 @@
 <td style="display: none"><%= dataSupplier.get(i).get(11)%></td> <!-- COUNTRY -->
 <td><%= dataSupplier.get(i).get(12)%></td> <!-- TEL -->
 <td><%= dataSupplier.get(i).get(13)%></td> <!-- FAX -->
-<td><%= dataSupplier.get(i).get(14)%></td> <!-- EMAIL -->
+<td style="display: none"><%= dataSupplier.get(i).get(14)%></td> <!-- EMAIL -->
 <td style="display: none"><%= dataSupplier.get(i).get(15)%></td> <!-- GL -->
 <td style="display: none"><%= dataSupplier.get(i).get(16)%></td> <!-- ROC -->
 <td style="display: none"><%= dataSupplier.get(i).get(17)%></td> <!-- REGIS DATE -->
@@ -113,24 +113,12 @@
         // Supplier DataTables Start
         $('#supplierTable').DataTable({
             pageLength: 15,
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    text: 'Export To Excel',
-                    title: 'Supplier Data Export',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-                    }
-                }, {
-                    extend: 'csvHtml5',
-                    text: 'Export To Excel CSV',
-                    title: 'Supplier Data Export',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-                    }
-                }
-            ]
+            lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]],
+            "language": {
+                "emptyTable": "No Order Available To Display"
+            }, initComplete: function (settings, json) {
+                $('.loading').hide();
+            }
         });
         // Supplier DataTables End
 

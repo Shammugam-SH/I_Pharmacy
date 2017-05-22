@@ -13,6 +13,7 @@
 <%
     Conn conn = new Conn();
     String hfc = session.getAttribute("HEALTH_FACILITY_CODE").toString();
+    String hfcNameSupplier = session.getAttribute("HFC_NAME").toString();
 %>
 
 
@@ -37,7 +38,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">HFC Code &nbsp; *</label>
                                 <div class="col-md-8">
-                                    <input id="vendor_HFC" type="text" class="form-control" readonly value="<%=hfc%>">
+                                    <input id="vendor_HFC" type="text" class="form-control" readonly value="<%= hfcNameSupplier %> ( <%= hfc%> )">
                                 </div>
                             </div>
 
@@ -178,7 +179,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Email &nbsp; *</label>
+                                <label class="col-md-4 control-label" for="textinput">Email</label>
                                 <div class="col-md-8">
                                     <input id="vendor_email" type="email" class="form-control" placeholder="Please Insert Vendor Email" maxlength="30">
                                 </div>
@@ -215,9 +216,12 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Payment Term</label>
+                                <label class="col-md-4 control-label" for="textinput">Payment Type</label>
                                 <div class="col-md-8">
-                                    <input id="vendor_Payment_Term" type="text" class="form-control" placeholder="Please Insert Payment Term (OPTIONAL)" maxlength="30">
+                                    <input id="vendor_Payment_Term" type="text" class="form-control" placeholder="Please Search Payment Type (OPTIONAL)" maxlength="30">
+                                    <div id="vendor_Payment_Term_Search" class="search-drop">
+                                        <!--for search area-->
+                                    </div>
                                 </div>
                             </div>
 
@@ -225,7 +229,10 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Account Type</label>
                                 <div class="col-md-8">
-                                    <input id="vendor_Account_Type" type="text" class="form-control" placeholder="Please Insert Account Type (OPTIONAL)" maxlength="10">
+                                    <input id="vendor_Account_Type" type="text" class="form-control" placeholder="Please Search Account Type (OPTIONAL)" maxlength="10">
+                                    <div id="vendor_Account_Type_Search" class="search-drop">
+                                        <!--for search area-->
+                                    </div>
                                 </div>
                             </div>
 
@@ -233,7 +240,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Credit Limit</label>
                                 <div class="col-md-8">
-                                    <input id="vendor_Credit_Limit" type="number" class="form-control" placeholder="Please Insert Credit Limit (OPTIONAL)" maxlength="10">
+                                    <input id="vendor_Credit_Limit" type="number" class="form-control" placeholder="Please Search Credit Limit (OPTIONAL)" maxlength="10">
                                 </div>
                             </div>
 
@@ -242,6 +249,9 @@
                                 <label class="col-md-4 control-label" for="textinput">Currency</label>
                                 <div class="col-md-8">
                                     <input id="vendor_Currency" type="text" class="form-control" placeholder="Please Insert Currency (OPTIONAL)" maxlength="10">
+                                    <div id="vendor_Currency_Search" class="search-drop">
+                                        <!--for search area-->
+                                    </div>
                                 </div>
                             </div>
 

@@ -54,10 +54,6 @@
                                                 <a href="#tab_default_2" data-toggle="tab">
                                                     MDC CODE MANAGEMENT </a>
                                             </li>
-                                            <li>
-                                                <a href="#tab_default_3" data-toggle="tab">
-                                                    SUPPLIER MANAGEMENT </a>
-                                            </li>
                                         </ul>
                                         <!-- tab content -->
                                         <div class="tab-content">
@@ -77,15 +73,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="tab_default_3">
-                                                <div id="contentSup">
-                                                    <div id="contentSupplierMain">
-                                                    </div>
-                                                    <div id="contentSupplierTable">
-                                                    </div>
-                                                    <%@include file="supplierModal.jsp" %>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -117,9 +105,6 @@
                 $("#contentMDCMain").load("mdcMain.jsp");
                 $("#contentMDCTable").load("mdcTableLoop.jsp");
 
-                // Load Supplier Data
-                $("#contentSupplierMain").load("supplierMain.jsp");
-                $("#contentSupplierTable").load("supplierTableLoop.jsp");
 
             });
 
