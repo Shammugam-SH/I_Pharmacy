@@ -27,9 +27,14 @@
         var contextPath = '<%=request.getContextPath()%>';
 
         function test() {
-            alert('Hello world!');
+            var action = "generateLabel";
+            var orderNo = "PIS20170000000128";
+            var status = "1";
 
-            var url = contextPath + "/test";
+            var url = contextPath + "/PharmacyLabel?";
+            url += "&action=" + action;
+            url += "&orderNo=" + orderNo;
+            url += "&status=" + status;
 
             var win = window.open(url, '_blank');
             win.focus();

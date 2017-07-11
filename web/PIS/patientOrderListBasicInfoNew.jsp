@@ -1555,14 +1555,6 @@
                                         backdrop: true
                                     });
 
-                                } else if (message === 'Duplicate') {
-                                    
-                                    bootbox.alert({
-                                        message: "Patient Is Already In the Queue",
-                                        title: "Process Result",
-                                        backdrop: true
-                                    });
-                                    
                                 }
 
                             }

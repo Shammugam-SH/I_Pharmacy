@@ -46,43 +46,25 @@
     cs_patient_name = data[4];
     cs_queue_no = data[5];
 
-    boolean isCheck = false;
-    boolean isInsertCalling = false;
+    // Insert Into EHR Central BLI
+    String sqlInsertCalling = "INSERT INTO qcs_calling_system_queue (cs_hfc_cd,cs_discipline,cs_sub_discipline,cs_pmi_no,cs_patient_name,cs_queue_no,cs_queue_name,cs_datetime,cs_callingtime) "
+            + " VALUES ('" + cs_hfc_cd + "','" + cs_discipline + "','" + cs_sub_discipline + "','" + cs_pmi_no + "','" + cs_patient_name + "','" + cs_queue_no + "','" + cs_queue_name + "', "
+            + " '" + cs_datetime + "','" + cs_callingtime + "') ";
+    boolean isInsertCalling = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsertCalling);
 
-    // Check Duplication
-    String sqlCheck = "select Id FROM qcs_calling_system_queue WHERE cs_hfc_cd = '" + cs_hfc_cd + "' AND cs_discipline = '" + cs_discipline + "' AND cs_pmi_no = '" + cs_pmi_no + "' "
-            + " AND cs_patient_name = '" + cs_patient_name + "' AND cs_queue_no = '" + cs_queue_no + "' LIMIT 1 ";
-    ArrayList<ArrayList<String>> duplicate = conn.getData(sqlCheck);
+    // Get Order No Start
+    String sqlCallingNo = "select Id FROM qcs_calling_system_queue WHERE cs_hfc_cd = '" + cs_hfc_cd + "' AND cs_discipline = '" + cs_discipline + "' AND cs_pmi_no = '" + cs_pmi_no + "' "
+            + " AND cs_patient_name = '" + cs_patient_name + "' AND cs_queue_no = '" + cs_queue_no + "' AND cs_datetime = '" + cs_datetime + "' ";
+    ArrayList<ArrayList<String>> dataCallingNo = conn.getData(sqlCallingNo);
 
-    if (duplicate.size() > 0) {
-
-        isCheck = true;
-
-    } else {
-
-        // Insert Into EHR Central BLI
-        String sqlInsertCalling = "INSERT INTO qcs_calling_system_queue (cs_hfc_cd,cs_discipline,cs_sub_discipline,cs_pmi_no,cs_patient_name,cs_queue_no,cs_queue_name,cs_datetime,cs_callingtime) "
-                + " VALUES ('" + cs_hfc_cd + "','" + cs_discipline + "','" + cs_sub_discipline + "','" + cs_pmi_no + "','" + cs_patient_name + "','" + cs_queue_no + "','" + cs_queue_name + "', "
-                + " '" + cs_datetime + "','" + cs_callingtime + "') ";
-        isInsertCalling = rmic.setQuerySQL(conn.HOST, conn.PORT, sqlInsertCalling);
-
-        // Get Order No Start
-        String sqlCallingNo = "select Id FROM qcs_calling_system_queue WHERE cs_hfc_cd = '" + cs_hfc_cd + "' AND cs_discipline = '" + cs_discipline + "' AND cs_pmi_no = '" + cs_pmi_no + "' "
-                + " AND cs_patient_name = '" + cs_patient_name + "' AND cs_queue_no = '" + cs_queue_no + "' AND cs_datetime = '" + cs_datetime + "' ";
-        ArrayList<ArrayList<String>> dataCallingNo = conn.getData(sqlCallingNo);
-
-        int sizeCallingNo = dataCallingNo.size();
-        for (int i = 0; i < sizeCallingNo; i++) {
-            Id = dataCallingNo.get(i).get(0).toString();
-        }
-        // Get DIS Details End
-
+    int sizeCallingNo = dataCallingNo.size();
+    for (int i = 0; i < sizeCallingNo; i++) {
+        Id = dataCallingNo.get(i).get(0).toString();
     }
+    // Get DIS Details End
 
     if (isInsertCalling == true) {
         out.print("Success|" + Id);
-    } else if (isCheck == true) {
-        out.print("Duplicate|" + Id);
     } else {
         out.print("Failed|" + Id);
     }
