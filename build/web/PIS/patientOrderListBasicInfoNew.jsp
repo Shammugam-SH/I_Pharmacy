@@ -266,8 +266,9 @@
 
 <div class="text-right" id="patientOrderDispenseButtonDiv" > 
     <button class="btn btn-primary " type="button" id="btnOrderDispensePrescribe" name="btnOrderDispensePrescribe" > <i class="fa fa-print fa-lg" ></i>&nbsp; Generate Label &nbsp;</button>
-    <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Dispense &nbsp;</button>
     <button class="btn btn-warning " type="button" id="btnOrderDispenseCallPatient" name="btnOrderDispenseCallPatient" > <i class="fa fa-phone fa-lg" ></i>&nbsp; Call Patient &nbsp;</button>
+    <button class="btn btn-danger " type="button" id="btnOrderDispenseDeclineCallPatient" name="btnOrderDispenseDeclineCallPatient" > <i class="fa fa-phone fa-lg" ></i>&nbsp; Decline Call Patient &nbsp;</button>
+    <button class="btn btn-success " type="button" id="btnOrderDispense" name="btnOrderDispense" > <i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Dispense &nbsp;</button>
 </div>
 
 
@@ -283,9 +284,11 @@
 
         $('<div class="loading">Loading</div>').appendTo('body');
 
-        // Disable Dispense Button
+        // Disable And Enable Button
+        document.getElementById("btnOrderDispensePrescribe").disabled = false;
         document.getElementById("btnOrderDispense").disabled = true;
         document.getElementById("btnOrderDispenseCallPatient").disabled = true;
+        document.getElementById("btnOrderDispenseDeclineCallPatient").disabled = true;
 
         e.preventDefault();
 
@@ -696,6 +699,8 @@
                                 $('#patientOrderDetailsListTable').html(returnOrderDetailsTableHTML);
                                 $('#patientOrderDetailsListTable').trigger('contentchanged');
 
+                                resetButton();
+
                             }
                         });
 
@@ -707,6 +712,8 @@
                             backdrop: true
                         });
 
+                        resetButton();
+
                     } else if (datas.trim() === 'Failed') {
 
                         bootbox.alert({
@@ -714,8 +721,11 @@
                             title: "Process Result",
                             backdrop: true
                         });
+
                         $('#addOrderDrug').modal('hide');
                         resetAddOrder();
+                        resetButton();
+
                     }
 
                 },
@@ -841,6 +851,8 @@
                 backdrop: true
             });
 
+            resetButton();
+
         }
     });
     // Update Order Data End
@@ -903,15 +915,21 @@
 
                                         $('#patientOrderDetailsListTable').trigger('contentchanged');
 
+                                        resetButton();
+
                                     }
                                 });
 
                             } else if (datas.trim() === 'Failed') {
+
                                 bootbox.alert({
                                     message: "Drug Order Delete Failed",
                                     title: "Process Result",
                                     backdrop: true
                                 });
+
+                                resetButton();
+
                             }
 
                         },
@@ -1023,25 +1041,6 @@
     });
     // Dispense Order Data End
 
-
-    // Dispense Order Check Function Start
-    function checkAll(ele) {
-        var checkboxes = document.getElementsByTagName('input');
-        if (ele.checked) {
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].type === 'checkbox') {
-                    checkboxes[i].checked = true;
-                }
-            }
-        } else {
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].type === 'checkbox') {
-                    checkboxes[i].checked = false;
-                }
-            }
-        }
-    }
-    // Dispense Order Check Function End
 
     var ehrCentralBillBLI;
     var ehrCentralBillDDR;
@@ -1214,14 +1213,8 @@
                 });
 
             } else {
+
                 console.log("Not Ok : " + drugCode);
-
-                if (drugDispensedQty === "0") {
-                    bootbox.alert("The dispense quantity of the product that is going to be dispensed is 0. Please check the dispense or the stock quantity !");
-                } else {
-                    console.log("Not Ok : " + drugCode);
-                }
-
 
             }
 
@@ -1360,11 +1353,13 @@
 
         var table = $("#patientOrderDetailsListTable tbody");
 
+        var orderNo = $("#patientOrderNo").val();
+        var patientPMI = $("#patientpmino").val();
+        var patientName = $("#patientName").val();
+
         var drugChecked;
         var drugStock;
-        var drugOrderNo, drugCode, prescribeLongString, prescibeShortString = "";
-        var prescribeLongString = "";
-        var prescibeShortString = "";
+        var drugOrderNo, drugCode, prescribeLongString = "";
         var checked = [];
         var stock = [];
 
@@ -1375,8 +1370,8 @@
             drugChecked = $(this).find("#drugDispenseChecked").is(':checked');
             drugStock = $tds.eq(8).text();
 
-
             if (drugChecked === true) {
+
                 drugOrderNo = $tds.eq(1).text();
                 drugCode = $tds.eq(2).text();
 
@@ -1387,16 +1382,15 @@
 
             checked.push(drugChecked);
 
-
         });
 
         var checkedDispense = checked.indexOf(true);
         var stockDispense = stock.indexOf("0");
+
         console.log(checked);
         console.log(checkedDispense);
         console.log(stock);
         console.log(stockDispense);
-
         console.log(prescribeLongString);
 
         if (checkedDispense === -1) {
@@ -1427,48 +1421,83 @@
                             $('#myModal').modal('show');
 
                             var data = {
-                                orderNo: drugOrderNo,
-                                longString: prescribeLongString
+                                orderNo: orderNo,
+                                longString: prescribeLongString,
+                                patientPMI: patientPMI,
+                                patientName: patientName
                             };
 
                             $.ajax({
                                 url: "patientOrderListDetailsPrescribeResetStatus.jsp",
                                 type: "post",
                                 data: data,
-                                timeout: 3000,
+                                timeout: 5000,
                                 success: function (datas) {
+
                                     console.log(datas.trim());
 
                                     $.ajax({
                                         url: "patientOrderListDetailsPrescribeUpdateStatus.jsp",
                                         type: "post",
                                         data: data,
-                                        timeout: 5000,
+                                        timeout: 6000,
                                         success: function (datas) {
-                                            console.log(datas.trim());
-                                            document.getElementById("btnOrderDispense").disabled = false;
-                                            document.getElementById("btnOrderDispenseCallPatient").disabled = false;
-                                            $("#patientOrderDetailsListTable").find("input,button,textarea,select").attr("disabled", "disabled");
-                                            $('#myModal').modal('hide');
-                                            var orderNoMain = $("#patientOrderNo").val();
-                                            window.open("patientOrderListDetailsPrescribePDF.jsp?orderNo=" + orderNoMain + " ");
+
+                                            $.ajax({
+                                                type: "post",
+                                                url: "patientOrderListDetailsPrescribePDF.jsp",
+                                                timeout: 5000,
+                                                data: data,
+                                                success: function (result) {
+
+                                                    var labelStringDetails = result.trim();
+
+                                                    $("#patientOrderDetailsListTable").find("input,button,textarea,select").attr("disabled", "disabled");
+                                                    document.getElementById("btnOrderDispenseCallPatient").disabled = false;
+                                                    document.getElementById("btnOrderDispensePrescribe").disabled = true;
+
+                                                    $('#myModal').modal('hide');
+
+                                                    var contextPath = '<%=request.getContextPath()%>';
+
+                                                    var url = contextPath + "/generatePharmacyLabel?";
+                                                    url += "&labelData=" + labelStringDetails;
+
+                                                    var win = window.open(url, '_blank');
+                                                    win.focus();
+
+                                                    bootbox.alert({
+                                                        message: "Please Call The Patient Before Dispensing The Drug !!!",
+                                                        title: "Information",
+                                                        backdrop: true
+                                                    });
+
+                                                },
+                                                error: function (err) {
+
+                                                }
+                                            });
 
                                         }
                                     });
+
                                 }
                             });
 
-                            //updateResetPrescribe();
 
                         } else {
+
                             console.log("Process Is Canceled");
+
                         }
 
                     }
                 });
 
             } else {
+
                 bootbox.alert("Please check the stock quantity of drug that is going to be dispensed! Some of the drug are not available.");
+
             }
 
         }
@@ -1486,8 +1515,10 @@
     //------------------------------------------------------------------------------  Call patient Part Start  -------------------------------------------------------------------------------//
 
 
-    // Priscribe Part Start
-    // Priscribe Button Start
+    // Call or Decline Part Start
+    // 
+    // 
+    // Call Button Start
     $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispenseCallPatient').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispenseCallPatient', function (e) {
 
 
@@ -1557,6 +1588,10 @@
 
                                 }
 
+                                document.getElementById("btnOrderDispense").disabled = false;
+                                document.getElementById("btnOrderDispenseDeclineCallPatient").disabled = false;
+                                document.getElementById("btnOrderDispenseCallPatient").disabled = true;
+
                             }
                         });
 
@@ -1573,8 +1608,95 @@
 
 
     });
-    // Priscribe Button End
-    // Prescibe Part End
+    // Call Button End
+
+
+
+
+    // Call Button Start
+    $('#patientOrderDetailContent').off('click', '#patientOrderDispenseButtonDiv #btnOrderDispenseDeclineCallPatient').on('click', '#patientOrderDispenseButtonDiv #btnOrderDispenseDeclineCallPatient', function (e) {
+
+
+        var patientOrderNo = $("#patientOrderNo").val();
+
+
+        if (patientOrderNo === "" || patientOrderNo === null) {
+
+            $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+            bootbox.alert("Please Select A Order First");
+
+        } else {
+
+            var callDeclineNo = $("#dataCallingID").val();
+
+
+            bootbox.confirm({
+                message: "Are You Sure ?",
+                title: "Decline Call Patient ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+
+                    if (result === true) {
+
+
+                        var data = {
+                            callDeclineNo: callDeclineNo
+                        };
+
+                        $.ajax({
+                            url: "patientOrderListDetailsDispenseCallPatientDelete.jsp",
+                            type: "post",
+                            data: data,
+                            timeout: 3000,
+                            success: function (result) {
+
+                                var insertResult = result.trim();
+
+                                console.log(insertResult);
+
+                                if (insertResult === 'Success') {
+
+                                    bootbox.alert({
+                                        message: "Decline Call Patient Successful",
+                                        title: "Process Result",
+                                        backdrop: true
+                                    });
+
+                                }
+
+                                document.getElementById("btnOrderDispense").disabled = true;
+                                document.getElementById("btnOrderDispenseDeclineCallPatient").disabled = true;
+                                document.getElementById("btnOrderDispenseCallPatient").disabled = false;
+
+                            }
+                        });
+
+
+                    } else {
+                        console.log("Process Is Canceled");
+                    }
+
+                }
+            });
+
+
+        }
+
+
+    });
+    // Call Button End
+    // 
+    // 
+    // Call or Decline Part End
 
 
     //==============================================================================  Call Patient Part End  ================================================================================//
@@ -1591,10 +1713,12 @@
 
     // Dispense Loading Function Start
     function loading() {
+
         inProgess = true;
         $('#myModal').modal('show');
 
         setTimeout(function () {
+
             inProgess = false;
             $('#myModal').modal('hide');
 
@@ -1603,6 +1727,7 @@
                 title: "Dispense Result",
                 backdrop: true
             });
+
         }, 3000);
     }
     // Dispense Loading Part End
@@ -1623,17 +1748,15 @@
                         type: 'POST',
                         timeout: 3000,
                         success: function (data) {
+                            
                             console.log(data);
                             $("#patientOrderListContent").html(data);
+                            
                         }
                     });
 
-                    document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
-                    document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
-                    $("#patientOrderDetailContent #patientAllergyListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientAllergyListTableDiv");
-                    $("#patientOrderDetailContent #patientDiagnosisListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientDiagnosisListTableDiv");
-                    $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
-                    $('.nav-tabs a[href="#tab_default_1"]').tab('show');
+                    resetPage();
+
                 }, 2000);
 
     }
@@ -1642,15 +1765,38 @@
 
     // Clear Button Function Start
     $('#patientOrderDetailContent').on('click', '#btnClearOrderDetailDispense', function (e) {
+        resetPage();
+    });
+    // Clear Button Function End
+
+
+    // Reset The Page Start
+    function resetPage() {
+
         document.getElementById("patientOrderDetailContentBasicInfoForm").reset();
         document.getElementById("patientOrderDetailContentOrderInfoForm").reset();
         $("#patientOrderDetailContent #patientAllergyListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientAllergyListTableDiv");
         $("#patientOrderDetailContent #patientDiagnosisListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientDiagnosisListTableDiv");
         $("#patientOrderDetailContent #patientOrderDetailsListTableDiv").load("patientOrderListBasicInfoNew.jsp #patientOrderDetailsListTableDiv");
         $('.nav-tabs a[href="#tab_default_1"]').tab('show');
-    });
-    // Clear Button Function End
 
+    }
+    // Reset The Page End
+
+
+    // Reset The Buttons Start
+    function resetButton() {
+
+        // Disable And Enable Button Start
+        $("#patientOrderDetailsListTable").find("input,button,textarea,select").attr("disabled", false);
+        document.getElementById("btnOrderDispensePrescribe").disabled = false;
+        document.getElementById("btnOrderDispense").disabled = true;
+        document.getElementById("btnOrderDispenseCallPatient").disabled = true;
+        document.getElementById("btnOrderDispenseDeclineCallPatient").disabled = true;
+        // Disable And Enable Button End
+
+    }
+    // Reset The Buttons End
 
 //=================================================================================  Reset Part End  ==================================================================================//
 

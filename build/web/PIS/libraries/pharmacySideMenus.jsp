@@ -19,6 +19,7 @@
         <li><a href="HIS040002.jsp"><i class="fa fa-table fa-lg" aria-hidden="true" ></i>Manage Drug Code </a></li>
         <li><a href="HIS040003.jsp"><i class="fa fa-recycle fa-lg" aria-hidden="true" ></i>Manage Drug Stock </a></li>
         <li><a href="HIS040004.jsp"><i class="fa fa-book fa-lg" aria-hidden="true" ></i>Manage Vendor</a></li>
+        <li><a href="newjsp.jsp"><i class="fa fa-book fa-lg" aria-hidden="true" ></i>Test</a></li>
         <!-- Menu without dropdown -->
 
         <!-- Menu with dropdown -->
