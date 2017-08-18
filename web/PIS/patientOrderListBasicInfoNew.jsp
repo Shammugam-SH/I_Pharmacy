@@ -278,6 +278,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
+    var episodeDate;
 
     // Move to Order Details Fetch Details Start
     $('#patientOrderListContent').off('click', '#patientOrderListTable #moveToOrderDetailsTButton').on('click', '#patientOrderListTable #moveToOrderDetailsTButton', function (e) {
@@ -307,17 +308,20 @@
         var patientOrderNo = arrayData[0];
         var patientOrderDate = arrayData[5];
         var patientOrderLocationCode = arrayData[2];
+        var patientOrderEpisodeDate = arrayData[3];
         var patientOrderLocationCodeName = arrayData[23];
 
 
         var pmiNo = patientpmino;
         var orderNo = patientOrderNo;
         var orderDate = patientOrderDate;
+        episodeDate = patientOrderEpisodeDate;
 
         var data = {
             pmiNo: pmiNo,
             orderNo: orderNo,
-            orderDate: orderDate
+            orderDate: orderDate,
+            episodeDate:episodeDate
         };
 
         $.ajax({
@@ -490,6 +494,7 @@
     // Load Datatable To Tables End 
 
 
+
 //======================================================================================================================================================================================//
 
 
@@ -497,6 +502,7 @@
 
 
 //------------------------------------------------------------------------------  Add Part Start  -------------------------------------------------------------------------------------//
+
 
 
     // Getting Order Id And Date Start
@@ -755,6 +761,7 @@
     // Reset Order Function End
 
 
+
 //================================================================================  Add Part End  =====================================================================================//
 
 
@@ -762,6 +769,7 @@
 
 
 //-------------------------------------------------------------------------  Update And Delete Part Start  ----------------------------------------------------------------------------//
+
 
     // global variable declaration
     var row;
@@ -808,12 +816,14 @@
 
         var validDispense = document.getElementById("updateDispensedDrugQuantity");
 
+
         var updateStockQty = $("#updateStockQuantity").val();
         var updateOrderedQty = $("#updateOrderedDrugQuantity").val();
         var updateSuppliedQty = $("#updateSuppliedDrugQuantity").val();
         var updateDispensedQuantity = $("#updateDispensedDrugQuantity").val();
         var updateOrderStatusStatic = $("#updatestatus").val();
         var updateOrderPrice = row.find('td').eq(12).text();
+
 
         var orderTotal = parseFloat(updateOrderPrice) * parseFloat(updateDispensedQuantity);
         var orderTotalFloat = parseFloat(orderTotal).toFixed(2);
@@ -824,17 +834,11 @@
             bootbox.alert("Please Insert The Dispense Quantity Than Is More That 0 !!!");
         } else if (updateOrderStatusStatic === "New" || updateOrderStatusStatic === null) {
             bootbox.alert("Please Select The Order Status");
-        } else if ((parseInt(updateDispensedQuantity) > parseInt(updateOrderedQty))) {
-            bootbox.alert("The Dispense Quantity Is More Than Ordered Quantity. Please Choose Valid Number !!!");
-            $("#updateDispensedDrugQuantity").val("");
         } else if (validDispense.checkValidity() === false) {
             bootbox.alert("The Dispense Quantity Should Not Be Decimal Number. Please Choose Valid Number !!!");
             $("#updateDispensedDrugQuantity").val("");
         } else if ((parseInt(updateDispensedQuantity) > parseInt(updateStockQty))) {
             bootbox.alert("The Dispense Quantity Is More Than Stock Quantity. Please Choose Valid Number !!!");
-            $("#updateDispensedDrugQuantity").val("");
-        } else if (((parseInt(updateDispensedQuantity) + parseInt(updateSuppliedQty)) > parseInt(updateOrderedQty))) {
-            bootbox.alert("The Combination of Dispense And Supplied Quantity Is More Than Ordered Quantity. Please Choose Valid Number !!!");
             $("#updateDispensedDrugQuantity").val("");
         } else {
 
@@ -1343,6 +1347,7 @@
 
 
 
+
     //------------------------------------------------------------------------------  Prescribe Part Start  -------------------------------------------------------------------------------//
 
 
@@ -1508,6 +1513,7 @@
 
 
     //==============================================================================  Prescribe Part End  ================================================================================//
+
 
 
 
@@ -1705,11 +1711,14 @@
 
 
 
+
     //-------------------------------------------------------------------------------  Reset Part Start  --------------------------------------------------------------------------------//
 
-    // Dispense Loading Part 
 
+
+    // Dispense Loading Part 
     var inProgess = false;
+
 
     // Dispense Loading Function Start
     function loading() {
@@ -1748,10 +1757,10 @@
                         type: 'POST',
                         timeout: 3000,
                         success: function (data) {
-                            
+
                             console.log(data);
                             $("#patientOrderListContent").html(data);
-                            
+
                         }
                     });
 
@@ -1797,6 +1806,8 @@
 
     }
     // Reset The Buttons End
+
+
 
 //=================================================================================  Reset Part End  ==================================================================================//
 

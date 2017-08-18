@@ -10,8 +10,10 @@
 <%@page import="main.RMIConnector"%>
 <%@page import="Config.Config"%>
 
-<%
-    Config.getFile_url(session);
+<%@include file="../Entrance/validateSession.jsp" %>
+<%@include file="validateModuleAccess.jsp" %>
+
+<%    Config.getFile_url(session);
     Config.getBase_url(request);
 
 %>
@@ -107,6 +109,7 @@
 
 
             });
+
 
         </script>
 

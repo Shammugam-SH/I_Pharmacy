@@ -20,7 +20,7 @@
     String sub = session.getAttribute("SUB_DISCIPLINE_CODE").toString();
 %>
 <div class="thumbnail">
-    <h4 style="padding-top: 0px; padding-bottom: 30px;">Medicine's List That Will Expire (Less Than 10 Days)</h4>
+    <h4 style="padding-top: 0px; padding-bottom: 30px;">Medicine's List That Will Expire (Less Than 150 Days)</h4>
     <hr class="pemisah" />
     <div style="height: 200px; overflow: auto; margin-top:-30px; padding-top: 30px;">    
         <table class="table table-striped"  width="30%" style="margin-bottom: 0px; margin-top:-30px;">
@@ -33,23 +33,33 @@
             <tbody>
 
                 <%
-                    String sqlMDCStock = "SELECT `UD_MDC_CODE`,`D_TRADE_NAME`,`D_EXP_DATE`,DATEDIFF(DATE(`D_EXP_DATE`),CURDATE()) FROM pis_mdc2 "
-                            + " WHERE DATEDIFF(DATE(`D_EXP_DATE`),CURDATE()) < 10 AND hfc_cd = '" + hfc + "' AND discipline_cd = '" + dis + "' ";
-                    ArrayList<ArrayList<String>> dataMDCStock = conn.getData(sqlMDCStock);
+                    String sqlMDCDate = "SELECT ud_mdc_code,d_trade_name,d_exp_date,DATEDIFF(DATE_FORMAT(DATE(d_exp_date),'%Y-%m-%d'),CURDATE()) FROM pis_mdc2 "
+                            + " WHERE DATEDIFF(DATE(`D_EXP_DATE`),CURDATE()) < 150 AND hfc_cd = '" + hfc + "' AND discipline_cd = '" + dis + "' ";
+                    ArrayList<ArrayList<String>> dataMDCDate = conn.getData(sqlMDCDate);
 
-                    int sizeStock = dataMDCStock.size();
-                    for (int i = 0; i < sizeStock; i++) {
-                        
-                        int dateValue = Integer.parseInt(dataMDCStock.get(i).get(3).toString());
+                    int sizeDate = dataMDCDate.size();
+                    
+                    for (int i = 0; i < sizeDate; i++) {
 
-                        if (dateValue < 0) { 
+                        int dateValue = Integer.parseInt(dataMDCDate.get(i).get(3).toString());
+
+                        if (dateValue < 0) {
                             dateValue = 0;
                         }
 
                 %>
                 <tr >
-                    <td style="font-weight: bolder;" align="center"><%= dataMDCStock.get(i).get(1)%> [<%= dataMDCStock.get(i).get(0)%>]</td>
+                    
+                    <!-- First TD -->
+                    <td style="font-weight: bolder;" align="center"><%= dataMDCDate.get(i).get(1)%> [<%= dataMDCDate.get(i).get(0)%>]</td>
+                                        
+                    <!-- Second TD -->
+                    <%    if (dateValue < 151 && dateValue > 30) {%>
+                    <td style="color:#FFD700;font-weight: bolder;" align="center"><%= dateValue%></td>
+                    <% } else if (dateValue < 31) {%>
                     <td style="color:red;font-weight: bolder;" align="center"><%= dateValue%></td>
+                    <% }   %>
+
                 </tr>
                 <%
 
@@ -58,5 +68,5 @@
             </tbody>
         </table>
     </div>
-    <div style="position: absolute; color: #999; top: 65px; right: 30px; font-weight: 500; text-transform: uppercase">Total Medicine : <%= sizeStock%></div>
+    <div style="position: absolute; color: #999; top: 65px; right: 30px; font-weight: 500; text-transform: uppercase">Total Medicine : <%= sizeDate%></div>
 </div>

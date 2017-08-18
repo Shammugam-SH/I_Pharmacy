@@ -1,8 +1,9 @@
 <%-- 
-    Document   : HIS040004
-    Created on : May 19, 2017, 12:55:36 AM
+    Document   : HIS040010
+    Created on : Aug 13, 2017, 9:48:08 PM
     Author     : Shammugam
 --%>
+
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.*"%>
@@ -32,38 +33,29 @@
     </head>
 
     <body>
-
         <div class="container-fluid">
             <div class="row">       
                 <!-- menu side -->	
                 <%@include file = "libraries/pharmacySideMenus.jsp" %>
-                <!-- menu side -->
+                <!-- menu side -->	
                 <!-- main -->		
                 <div class="main" style="background: #f2f4f8;">
                     <!-- menu top -->
                     <%@include file = "libraries/pharmacyTopMenus.jsp" %>
                     <!-- menu top -->
                     <div class="row">
-                        <div class="col-md-12" style="height: 100%;">
+                        <div class="col-md-12">
                             <div class="thumbnail">
-
-                                <div id="contentSup">
-                                    <div id="contentSupplierMain">
-                                    </div>
-                                    <div id="contentSupplierTable">
-                                    </div>
-                                    <%@include file="supplierModal.jsp" %>
+                                <div id="contentReportReorderLevelList" class="table-guling">
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <!-- main -->		
         </div>
+
 
         <!-- Placed at the end of the document so the pages load faster -->
         <%@include file = "libraries/pharmacyFootLibrary.jsp" %>
@@ -71,12 +63,10 @@
 
         <script>
 
-            $('<div class="loading">Loading</div>').appendTo('body');
-
             $(document).ready(function () {
-                // Load Supplier Data
-                $("#contentSupplierMain").load("supplierMain.jsp");
-                $("#contentSupplierTable").load("supplierTableLoop.jsp");
+
+                $('<div class="loading">Loading</div>').appendTo('body');
+                $("#contentReportReorderLevelList").load("manageReportReorderLevelListTable.jsp");
 
             });
 

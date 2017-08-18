@@ -1,9 +1,8 @@
 <%-- 
-    Document   : manageReportATCListTable
-    Created on : May 29, 2017, 7:17:41 PM
+    Document   : manageReportMinimumLevelListTable
+    Created on : Aug 13, 2017, 10:03:23 PM
     Author     : Shammugam
 --%>
-
 
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -22,40 +21,31 @@
     String dis = session.getAttribute("DISCIPLINE_CODE").toString();
     String sub = session.getAttribute("SUB_DISCIPLINE_CODE").toString();
 %>
-<h4 style="padding-top: 2%;padding-bottom: 1%;">List Of ATC Drugs</h4>
+<h4 style="padding-top: 2%;padding-bottom: 1%;">List Of Drugs Below Minimum Level</h4>
 <br>
-<table  id="reportListATCTable"  class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table  id="reportListMinimumLevelTable"  class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
-    <th style="text-align: center;">ATC CODE</th>
-    <th style="text-align: center;">ATC CODE DESCRIPTION</th>
-    <th style="text-align: center;">CATEGORY CODE</th>
-    <th style="text-align: center;">HFC CODE</th>
-    <th style="text-align: center;">DISCIPLINE CODE</th>
-    <th style="text-align: center;">SUBDISCIPLINE CODE</th>
-    <th style="text-align: center;">STATUS</th>
+    <th style="text-align: center;">DRUG CODE</th>
+    <th style="text-align: center;">DRUG NAME</th>
+    <th style="text-align: center;">MINIMUM STOCK LEVEL</th>
+    <th style="text-align: center;">CURRENT STOCK QUANTITY</th>
 </thead>
 <tbody>
 
     <%
-        String sql = " SELECT UD_ATC_Code, UD_ATC_Desc, Category_Code,hfc_cd,discipline_cd,subdiscipline_cd,Status FROM pis_atc WHERE hfc_cd  = '" + hfc + "' AND discipline_cd  = '" + dis + "' ";
-        ArrayList<ArrayList<String>> dataATC = conn.getData(sql);
+        String sql = " SELECT ud_mdc_code,d_trade_name,d_stock_qty,d_minimum_stock_level,d_reorder_stock_level FROM pis_mdc2 "
+                            + "WHERE d_stock_qty < d_minimum_stock_level AND hfc_cd = '" + hfc + "' AND discipline_cd = '" + dis + "' ";
+                ArrayList<ArrayList<String>> dataMINIMUM = conn.getData(sql);
 
-        int size = dataATC.size();
+        int size = dataMINIMUM.size();
         for (int i = 0; i < size; i++) {
     %>
 
     <tr style="text-align: center;">
-        <td><%= dataATC.get(i).get(0)%></td>
-        <td><%= dataATC.get(i).get(1)%></td>
-        <td><%= dataATC.get(i).get(2)%></td>
-        <td><%= dataATC.get(i).get(3)%></td>
-        <td><%= dataATC.get(i).get(4)%></td>
-        <td><%= dataATC.get(i).get(5)%></td>
-        <td><%if (dataATC.get(i).get(6).equals("1")) {
-                out.print("Active");
-            } else {
-                out.print("Inactive");
-            } %></td> <!--status 3 --> 
+        <td><%= dataMINIMUM.get(i).get(0)%></td>
+        <td><%= dataMINIMUM.get(i).get(1)%></td>
+        <td><%= dataMINIMUM.get(i).get(3)%></td>
+        <td><%= dataMINIMUM.get(i).get(2)%></td>
     </tr>
     <%
         }
@@ -77,7 +67,7 @@
 
     $(document).ready(function () {
 
-        $('#reportListATCTable').DataTable({
+        $('#reportListMinimumLevelTable').DataTable({
             initComplete: function (settings, json) {
                 $('.loading').hide();
             },
@@ -87,7 +77,7 @@
                 {
                     extend: 'excelHtml5',
                     text: 'Export To Excel',
-                    title: 'Pharmacy ATC Drug List',
+                    title: 'Pharmacy Drugs Below Minimum Level List',
                     className: 'btn btn-primary',
                     exportOptions: {
                         columns: ':visible'
@@ -95,14 +85,14 @@
                 }, {
                     extend: 'csvHtml5',
                     text: 'Export To Excel CSV',
-                    title: 'Pharmacy ATC Drug List',
+                    title: 'Pharmacy Drugs Below Minimum Level List',
                     className: 'btn btn-primary',
                     exportOptions: {
                         columns: ':visible'
                     }
                 }, {
                     extend: 'print',
-                    text: 'Print ATC List',
+                    text: 'Print Drug List',
                     title: $('h1').text(),
                     message: '<br><br>',
                     className: 'btn btn-primary',
@@ -111,10 +101,10 @@
                                 .css('font-size', '10pt')
                                 .prepend(
                                         '<div class="logo-hfc asset-print-img" style="z-index: 0; top: 0px; opacity: 1.0;">\n\
-                                        <img src="<%=mysqlhfc_cd.get(0).get(0)%>" style="text-align: center; height: 100%; " /></div> <div class="mesej"><br>Pharmacy ATC Drug List</div>\n\
+                                        <img src="<%=mysqlhfc_cd.get(0).get(0)%>" style="text-align: center; height: 100%; " /></div> <div class="mesej"><br>Pharmacy Drugs Below Minimum Level List</div>\n\
                                         <div class="info_kecik">\n\
                                         <dd>Date: <strong><%=newdate%></strong></dd>\n\
-                                        <dd>Report No: <strong>PIS-0001</strong></dd>\n\
+                                        <dd>Report No: <strong>PIS-0004</strong></dd>\n\
                                         </div> '
                                         );
                         $(win.document.body).find('table')

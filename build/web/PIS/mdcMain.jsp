@@ -129,7 +129,7 @@
 
 <!-- Modal Add MTC Start -->
 <div class="modal fade" id="mdcAddModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width:70%;">
+    <div class="modal-dialog" style="width:95%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
@@ -140,11 +140,13 @@
                 <!-- content goes here -->
                 <form class="form-horizontal" autocomplete="off">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+
+                            <h4>HFC Information</h4>
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">HEALTH FACILITY CODE</label>
+                                <label class="col-md-4 control-label" for="textinput">HEALTH FACILITY CODE *</label>
                                 <div class="col-md-8">
                                     <input id="addMDCHFC" name="textinput" type="text" class="form-control input-md" value="<%= hfc%>" readonly>
                                 </div>
@@ -152,7 +154,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">DISCIPLINE CODE</label>
+                                <label class="col-md-4 control-label" for="textinput">DISCIPLINE CODE *</label>
                                 <div class="col-md-8">
                                     <input id="addMDCDISCIPLINE" name="textinput" type="text" class="form-control input-md" value="<%= dis%>" readonly>
                                 </div>
@@ -160,21 +162,24 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">SUB-DISCIPLINE CODE</label>
+                                <label class="col-md-4 control-label" for="textinput">SUB-DISCIPLINE CODE *</label>
                                 <div class="col-md-8">
                                     <input id="addMDCSUBDISCIPLINE" name="textinput" type="text" class="form-control input-md" value="<%= sub%>" readonly>
                                 </div>
                             </div>
 
+                            <hr/>
+
+
+
 
                             <h4>Drug Information</h4>
-                            <hr/>
 
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">ATC Drug Code *</label>
                                 <div class="col-md-8">
-                                    <input id="addUD_ATC_CODE" name="textinput" type="text" placeholder="Please Search ATC Drug Code" class="form-control input-md" maxlength="25" >
+                                    <input id="addUD_ATC_CODE" name="textinput" type="text" placeholder="Please Search ATC Drug Code" class="form-control input-md" maxlength="30" >
                                     <div id="addUD_ATC_CODESearch" class="search-drop">
                                         <!--for search area-->
                                     </div>
@@ -186,7 +191,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">MDC Drug Code *</label>
                                 <div class="col-md-8">
-                                    <input id="addUD_MDC_CODE" name="textinput" type="text" placeholder="Please Insert MDC Drug Code" class="form-control input-md" maxlength="25" >
+                                    <input id="addUD_MDC_CODE" name="textinput" type="text" placeholder="Please Insert MDC Drug Code" class="form-control input-md" maxlength="30" >
                                 </div>
                             </div>
 
@@ -204,7 +209,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Generic Name *</label>
                                 <div class="col-md-8">
-                                    <textarea id="addD_GNR_NAME" class="form-control" rows="3" maxlength="500" placeholder="Please Insert Generic Name"></textarea>
+                                    <textarea id="addD_GNR_NAME" class="form-control" rows="3" maxlength="300" placeholder="Please Insert Generic Name"></textarea>
                                 </div>
                             </div>
 
@@ -213,7 +218,7 @@
                                 <label class="col-md-4 control-label" for="selectbasic">Drug Route *</label>
                                 <div class="col-md-8">
                                     <select id="addD_ROUTE_CODE" name="selectbasic" class="form-control">
-                                        <option value="Select Drug Route">Select Drug Route</option>
+                                        <option value="-" selected>Select Drug Route</option>
                                         <%
                                             String sql2 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0066' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDRoute = conn.getData(sql2);
@@ -222,7 +227,7 @@
 
                                             for (int i = 0; i < size2; i++) {
                                         %>
-                                        <option value="<%= listOfDRoute.get(i).get(1)%>"><%= listOfDRoute.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDRoute.get(i).get(2)%>"><%= listOfDRoute.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -235,7 +240,7 @@
                                 <label class="col-md-4 control-label" for="selectbasic">Dosage Form *</label>
                                 <div class="col-md-8">
                                     <select id="addD_FORM_CODE" name="selectbasic" class="form-control">
-                                        <option value="Select Dosage Form">Select Dosage Form</option>
+                                        <option value="-" selected>Select Dosage Form</option>
                                         <%
                                             String sql3 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0067' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDForm = conn.getData(sql3);
@@ -244,7 +249,7 @@
 
                                             for (int i = 0; i < size3; i++) {
                                         %>
-                                        <option value="<%= listOfDForm.get(i).get(1)%>"> <%= listOfDForm.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDForm.get(i).get(2)%>"> <%= listOfDForm.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -253,11 +258,18 @@
                             </div>
 
 
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Strength *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_STRENGTH" name="textinput" type="text" placeholder="Please Insert Drug Strength" class="form-control input-md" maxlength="50">
+                                    <input id="addD_STRENGTH" name="textinput" type="text" placeholder="Please Insert Drug Strength" class="form-control input-md" maxlength="20">
                                 </div>
                             </div>
 
@@ -265,7 +277,31 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Stock Quantity *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_STOCK_QTY" name="textinput" type="number" placeholder="Please Insert Stock Qty" class="form-control input-md" maxlength="20">
+                                    <input id="addD_STOCK_QTY" name="textinput" type="text" placeholder="Please Insert Stock Qty" class="form-control input-md singleNumbersOnly" maxlength="10">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Minimum Quantity *</label>
+                                <div class="col-md-8">
+                                    <input id="addD_MINIMUM_QTY" name="textinput" type="text" placeholder="Please Insert Minimum Qty" class="form-control input-md singleNumbersOnly" maxlength="10">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Maximum Quantity *</label>
+                                <div class="col-md-8">
+                                    <input id="addD_MAXIMUM_QTY" name="textinput" type="text" placeholder="Please Insert Maximum Qty" class="form-control input-md singleNumbersOnly" maxlength="10">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Reorder Quantity *</label>
+                                <div class="col-md-8">
+                                    <input id="addD_REORDER_QTY" name="textinput" type="text" placeholder="Please Insert Reorder Qty" class="form-control input-md singleNumbersOnly" maxlength="10">
                                 </div>
                             </div>
 
@@ -273,35 +309,41 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Location Code *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_LOCATION_CODE" name="textinput" type="text" placeholder="Please Insert Location Code" class="form-control input-md" maxlength="4">
+                                    <input id="addD_LOCATION_CODE" name="textinput" type="text" placeholder="Please Insert Location Code" class="form-control input-md" maxlength="10">
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="selectbasic">Select Status *</label>
-                                <div class="col-md-8">
-                                    <select id="addSTATUS" name="addSTATUS" class="form-control">
-                                        <option value="No Status">No Status</option>
-                                        <option value="1" selected>Active</option>
-                                        <option value="0">Inactive</option>     
-                                    </select>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="col-md-6">
-
-                            <h4>Purchase</h4>
                             <hr/>
 
-                            <!-- Text input-->
+
+
+
+                            <h4>Purchase</h4>
+
+
+
+                            <!-- Select Basic -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Packaging *</label>
-                                <div class="col-md-8">
-                                    <input id="addD_PACKAGING" name="textinput" type="number" placeholder="Please Insert Packaging" class="form-control input-md" step="0.01" maxlength="20">
+                                <label class="col-md-4 control-label" for="selectbasic">Packaging *</label>
+                                <div class="col-md-4">
+                                    <input id="addD_PACKAGING" name="addD_PACKAGING" type="text" placeholder="Please Insert Packaging" class="form-control input-md singleNumbersOnly" maxlength="2">
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="addD_PACKAGINGT" name="addD_PACKAGINGT" class="form-control">
+                                        <option value="-" selected>No Packaging</option>
+                                        <%
+                                            String sql9 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0107' AND hfc_cd = '" + hfc + "' ";
+                                            ArrayList<ArrayList<String>> listOfPack = conn.getData(sql9);
+
+                                            int size9 = listOfPack.size();
+
+                                            for (int i = 0; i < size9; i++) {
+                                        %>
+                                        <option value="<%= listOfPack.get(i).get(2)%>"><%= listOfPack.get(i).get(2)%> </option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                 </div>
                             </div>
 
@@ -309,7 +351,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Price per Pack *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_PRICE_PPACK" name="textinput" type="number" placeholder="Please Insert Price per Pack" class="form-control input-md" step="0.01" maxlength="20">
+                                    <input id="addD_PRICE_PPACK" name="textinput" type="text" placeholder="Please Insert Price per Pack" class="form-control input-md decimalNumbersOnly" maxlength="9">
                                 </div>
                             </div>
 
@@ -317,30 +359,42 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Purchase Price *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_COST_PRICE" name="textinput" type="number" placeholder="Please Insert Purchase Price" class="form-control input-md" step="0.01" maxlength="20">
+                                    <input id="addD_COST_PRICE" name="textinput" type="text" placeholder="Please Insert Purchase Price" class="form-control input-md decimalNumbersOnly" maxlength="9">
                                 </div>
                             </div>
+
 
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Sell Price *</label>
                                 <div class="col-md-8">
-                                    <input id="addD_SELL_PRICE" name="textinput" type="number" placeholder="Please Insert Sell Price" class="form-control input-md" step="0.01" maxlength="20">
+                                    <input id="addD_SELL_PRICE" name="textinput" type="text" placeholder="Please Insert Sell Price" class="form-control input-md decimalNumbersOnly" maxlength="9">
                                 </div>
                             </div>
 
 
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-md-4">
+
+
                             <h4>Label Information</h4>
-                            <hr/>
+
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Dose *</label>
                                 <div class="col-md-4">
-                                    <input id="addD_QTY" name="textinput" type="number" placeholder="Please Insert Dosage" class="form-control input-md" step="0.01" maxlength="20">
+                                    <input id="addD_QTY" name="textinput" type="text" placeholder="Please Insert Dosage" class="form-control input-md singleNumbersOnly" maxlength="2">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="addD_QTYT" name="addD_QTYT" class="form-control">
-                                        <option value="No Dose">No Dose</option>
+                                        <option value="-" selected>No Dose</option>
                                         <%
                                             String sql4 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0025' AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDUOM = conn.getData(sql4);
@@ -349,7 +403,7 @@
 
                                             for (int i = 0; i < size4; i++) {
                                         %>
-                                        <option value="<%= listOfDUOM.get(i).get(1)%>"><%= listOfDUOM.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDUOM.get(i).get(2)%>"><%= listOfDUOM.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -362,7 +416,7 @@
                                 <label class="col-md-4 control-label" for="selectbasic">Frequency *</label>
                                 <div class="col-md-8">
                                     <select id="addD_FREQUENCY" name="addD_FREQUENCY" class="form-control" >
-                                        <option value="No Frequency">No Frequency</option>
+                                        <option value="-" selected>No Frequency</option>
                                         <%
                                             String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDFreq = conn.getData(sql5);
@@ -371,7 +425,7 @@
 
                                             for (int i = 0; i < size5; i++) {
                                         %>
-                                        <option value="<%= listOfDFreq.get(i).get(1)%>"><%= listOfDFreq.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDFreq.get(i).get(2)%>"><%= listOfDFreq.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -383,11 +437,11 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="selectbasic">Duration *</label>
                                 <div class="col-md-4">
-                                    <input id="addD_DURATION" name="textinput" type="number" class="form-control input-md" placeholder="Please Insert Duration" maxlength="10">
+                                    <input id="addD_DURATION" name="textinput" type="text" class="form-control input-md singleNumbersOnly" placeholder="Please Insert Duration" maxlength="2">
                                 </div>
                                 <div class="col-md-4">
                                     <select id="addD_DURATIONT" name="addD_DURATIONT" class="form-control">
-                                        <option value="No Duration">No Duration</option>
+                                        <option value="-" selected>No Duration</option>
                                         <%
                                             String sql6 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0089'  AND hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDDura = conn.getData(sql6);
@@ -396,7 +450,7 @@
 
                                             for (int i = 0; i < size6; i++) {
                                         %>
-                                        <option value="<%= listOfDDura.get(i).get(1)%>"><%= listOfDDura.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDDura.get(i).get(2)%>"><%= listOfDDura.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -409,7 +463,7 @@
                                 <label class="col-md-4 control-label" for="selectbasic">Instruction *</label>
                                 <div class="col-md-8">
                                     <select id="addD_ADVISORY_CODE" name="addD_ADVISORY_CODE" class="form-control">
-                                        <option value="No Instruction">No Instruction</option>
+                                        <option value="-" selected>No Instruction</option>
                                         <%
                                             String sql7 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0087' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDInst = conn.getData(sql7);
@@ -418,7 +472,7 @@
 
                                             for (int i = 0; i < size7; i++) {
                                         %>
-                                        <option value="<%= listOfDInst.get(i).get(1)%>"><%= listOfDInst.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDInst.get(i).get(2)%>"><%= listOfDInst.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
@@ -430,7 +484,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Cautionary *</label>
                                 <div class="col-md-8">
-                                    <textarea id="addD_CAUTIONARY_CODE" class="form-control" rows="3" placeholder="Please Insert Drug Cautionary" maxlength="150"></textarea>
+                                    <textarea id="addD_CAUTIONARY_CODE" class="form-control" rows="3" placeholder="Please Insert Drug Cautionary" maxlength="200"></textarea>
                                 </div>
                             </div>
 
@@ -447,7 +501,7 @@
                                 <label class="col-md-4 control-label" for="selectbasic">Classification *</label>
                                 <div class="col-md-8">
                                     <select id="addD_CLASSIFICATION" name="addD_CLASSIFICATION" class="form-control">
-                                        <option value="No Classification">No Classification</option>
+                                        <option value="-" selected>No Classification</option>
                                         <%
                                             String sql8 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0091' AND  hfc_cd = '" + hfc + "' ";
                                             ArrayList<ArrayList<String>> listOfDClass = conn.getData(sql8);
@@ -456,13 +510,26 @@
 
                                             for (int i = 0; i < size8; i++) {
                                         %>
-                                        <option value="<%= listOfDClass.get(i).get(1)%>"><%= listOfDClass.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDClass.get(i).get(2)%>"><%= listOfDClass.get(i).get(2)%> </option>
                                         <%
                                             }
                                         %>
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="selectbasic">Select Status *</label>
+                                <div class="col-md-8">
+                                    <select id="addSTATUS" name="addSTATUS" class="form-control">
+                                        <option value="-" disabled>No Status</option>
+                                        <option value="1" selected>Active</option>
+                                        <option value="0">Inactive</option>     
+                                    </select>
+                                </div>
+                            </div>
+
+                            <hr/>
 
 
                         </div>
@@ -496,38 +563,60 @@
         $("#addD_EXP_DATE").datepicker({
             changeMonth: true,
             changeYear: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd/mm/yy',
             minDate: '0'
         });
 
+        $('.decimalNumbersOnly').keyup(function () {
+            if (this.value !== this.value.replace(/[^0-9\.]/g, '')) {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            }
+        });
+
+
+        $('.singleNumbersOnly').keyup(function () {
+            if (this.value !== this.value.replace(/[^0-9]/g, '')) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            }
+        });
 
         // Reset Function Start
         function reset() {
+
             console.log("In reset");
+
             document.getElementById("addUD_MDC_CODE").value = "";
+
             document.getElementById("addUD_ATC_CODE").value = "";
+            $('#addUD_ATC_CODESearch').text('');
+
             document.getElementById("addD_TRADE_NAME").value = "";
             document.getElementById("addD_GNR_NAME").value = "";
-            document.getElementById("addD_ROUTE_CODE").value = "Select Drug Route";
-            document.getElementById("addD_FORM_CODE").value = "Select Dosage Form";
+            document.getElementById("addD_ROUTE_CODE").value = "-";
+            document.getElementById("addD_FORM_CODE").value = "-";
             document.getElementById("addD_STRENGTH").value = "";
             document.getElementById("addD_STOCK_QTY").value = "";
+            document.getElementById("addD_MINIMUM_QTY").value = "";
+            document.getElementById("addD_MAXIMUM_QTY").value = "";
+            document.getElementById("addD_REORDER_QTY").value = "";
             document.getElementById("addD_LOCATION_CODE").value = "";
-            document.getElementById("addSTATUS").value = "No Status";
+            document.getElementById("addSTATUS").value = "-";
 
             document.getElementById("addD_PACKAGING").value = "";
+            document.getElementById("addD_PACKAGINGT").value = "-";
             document.getElementById("addD_PRICE_PPACK").value = "";
             document.getElementById("addD_COST_PRICE").value = "";
             document.getElementById("addD_SELL_PRICE").value = "";
             document.getElementById("addD_QTY").value = "";
-            document.getElementById("addD_QTYT").value = "No Dose";
-            document.getElementById("addD_FREQUENCY").value = "No Frequency";
+            document.getElementById("addD_QTYT").value = "-";
+            document.getElementById("addD_FREQUENCY").value = "-";
             document.getElementById("addD_DURATION").value = "";
-            document.getElementById("addD_DURATIONT").value = "No Duration";
-            document.getElementById("addD_ADVISORY_CODE").value = "No Instruction";
+            document.getElementById("addD_DURATIONT").value = "-";
+            document.getElementById("addD_ADVISORY_CODE").value = "-";
             document.getElementById("addD_CAUTIONARY_CODE").value = "";
             document.getElementById("addD_EXP_DATE").value = "";
-            document.getElementById("addD_CLASSIFICATION").value = "No Classification";
+            document.getElementById("addD_CLASSIFICATION").value = "-";
+
         }
         // Reset Function End
 
@@ -548,7 +637,7 @@
                 var dataFields = {input: input}; // We pass input argument in Ajax
                 $.ajax({
                     type: "POST",
-                    url: "mdcSearchATC.jsp", // call the php file ajax/tuto-autocomplete.php
+                    url: "controllerSearch/mdcSearchATC.jsp", // call the php file ajax/tuto-autocomplete.php
                     data: dataFields, // Send dataFields var
                     timeout: 3000,
                     success: function (dataBack) { // If success
@@ -579,12 +668,16 @@
         $('#addMDCButton').on('click', function () {
 
             console.log("In add");
+
             var UD_MDC_CODECheck = document.getElementById("addUD_MDC_CODE");
             var UD_ATC_CODECheck = document.getElementById("addUD_ATC_CODE");
             var D_TRADE_NAMECheck = document.getElementById("addD_TRADE_NAME");
             var D_GNR_NAMECheck = document.getElementById("addD_GNR_NAME");
             var D_STRENGTHCheck = document.getElementById("addD_STRENGTH");
             var D_STOCK_QTYCheck = document.getElementById("addD_STOCK_QTY");
+            var D_MINIMUM_QTYCheck = document.getElementById("addD_MINIMUM_QTY");
+            var D_MAXIMUM_QTYCheck = document.getElementById("addD_MAXIMUM_QTY");
+            var D_REORDER_QTYCheck = document.getElementById("addD_REORDER_QTY");
             var D_LOCATION_CODECheck = document.getElementById("addD_LOCATION_CODE");
             var D_PACKAGINGCheck = document.getElementById("addD_PACKAGING");
             var D_PRICE_PPACKCheck = document.getElementById("addD_PRICE_PPACK");
@@ -603,10 +696,14 @@
             var D_FORM_CODE = document.getElementById("addD_FORM_CODE").value;
             var D_STRENGTH = document.getElementById("addD_STRENGTH").value;
             var D_STOCK_QTY = document.getElementById("addD_STOCK_QTY").value;
+            var D_MINIMUM_QTY = document.getElementById("addD_MINIMUM_QTY").value;
+            var D_MAXIMUM_QTY = document.getElementById("addD_MAXIMUM_QTY").value;
+            var D_REORDER_QTY = document.getElementById("addD_REORDER_QTY").value;
             var D_LOCATION_CODE = document.getElementById("addD_LOCATION_CODE").value;
             var STATUS = document.getElementById("addSTATUS").value;
 
             var D_PACKAGING = document.getElementById("addD_PACKAGING").value;
+            var D_PACKAGINGT = document.getElementById("addD_PACKAGINGT").value;
             var D_PRICE_PPACK = document.getElementById("addD_PRICE_PPACK").value;
             var D_COST_PRICE = document.getElementById("addD_COST_PRICE").value;
             var D_SELL_PRICE = document.getElementById("addD_SELL_PRICE").value;
@@ -623,6 +720,19 @@
             var strCom = D_CAUTIONARY_CODE.replace(/'/g, '\\\'');
             D_CAUTIONARY_CODE = strCom;
 
+            var newCostPrice = parseFloat(D_COST_PRICE).toFixed(2);
+            var newSellPrice = parseFloat(D_SELL_PRICE).toFixed(2);
+            var newPackPrice = parseFloat(D_PRICE_PPACK).toFixed(2);
+
+            D_COST_PRICE = newCostPrice;
+            D_SELL_PRICE = newSellPrice;
+            D_PRICE_PPACK = newPackPrice;
+
+            var sDate = D_EXP_DATE.split('/');
+            var newDate = sDate[2] + "-" + sDate[1] + "-" + sDate[0];
+
+            D_EXP_DATE = newDate + " 00:00:00";
+
             if (UD_MDC_CODE === "") {
                 bootbox.alert("Please Insert MDC Code");
             } else if (UD_ATC_CODE === "") {
@@ -631,21 +741,29 @@
                 bootbox.alert("Please Insert Drug Trade Name");
             } else if (D_GNR_NAME === "") {
                 bootbox.alert("Please Insert Drug Generic Name");
-            } else if (D_ROUTE_CODE === "Select Drug Route") {
+            } else if (D_ROUTE_CODE === "-") {
                 bootbox.alert("Select Any Route");
-            } else if (D_FORM_CODE === "Select Dosage Form") {
+            } else if (D_FORM_CODE === "-") {
                 bootbox.alert("Select Any Form");
             } else if (D_STRENGTH === "") {
                 bootbox.alert("Please Insert Drug Strength");
             } else if (D_STOCK_QTY === "") {
                 bootbox.alert("Please Insert Drug Stock Quantity");
+            } else if (D_MINIMUM_QTY === "") {
+                bootbox.alert("Please Insert Drug Minimum Quantity");
+            } else if (D_MAXIMUM_QTY === "") {
+                bootbox.alert("Please Insert Drug Maximum Quantity");
+            } else if (D_REORDER_QTY === "") {
+                bootbox.alert("Please Insert Drug Reorder Quantity");
             } else if (D_LOCATION_CODE === "") {
                 bootbox.alert("Please Insert Drug Location Code");
-            } else if (STATUS === "No Status") {
+            } else if (STATUS === "-") {
                 bootbox.alert("Select Any Status");
 
             } else if (D_PACKAGING === "") {
                 bootbox.alert("Please Insert Drug Packaging");
+            } else if (D_PACKAGINGT === "-") {
+                bootbox.alert("Please Select Drug Packaging Type");
             } else if (D_PRICE_PPACK === "") {
                 bootbox.alert("Please Insert Drug Per Pack Price");
             } else if (D_COST_PRICE === "") {
@@ -654,51 +772,57 @@
                 bootbox.alert("Please Insert Drug Sell Price");
             } else if (D_QTY === "") {
                 bootbox.alert("Please Insert Drug Quantity");
-            } else if (D_QTYT === "No Dose") {
+            } else if (D_QTYT === "-") {
                 bootbox.alert("Select Any Dose");
-            } else if (D_FREQUENCY === "No Frequency") {
+            } else if (D_FREQUENCY === "-") {
                 bootbox.alert("Select Any Frequency");
             } else if (D_DURATION === "") {
                 bootbox.alert("Please Insert Drug Duration");
-            } else if (D_DURATIONT === "No Duration") {
+            } else if (D_DURATIONT === "-") {
                 bootbox.alert("Select Any Duration");
-            } else if (D_ADVISORY_CODE === "No Instruction") {
+            } else if (D_ADVISORY_CODE === "-") {
                 bootbox.alert("Select Any Instruction");
             } else if (D_CAUTIONARY_CODE === "") {
                 bootbox.alert("Please Insert Drug Cautionary Code");
             } else if (D_EXP_DATE === "") {
                 bootbox.alert("Please Insert Drug Expire Date");
-            } else if (D_CLASSIFICATION === "No Classification") {
+            } else if (D_CLASSIFICATION === "-") {
                 bootbox.alert("Select Any Classification");
 
             } else if (UD_MDC_CODECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert MDC Code Not More Than 25 Characters");
+                bootbox.alert("Please Insert MDC Code Not More Than 30 Characters");
             } else if (UD_ATC_CODECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert ATC Code Not More Than 25 Characters");
+                bootbox.alert("Please Insert ATC Code Not More Than 30 Characters");
             } else if (D_TRADE_NAMECheck.checkValidity() === false) {
                 bootbox.alert("Please Insert Drug Trade Name Not More Than 200 Characters");
             } else if (D_GNR_NAMECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Generic Name Not More Than 500 Characters");
+                bootbox.alert("Please Insert Drug Generic Name Not More Than 300 Characters");
             } else if (D_STRENGTHCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Strength Not More Than 50 Characters");
+                bootbox.alert("Please Insert Drug Strength Not More Than 20 Characters");
             } else if (D_STOCK_QTYCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Stock Not More Than 20 Number");
+                bootbox.alert("Please Insert Drug Stock Not More Than 10 Characters");
+            } else if (D_MINIMUM_QTYCheck.checkValidity() === false) {
+                bootbox.alert("Please Insert Drug Minimum Level Not More Than 10 Characters");
+            } else if (D_MAXIMUM_QTYCheck.checkValidity() === false) {
+                bootbox.alert("Please Insert Drug Maximum Level Not More Than 10 Characters");
+            } else if (D_REORDER_QTYCheck.checkValidity() === false) {
+                bootbox.alert("Please Insert Drug Reorder Level Not More Than 10 Characters");
             } else if (D_LOCATION_CODECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Location Not More Than 4 Characters");
+                bootbox.alert("Please Insert Drug Location Not More Than 10 Characters");
             } else if (D_PACKAGINGCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Packaging Not More Than 20 Number In Decimal Form");
+                bootbox.alert("Please Insert Drug Packaging Not More Than 2 Number");
             } else if (D_PRICE_PPACKCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Per Pack Price Not More Than 20 Number In Decimal Form");
+                bootbox.alert("Please Insert Drug Per Pack Price Not More Than 9 Number In Decimal Form");
             } else if (D_COST_PRICECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Cost Price Not More Than 20 Number In Decimal Form");
+                bootbox.alert("Please Insert Drug Cost Price Not More Than 9 Number In Decimal Form");
             } else if (D_SELL_PRICECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Sell Price Not More Than 20 Number In Decimal Form");
+                bootbox.alert("Please Insert Drug Sell Price Not More Than 9 Number In Decimal Form");
             } else if (D_QTYCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Dose Not More Than 20 Number In Decimal Form");
+                bootbox.alert("Please Insert Drug Dose Not More Than 2 Number");
             } else if (D_DURATIONCheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Duration Not More Than 10 Number");
+                bootbox.alert("Please Insert Drug Duration Not More Than 2 Number");
             } else if (D_CAUTIONARY_CODECheck.checkValidity() === false) {
-                bootbox.alert("Please Insert Drug Cautionary Not More Than 150 Characters");
+                bootbox.alert("Please Insert Drug Cautionary Not More Than 200 Characters");
 
             } else {
 
@@ -714,9 +838,13 @@
                     D_FORM_CODE: D_FORM_CODE,
                     D_STRENGTH: D_STRENGTH,
                     D_STOCK_QTY: D_STOCK_QTY,
+                    D_MINIMUM_QTY: D_MINIMUM_QTY,
+                    D_MAXIMUM_QTY: D_MAXIMUM_QTY,
+                    D_REORDER_QTY: D_REORDER_QTY,
                     D_LOCATION_CODE: D_LOCATION_CODE,
                     STATUS: STATUS,
                     D_PACKAGING: D_PACKAGING,
+                    D_PACKAGINGT: D_PACKAGINGT,
                     D_PRICE_PPACK: D_PRICE_PPACK,
                     D_COST_PRICE: D_COST_PRICE,
                     D_SELL_PRICE: D_SELL_PRICE,
@@ -733,12 +861,12 @@
                 console.log(data);
 
                 $.ajax({
-                    url: "mdcInsert.jsp",
+                    url: "controllerProcess/mdcInsert.jsp",
                     type: "post",
                     data: data,
                     timeout: 10000,
                     success: function (datas) {
-                        console.log(datas.trim());
+                        
                         if (datas.trim() === 'Success') {
 
                             $('#contentMDCTable').load('mdcTableLoop.jsp');
@@ -759,7 +887,7 @@
                             });
 
                         } else if (datas.trim() === 'Failed') {
-                            console.log(datas.trim());
+
                             bootbox.alert({
                                 message: "MDC Code Add Failed",
                                 title: "Process Result",
@@ -816,9 +944,10 @@
 
             $.ajax({
                 type: 'POST',
-                url: "mdcCloneDrugList.jsp",
+                url: "controllerSearch/mdcCloneDrugList.jsp",
                 data: data,
                 success: function (data, textStatus, jqXHR) {
+                    
                     $('#MDC_DrugCode').html(data);
                     $('#MDC_DrugCode').multiSelect({
                         selectableHeader: "<div style='display:block; color:white; background-color:#2196f3; '>Selectable MDC Code</div>",
@@ -863,7 +992,7 @@
                 };
 
                 $.ajax({
-                    url: "mdcCloneDrugListInsert.jsp",
+                    url: "controllerProcess/mdcCloneDrugListInsert.jsp",
                     type: "post",
                     data: data,
                     timeout: 15000,
@@ -944,7 +1073,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "mdcDummaryDrugDate.jsp",
+                url: "controllerProcess/mdcDummaryDrugDate.jsp",
                 success: function (data, textStatus, jqXHR) {
                     $('#mdcDateSummary').html(data);
                 },
@@ -965,7 +1094,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "mdcDummaryDrugStock.jsp",
+                url: "controllerProcess/mdcDummaryDrugStock.jsp",
                 success: function (data, textStatus, jqXHR) {
                     $('#mdcStockSummary').html(data);
                 },
@@ -986,7 +1115,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "mdcDummaryDrugATC.jsp",
+                url: "controllerProcess/mdcDummaryDrugATC.jsp",
                 success: function (data, textStatus, jqXHR) {
                     $('#mdcATCSummary').html(data);
                 },
