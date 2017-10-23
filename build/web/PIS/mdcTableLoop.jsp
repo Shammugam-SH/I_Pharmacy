@@ -18,7 +18,7 @@
 
 <table  id="mdcTable"  class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
-    <th style="text-align: center;">MDC CODE</th>
+    <th style="text-align: center;">Drug CODE</th>
     <th style="text-align: center;">ATC CODE</th>
     <th style="text-align: center;">TRADE NAME</th>
     <th style="text-align: center;">GNR NAME</th>
@@ -78,7 +78,7 @@
 
 <input id="dataMDChidden" type="hidden" value="<%=String.join("|", dataMTC.get(s))%>">
 
-<td><%= dataMTC.get(s).get(0)%></td>                                            <!-- MDC Code -->
+<td><%= dataMTC.get(s).get(0)%></td>                                            <!-- Drug Code -->
 <td><%= dataMTC.get(s).get(1)%></td>                                            <!-- ATC Code -->
 <td><%= dataMTC.get(s).get(2)%></td>                                            <!-- Trade Name -->
 <td><%= dataMTC.get(s).get(3)%></td>                                            <!-- Generic Name -->
@@ -143,7 +143,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times fa-lg"></i></button>
-                <h2 class="modal-title" id="lineModalLabel" align="center">Update MDC Code</h2>
+                <h2 class="modal-title" id="lineModalLabel" align="center">Update Drug Code</h2>
             </div>
             <div class="modal-body">
 
@@ -197,9 +197,9 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">MDC Drug Code *</label>
+                                <label class="col-md-4 control-label" for="textinput">Drug Code *</label>
                                 <div class="col-md-8">
-                                    <input id="updateUD_MDC_CODE" name="textinput" type="text" placeholder="MDC Drug Code" class="form-control input-md" readonly>
+                                    <input id="updateUD_MDC_CODE" name="textinput" type="text" placeholder="Drug Code" class="form-control input-md" readonly>
                                 </div>
                             </div>
 
@@ -429,16 +429,14 @@
                                     <select id="updateD_FREQUENCY" name="addD_FREQUENCY" class="form-control">
                                         <option value="-">No Frequency</option>
                                         <%
-                                            String sql5 = "SELECT Master_Reference_code,Detail_Reference_code, Description FROM adm_lookup_detail where Master_Reference_code = '0088' AND hfc_cd = '" + hfc + "' ";
+                                            String sql5 = "SELECT frequency_code,frequency_desc,frequency_value FROM pis_drug_frequency where hfc_cd = '" + hfc + "' AND discipline_cd = '" + dis + "' ";
                                             ArrayList<ArrayList<String>> listOfDFreq = conn.getData(sql5);
 
                                             int size5 = listOfDFreq.size();
 
-                                            for (int i = 0;
-                                                    i < size5;
-                                                    i++) {
+                                            for (int i = 0; i < size5; i++) {
                                         %>
-                                        <option value="<%= listOfDFreq.get(i).get(2)%>"><%= listOfDFreq.get(i).get(2)%> </option>
+                                        <option value="<%= listOfDFreq.get(i).get(1)%>"><%= listOfDFreq.get(i).get(1)%> </option>
                                         <%
                                             }
                                         %>
@@ -645,13 +643,13 @@
                             if (datas.trim() === 'Success') {
                                 $('#contentMDCTable').load('mdcTableLoop.jsp');
                                 bootbox.alert({
-                                    message: "MDC Code is Deleted Successful",
+                                    message: "Drug Code is Deleted Successful",
                                     title: "Process Result",
                                     backdrop: true
                                 });
                             } else if (datas.trim() === 'Failed') {
                                 bootbox.alert({
-                                    message: "MDC Code Delete Failed",
+                                    message: "Drug Code Delete Failed",
                                     title: "Process Result",
                                     backdrop: true
                                 });
@@ -818,7 +816,7 @@
         D_EXP_DATE = newDate + " 00:00:00";
 
         if (UD_MDC_CODE === "") {
-            bootbox.alert("Please Insert MDC Code");
+            bootbox.alert("Please Insert Drug Code");
         } else if (UD_ATC_CODE === "") {
             bootbox.alert("Please Search Any ATC Code");
         } else if (D_TRADE_NAME === "") {
@@ -874,7 +872,7 @@
             bootbox.alert("Select Any Classification");
 
         } else if (UD_MDC_CODECheck.checkValidity() === false) {
-            bootbox.alert("Please Insert MDC Code Not More Than 30 Characters");
+            bootbox.alert("Please Insert Drug Code Not More Than 30 Characters");
         } else if (UD_ATC_CODECheck.checkValidity() === false) {
             bootbox.alert("Please Insert ATC Code Not More Than 30 Characters");
         } else if (D_TRADE_NAMECheck.checkValidity() === false) {
@@ -947,21 +945,21 @@
                 data: data,
                 timeout: 10000,
                 success: function (datas) {
-                    
+
                     if (datas.trim() === 'Success') {
-                        
+
                         $('#contentMDCTable').load('mdcTableLoop.jsp');
                         $(".modal-backdrop").hide();
                         bootbox.alert({
-                            message: "MDC Code is Updated Successful",
+                            message: "Drug Code is Updated Successful",
                             title: "Process Result",
                             backdrop: true
                         });
-                        
+
                     } else if (datas.trim() === 'Failed') {
-                        
+
                         bootbox.alert({
-                            message: "MDC Code Update Failed",
+                            message: "Drug Code Update Failed",
                             title: "Process Result",
                             backdrop: true
                         });
@@ -989,7 +987,7 @@
             pageLength: 15,
             lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]],
             "language": {
-                "emptyTable": "No MDC Drug Available To Display"
+                "emptyTable": "No Drug Drug Available To Display"
             },
             initComplete: function (settings, json) {
                 $('.loading').hide();

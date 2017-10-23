@@ -321,7 +321,7 @@
             pmiNo: pmiNo,
             orderNo: orderNo,
             orderDate: orderDate,
-            episodeDate:episodeDate
+            episodeDate: episodeDate
         };
 
         $.ajax({
@@ -576,8 +576,10 @@
             url: 'patientOrderListNewOrderSearchResult.jsp',
             data: {'id': id},
             success: function (reply_data) {
-                console.log(reply_data);
-                var array_data = String(reply_data).split("|");
+                
+                console.log(reply_data.trim());
+                
+                var array_data = String(reply_data.trim()).split("|");
                 var dtoCode = array_data[0];
                 var dtoGnr = array_data[1];
                 var dtoQty = array_data[2];
@@ -587,6 +589,11 @@
                 var dtoStrength = array_data[5];
                 var dtoInstruction = array_data[6];
                 var dtoCaution = array_data[7];
+                var dtoD_Qty = array_data[9];
+                var dtoDQtyT = array_data[10];
+                var dtoDuration = array_data[11];
+                var dtoDurationT = array_data[12];
+                var dtoFreq = array_data[13];
 
                 console.log(dtoCode);
 
@@ -598,6 +605,11 @@
                 $('#orderDrugDisplayStrength').val(dtoStrength);
                 $('#orderDrugDisplayInstruction').val(dtoInstruction);
                 $('#orderDrugDisplayCautionary').val(dtoCaution);
+                $('#orderDrugInputDose').val(dtoD_Qty);
+                $('#orderDrugInputDoseT').val(dtoDQtyT);
+                $('#orderDrugInputDuration').val(dtoDuration);
+                $('#orderDrugInputDurationT').val(dtoDurationT);
+                $('#orderDrugInputFrequency').val(dtoFreq);
 
                 $('.loading').hide();
 
@@ -639,13 +651,13 @@
             bootbox.alert("Please Insert Drug Order Quantity");
         } else if (drugDose === "" || drugDose === null) {
             bootbox.alert("Please Insert Drug Order Dose");
-        } else if (drugDoseT === "No Dose" || drugDoseT === null) {
+        } else if (drugDoseT === "-" || drugDoseT === null) {
             bootbox.alert("Please Select Drug Dose Type");
-        } else if (drugFrequency === "No Frequency" || drugFrequency === null) {
+        } else if (drugFrequency === "-" || drugFrequency === null) {
             bootbox.alert("Please Select Drug Frequency");
         } else if (drugDuration === "" || drugDuration === null) {
             bootbox.alert("Please Insert Drug Duration");
-        } else if (drugDurationT === "No Duration" || drugDurationT === null) {
+        } else if (drugDurationT === "-" || drugDurationT === null) {
             bootbox.alert("Please Select Drug Frequency");
         } else {
 
@@ -1345,7 +1357,78 @@
 
 
 
+    function test() {
 
+        var contextPath = '<%=request.getContextPath()%>';
+
+        var url = contextPath + "/test?";
+
+        var win = window.open(url, '_blank');
+        win.focus();
+
+    }
+
+    function testing() {
+
+        var contextPath = '<%=request.getContextPath()%>';
+
+
+        var testString = "Data 1.1|Data 1.2|Data 1.3|Data 1.4|Data 1.5<split>Data 2.1|Data 2.2|Data 2.3|Data 2.4|Data 2.5";
+
+        var url = contextPath + "/testing?";
+        url += "&labelData=" + testString;
+
+        var win = window.open(url, '_blank');
+        win.focus();
+
+    }
+
+    function testing1() {
+
+        var contextPath = '<%=request.getContextPath()%>';
+
+
+        var testString = "Data 1.1|Data 1.2|Data 1.3|Data 1.4|Data 1.5<split>Data 2.1|Data 2.2|Data 2.3|Data 2.4|Data 2.5";
+
+
+        var url = contextPath + "/testing1?";
+        url += "&labelData=" + testString;
+
+        var win = window.open(url, '_blank');
+        win.focus();
+
+    }
+
+    function testing2() {
+
+        var contextPath = '<%=request.getContextPath()%>';
+
+
+        var testString = "Data 1.1|Data 1.2|Data 1.3|Data 1.4|Data 1.5<split>Data 2.1|Data 2.2|Data 2.3|Data 2.4|Data 2.5";
+
+
+        var url = contextPath + "/testing2?";
+        url += "&labelData=" + testString;
+
+        var win = window.open(url, '_blank');
+        win.focus();
+
+    }
+
+    function testing3() {
+
+        var contextPath = '<%=request.getContextPath()%>';
+
+
+        var testString = "Data 1.1|Data 1.2|Data 1.3|Data 1.4|Data 1.5<split>Data 2.1|Data 2.2|Data 2.3|Data 2.4|Data 2.5";
+
+        var url = contextPath + "/testing3?";
+        url += "&labelData=" + testString;
+
+        var win = window.open(url, '_blank');
+        win.focus();
+
+    }
 
 
     //------------------------------------------------------------------------------  Prescribe Part Start  -------------------------------------------------------------------------------//
